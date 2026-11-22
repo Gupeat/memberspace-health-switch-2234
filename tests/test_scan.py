@@ -45,3 +45,47 @@ def test_report_scan_detects_name(cli, pre_out, tmp_path):
     log = (out / "scan.log").read_text(encoding="utf-8")
     assert "hits=0" not in log
     assert "blacklist" in log
+
+def test_scan_multiple_directories_and_detects_negative(tmp_path):
+    first = tmp_path / "report"
+    second = tmp_path / "negative"
+    first.mkdir()
+    second.mkdir()
+    (first / "report.md").write_text("post 报告\n", encoding="utf-8")
+    (second / "report.md").write_text("negative 报告\n", encoding="utf-8")
+    log = tmp_path / "scan.log"
+    command = [
+        sys.executable, str(ROOT / "scripts" / "scan_report.py"),
+        "--dir", str(first), "--dir", str(second),
+        "--blacklist", str(ROOT / "fixtures" / "company_names.txt"),
+        "--log", str(log),
+    ]
+    scan = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+    assert scan.returncode == 0, scan.stdout + scan.stderr
+    assert "scanned_files=2" in log.read_text(encoding="utf-8")
+
+    names = (ROOT / "fixtures" / "company_names.txt").read_text(encoding="utf-8").splitlines()
+    with (second / "report.md").open("a", encoding="utf-8") as handle:
+        handle.write(f"{names[0]}有限公司\n")
+    scan = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+    assert scan.returncode == 1
+    text = log.read_text(encoding="utf-8")
+    assert "negative/report.md" in text
+    assert "blacklist" in text
+
+
+def test_scan_empty_directory_fails(tmp_path):
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    log = tmp_path / "scan.log"
+    scan = subprocess.run(
+        [
+            sys.executable, str(ROOT / "scripts" / "scan_report.py"),
+            "--dir", str(empty),
+            "--blacklist", str(ROOT / "fixtures" / "company_names.txt"),
+            "--log", str(log),
+        ],
+        cwd=ROOT, text=True, capture_output=True,
+    )
+    assert scan.returncode == 1
+    assert "scanned_files=0" in scan.stdout

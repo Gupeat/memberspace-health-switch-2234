@@ -60,6 +60,9 @@ def test_one_wrong_still_passes(cli, pre_out, tmp_path):
     assert payload["total_rows"] == 120
     assert payload["ratio"] == 0.991667
     assert payload["passed"] is True
+    report = (out / "report.md").read_text(encoding="utf-8")
+    assert "结论：PASS" in report
+    assert "| 集合漂移（set_drift） | WARN |" in report
 
 
 def test_two_wrong_fails(cli, pre_out, tmp_path):
