@@ -8,7 +8,7 @@ GitHub Actions 的 `clean-room` 工作流在公开 Ubuntu + Python 3.12 上重�
 
 ## 快速开始
 
-要求 Python 3.11+，运行时只用标准库；测试用 pytest。
+要求 Python 3.11+，运行时只用标准库；测试用 pytest。CI 工作流当前固定 Python 3.12，未单独跑 3.11 job。
 
 ```bash
 python -m pip install -r requirements.txt
@@ -19,7 +19,7 @@ python -m cal.cli verify-health-switch --from v3 --to v4 --mode pre --out out/re
 python -m cal.cli verify-health-switch --from v3 --to v4 --mode post \
   --actual fixtures/actual.csv --estimate out/report/estimate.csv --out out/report
 python scripts/scan_report.py --dir out/report --dir out/negative --dir artifacts \
-  --blacklist fixtures/company_names.txt --log out/report/scan.log
+  --blacklist fixtures/company_names.txt --log out/report/scan.log --min-files 12
 python -m pytest -q
 python scripts/run_acceptance.py   # 一键跑 pre/post/negative/scan/pytest 并写 artifacts/ACCEPTANCE.md
 python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重跑 pytest + acceptance
@@ -30,17 +30,17 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - pre：500 家企业，预计 120 家状态变化，6 家冻结状态企业的分数档位会变。
 - post：一致率 100.00%（120/120），冻结状态错误 0，预警任务缺失 0，原因/版本错误 0。
 - negative：把 2 家企业的切换后状态改回旧状态，一致率 118/120 = 98.33%，退出码 2。
-- scan：扫描 out/report、out/negative、artifacts，企业名命中 0，退出码 0；空目录扫描按失败处理。
-- clean room：复制仓库但不带缓存和 `out/`，26 passed + acceptance PASS（`artifacts/clean-room/`）。
+- scan：扫描 out/report、out/negative、artifacts，企业名命中 0，退出码 0；任一目录无文本文件、或文件数低于 `--min-files` 时失败；acceptance 要求至少 12 个文件。
+- clean room：复制仓库但不带缓存和 `out/`，32 passed + acceptance PASS（`artifacts/clean-room/`）。
 
 ## AC 对照
 
 | AC | 要求 | 实现 | 证据 |
 |---|---|---|---|
-| AC1 | 虚构数据上切换后实际变化与预估清单一致率 ≥99%（脚本输出） | `post` 读取 pre 的 `estimate.csv` 与全量 `actual.csv`，按并集与四元匹配键计算**状态集合**一致率；old/new 分数漂移只诊断，不改变退出码 | `out/report/compare.json`、`out/report/report.md`、`artifacts/ACCEPTANCE.md` |
+| AC1 | 虚构数据上切换后实际变化与预估清单一致率 ≥99%（脚本输出） | `post` 读取 pre 的 `estimate.csv` 与全量 `actual.csv`，按并集与四元匹配键计算**状态+分数**一致率（old/new 分数容差 0.01）；分数超差计为不匹配 | `out/report/compare.json`、`out/report/report.md`、`artifacts/ACCEPTANCE.md` |
 | AC2 | 切换后续约与已流失状态的企业数量与切换前相同（测试断言） | 冻结状态不进入变化清单；post 逐家核对状态并比较 renewed/churned 计数 | `tests/test_frozen_states.py`、`compare.json` 的 `frozen_counts`、`artifacts/ACCEPTANCE.md` |
 | AC3 | 每条状态变化记录都带触发原因与版本号（测试断言） | `changed.csv` 的 reason 固定为“权重版本切换”，weight_from/weight_to 为实际版本 | `tests/test_reason_version.py`、`out/report/changed.csv` |
-| AC4 | 报告中只出现假名 id，扫描不到企业名称（扫描输出） | 报告只写 company_pid/manager_id/club_id；扫描 out/report、out/negative、artifacts 中的 20 个虚构企业名与名称后缀；0 文件按失败处理 | `scripts/scan_report.py`、`out/report/scan.log`、`artifacts/ACCEPTANCE.md` |
+| AC4 | 报告中只出现假名 id，扫描不到企业名称（扫描输出） | 报告只写 company_pid/manager_id/club_id；扫描 out/report、out/negative、artifacts 中的 20 个虚构企业名与名称后缀；任一目录无文本文件、或文件数低于 12 时失败，验收后再做一次全量复扫 | `scripts/scan_report.py`、`out/report/scan.log`、`artifacts/ACCEPTANCE.md` |
 
 ## 数据与口径
 
@@ -54,7 +54,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 
 ## 一致率与退出码
 
-- 匹配键：`company_pid + old_status + new_status + direction`。
+- 匹配键：`company_pid + old_status + new_status + direction`；old/new 分数差超过 0.01 也计为不匹配。
 - 分母：预估变化行与实际变化行的并集（不是 500，也不是单侧 120）。
 - 只在一侧出现的变化行写入 `set_drift`（`actual_only` / `estimate_only`），计入并集分母；old/new/direction 只在两侧交集上比较。
 - 阈值默认 0.99，只允许 0.99–1.0；低于 0.99 的 `--threshold` 直接按输入错误拒绝。
@@ -82,6 +82,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 | `scan.log` | 企业名称扫描命中数 |
 | `../artifacts/ACCEPTANCE.md` | 一键验收记录（命令、退出码、四组证据） |
 | `../artifacts/acceptance.json` | 验收机器可读结果 |
+| `../artifacts/FINAL-SCAN.md` / `final-scan.log` | 验收产物写出后的最终全量复扫；本文件与日志在复扫之后写入，不声称被本次扫描覆盖 |
 | `../artifacts/clean-room/` | 干净副本重跑日志与验收记录 |
 
 ## 真实 CRM 对接
@@ -91,7 +92,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - `company_pid`、`state`、`club_id`、`manager_id`、`key_member`
 - `signals.activity` / `transaction` / `engagement` / `tenure`
 
-映射边界在 `cal/adapters/crm_source.py`。本工具不自己写 CRM，也不读取生产数据库；切换执行与回滚由 CRM 负责，本工具只做离线验证。
+映射边界在 `cal/adapters/crm_source.py`，CLI 的 pre/post 都通过该适配器读取快照。本工具不自己写 CRM，也不读取生产数据库；切换执行与回滚由 CRM 负责，本工具只做离线验证。
 
 ## 测试
 
@@ -99,12 +100,12 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 python -m pytest -q
 ```
 
-测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录、pre 守卫、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 映射。
+测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`、pre 守卫与旧产物清理、post 拒绝 `--config`、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 映射。
 
 ## 已知限制
 
 - fixtures 是合成的确定性桩数据；一致率只证明本工具与该桩数据自洽，不证明生产 CRM 的真实切换结果。
 - 实际快照必须是切换后的**全量**状态（500 家）；只给变化行会因缺失冻结状态而失败。
 - `actual.csv` 是输入快照的规范化副本，不是 CRM 的权威数据源；权威数据仍在 S2-CRM。
-- AC1 的“一致率”是状态集合一致率（匹配键 company_pid + old_status + new_status + direction）；old/new 分数漂移阈值固定为 0.01，超过时在 compare.json 中列为 score_drift，不单独改变退出码。
+- AC1 的一致率同时比较状态/方向与 old/new 分数（容差 0.01）；分数超差会在 compare.json 中列为 score_drift 并计为不匹配，因此会拉低 ratio。
 - 权重文件必须四键齐全且和为 1.0。

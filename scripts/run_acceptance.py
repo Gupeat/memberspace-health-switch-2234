@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
 
 from cal.report import check_log_consistency, write_json, write_run_log  # noqa: E402
 
-EXPECTED_TESTS = 26
+EXPECTED_TESTS = 32
 MIN_SCANNED_FILES = 12
 
 
@@ -84,6 +84,7 @@ def main() -> int:
         "--dir", args.artifacts,
         "--blacklist", "fixtures/company_names.txt",
         "--log", f"{args.out}/scan.log",
+        "--min-files", str(MIN_SCANNED_FILES),
     ])
     steps["pytest"] = run(["-m", "pytest", "-q"])
 
@@ -147,6 +148,7 @@ def main() -> int:
         and compare["passed"] is True
         and steps["negative"]["exit"] == 2
         and negative_payload["ratio"] < compare["threshold"]
+        and steps["scan"]["exit"] == 0
         and scanned >= MIN_SCANNED_FILES
         and hits == 0
         and steps["pytest"]["exit"] == 0
@@ -179,7 +181,7 @@ def main() -> int:
         f"- 预估值：{compare['estimate_rows']} 家；实际变化：{compare['actual_rows']} 家；并集：{compare['total_rows']} 家",
         f"- 一致率：{compare['ratio'] * 100:.2f}%（{compare['matched_rows']}/{compare['total_rows']}），阈值 {compare['threshold'] * 100:.2f}%",
         f"- 冻结：{json.dumps(compare['frozen_counts'], ensure_ascii=False, sort_keys=True)}；reason 错误 {len(compare['reason_errors'])}；set_drift {len(compare['set_drift'])}",
-        f"- 扫描：{scanned} 个文件（要求 ≥{MIN_SCANNED_FILES}），命中 {hits}；negative：{negative_payload['ratio']:.6f}（exit {steps['negative']['exit']}）",
+        f"- 扫描（验收前）：{scanned} 个文件（要求 ≥{MIN_SCANNED_FILES}），命中 {hits}；最终复扫见 artifacts/FINAL-SCAN.md；negative：{negative_payload['ratio']:.6f}（exit {steps['negative']['exit']}）",
         f"- 测试：{tests_passed}/{EXPECTED_TESTS} passed，skipped {tests_skipped}（exit {steps['pytest']['exit']}）；run.log 回读错误 {len(log_errors)}",
         "",
         "## 命令与退出码",
@@ -194,10 +196,10 @@ def main() -> int:
         "",
         "## 四组证据",
         "",
-        f"1. 一致率（状态集合）：{compare['matched_rows']}/{compare['total_rows']} = {compare['ratio']:.6f}，阈值 {compare['threshold']:.2f}；分数漂移 {len(compare['score_drift'])} 个，仅诊断。",
+        f"1. 一致率（状态+分数）：{compare['matched_rows']}/{compare['total_rows']} = {compare['ratio']:.6f}，阈值 {compare['threshold']:.2f}；分数漂移 {len(compare['score_drift'])} 个（计为不匹配）。",
         f"2. 冻结集合：{json.dumps(compare['frozen_counts'], ensure_ascii=False, sort_keys=True)}，逐家错误 {len(compare['frozen_state_errors'])}。",
         f"3. 原因/版本：changed.csv 每条 reason=权重版本切换、weight_from=v3、weight_to=v4；错误 {len(compare['reason_errors'])}。",
-        f"4. 企业名扫描：扫描 out/report、out/negative、artifacts 共 {scanned} 个文本文件，命中 {hits}；报告与日志只含假名 id。",
+        f"4. 企业名扫描（验收前）：out/report、out/negative、artifacts 共 {scanned} 个文本文件，命中 {hits}；ACCEPTANCE.md/acceptance.json 写出后的最终复扫见 FINAL-SCAN.md。",
         "",
         "## 日志",
         "",
@@ -208,7 +210,49 @@ def main() -> int:
         "",
     ]
     (artifacts / "ACCEPTANCE.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")
-    print(f"acceptance {'PASS' if all_passed else 'FAIL'}: ratio={compare['ratio']:.6f} scan_hits={hits} tests_passed={tests_passed} log_errors={len(log_errors)}")
+
+    # The wrapper scan above runs before this run's acceptance metadata exists.
+    # Rescan after writing it so the delivered ACCEPTANCE.md/acceptance.json
+    # are themselves covered; FINAL-SCAN.md and final-scan.log are written only
+    # after that rescan, so they are not claimed as scanned.
+    final_log = artifacts / "final-scan.log"
+    final_md = artifacts / "FINAL-SCAN.md"
+    for stale in (final_log, final_md):
+        if stale.exists():
+            stale.unlink()
+    final_scan = run([
+        "scripts/scan_report.py",
+        "--dir", args.out,
+        "--dir", args.negative_out,
+        "--dir", args.artifacts,
+        "--blacklist", "fixtures/company_names.txt",
+        "--log", str(final_log),
+        "--min-files", str(MIN_SCANNED_FILES),
+    ])
+    final_text = final_log.read_text(encoding="utf-8") if final_log.is_file() else ""
+    final_scanned = int(re.search(r"scanned_files=(\d+)", final_text).group(1)) if "scanned_files=" in final_text else 0
+    final_hits = int(re.search(r"hits=(\d+)", final_text).group(1)) if "hits=" in final_text else -1
+    final_ok = final_scan["exit"] == 0 and final_scanned >= MIN_SCANNED_FILES and final_hits == 0
+    final_lines = [
+        "# 最终复扫",
+        "",
+        f"- 时间：{datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}",
+        f"- 命令：{str(final_scan['command']).replace(str(ROOT), '<repo>').replace(chr(92), '/')}",
+        f"- 结果：{'PASS' if final_ok else 'FAIL'}；scanned_files={final_scanned}；hits={final_hits}；exit={final_scan['exit']}",
+        "- 覆盖：本轮 ACCEPTANCE.md、acceptance.json、artifacts/logs、out/report、out/negative。",
+        "- 边界：FINAL-SCAN.md 与 final-scan.log 在本次复扫之后写入，不声称被本次扫描覆盖。",
+        "",
+    ]
+    final_md.write_text("\n".join(final_lines), encoding="utf-8", newline="\n")
+    if not final_ok:
+        acceptance["all_passed"] = False
+        acceptance["final_scan"] = {"scanned_files": final_scanned, "hits": final_hits, "exit": final_scan["exit"]}
+        write_json(artifacts / "acceptance.json", acceptance)
+        with (artifacts / "ACCEPTANCE.md").open("a", encoding="utf-8", newline="\n") as handle:
+            handle.write(f"\n- 最终复扫：FAIL（scanned_files={final_scanned}，hits={final_hits}，exit={final_scan['exit']}）；见 artifacts/FINAL-SCAN.md\n")
+        print(f"acceptance FAIL: final scan scanned={final_scanned} hits={final_hits} exit={final_scan['exit']}")
+        return 1
+    print(f"acceptance {'PASS' if all_passed else 'FAIL'}: ratio={compare['ratio']:.6f} scan_hits={hits} final_scan={final_scanned} tests_passed={tests_passed} log_errors={len(log_errors)}")
     return 0 if all_passed else 1
 
 
