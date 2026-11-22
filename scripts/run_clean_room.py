@@ -53,9 +53,10 @@ def main() -> int:
 
         evidence = ROOT / "artifacts" / "clean-room"
         evidence.mkdir(parents=True, exist_ok=True)
-        source = room / "artifacts" / "ACCEPTANCE.md"
-        if source.is_file():
-            shutil.copyfile(source, evidence / "ACCEPTANCE.md")
+        for name in ("ACCEPTANCE.md", "FINAL-SCAN.md", "final-scan.log", "acceptance.json"):
+            source = room / "artifacts" / name
+            if source.is_file():
+                shutil.copyfile(source, evidence / name)
         text = "\n".join(lines).replace(str(room), "<repo>")
         (evidence / "clean-room.log").write_text(text, encoding="utf-8", newline="\n")
 

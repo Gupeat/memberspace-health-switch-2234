@@ -1,20 +1,20 @@
 # 验收记录（AC1–AC4）
 
-- 生成时间：2026-11-22T22:52:41Z
+- 生成时间：2026-11-22T23:30:23Z
 - 总体：PASS
 - 预估值：120 家；实际变化：120 家；并集：120 家
 - 一致率：100.00%（120/120），阈值 99.00%
 - 冻结：{"actual": {"churned": 30, "renewed": 30}, "baseline": {"churned": 30, "renewed": 30}}；reason 错误 0；set_drift 0
 - 扫描（验收前）：20 个文件（要求 ≥12），命中 0；最终复扫见 artifacts/FINAL-SCAN.md；negative：0.983333（exit 2）
-- 测试：32/32 passed，skipped 0（exit 0）；run.log 回读错误 0
+- 测试：37/37 passed，skipped 0（exit 0）；run.log 回读错误 0
 
 ## 命令与退出码
 
 | 步骤 | 命令 | 退出码 | 期望 |
 |---|---|---:|---:|
-| pre | python -m cal.cli verify-health-switch --from v3 --to v4 --mode pre --out out/report | 0 | 0 |
-| post | python -m cal.cli verify-health-switch --from v3 --to v4 --mode post --actual fixtures/actual.csv --estimate out/report/estimate.csv --out out/report | 0 | 0 |
-| negative（预期 2） | python -m cal.cli verify-health-switch --from v3 --to v4 --mode post --actual fixtures/negative_actual.csv --estimate out/report/estimate.csv --out out/negative | 2 | 2 |
+| pre | python -m cal.cli verify-health-switch --from v3 --to v4 --mode pre --asof 2026-11-22 --out out/report | 0 | 0 |
+| post | python -m cal.cli verify-health-switch --from v3 --to v4 --mode post --asof 2026-11-22 --actual fixtures/actual.csv --estimate out/report/estimate.csv --out out/report | 0 | 0 |
+| negative（预期 2） | python -m cal.cli verify-health-switch --from v3 --to v4 --mode post --asof 2026-11-22 --actual fixtures/negative_actual.csv --estimate out/report/estimate.csv --out out/negative | 2 | 2 |
 | scan | python scripts/scan_report.py --dir out/report --dir out/negative --dir artifacts --blacklist fixtures/company_names.txt --log out/report/scan.log --min-files 12 | 0 | 0 |
 | pytest | python -m pytest -q | 0 | 0 |
 

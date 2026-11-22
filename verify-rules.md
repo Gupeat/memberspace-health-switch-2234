@@ -22,7 +22,7 @@
 
 ## 3. 切换前（pre）守卫
 
-pre 读取配置里的 `active_version`。只有它等于 `--from` 时才允许生成预估，否则先删除同一输出目录里的旧 `estimate.csv`、`pre-report.md` 等产物，再退出码 3。这是为了证明预估值确实由“当前生效的 v3”算出，而不是用 v4 反推，也避免误用上一轮残留。
+pre 读取配置里的 `active_version`。只有它等于 `--from` 时才允许生成预估，否则先删除同一输出目录里的旧 pre/post 产物（包括 estimate.csv、pre-report.md、report.md、compare.json、changed.csv、actual.csv、run.log），写一条 `mode="pre-guard-failed"` 的 run.log，再退出码 3。这是为了证明预估值确实由“当前生效的 v3”算出，而不是用 v4 反推，也避免误用上一轮残留。
 
 pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`，两者互不覆盖；交付同时包含预估样例与核对样例。`--from == --to` 在进入子命令前直接按输入错误拒绝（退出码 1）。
 
@@ -39,13 +39,14 @@ pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`
 
 - 预估清单：pre 的 `estimate.csv`。
 - 实际清单：post 从切换后**全量快照**派生，只保留非冻结、旧状态 != 新状态的行。
-- 匹配键：`(company_pid, old_status, new_status, direction)`，并要求 |old_score 差| <= 0.01 且 |new_score 差| <= 0.01。
+- 匹配键：`(company_pid, old_status, new_status, direction)`，并要求 |old_score 差| <= 0.01 且 |new_score 差| <= 0.01。post 还会校验 estimate 的 `weight_from`/`weight_to` 与 `--from`/`--to` 一致，不一致按输入错误退出 1。
 - 分母：预估变化行与实际变化行的并集行数（不是 500 家，也不是单侧 120 行）。
 - `set_drift`：只在一侧出现的变化行，记 `actual_only` / `estimate_only`；计入并集分母，old/new/direction 只在两侧交集上比较。该行只标 WARN，不单独改变退出码。
 - 一致率口径：状态/方向匹配且 old/new 分数差都在 0.01 以内才算 matched；状态匹配但分数超差的记 `score_drift` 并计为不匹配。
 - 阈值：默认 0.99，只允许 0.99–1.0；`ratio = matched / total`（保留 6 位小数）。低于 0.99 的 `--threshold` 按输入错误拒绝。
 - 边界样例：120/120=1.000000 通过；119/120=0.991667 通过；118/120=0.983333 不通过（退出码 2）。只改分数也可能触发不通过。
-- post 把读入的全量快照规范化为 `out/report/actual.csv`（company_pid/state/score），不含企业名称。
+- post 把读入的全量快照规范化为 `out/report/actual.csv`（company_pid/state/score），不含企业名称；`compare.json` 记录 estimate 路径与 SHA-256。
+- 数据日期 `--asof` 默认为配置里的 `asof`（pre）或当天（post），格式必须是合法的 `YYYY-MM-DD`。
 
 ## 6. 冻结状态
 

@@ -2,7 +2,7 @@
 
 对会员空间平台的健康分权重切换做**切换前预估、切换后验证**：同一批企业、同一组四维信号，分别用 v3 / v4 两套权重重算健康分，输出生命周期状态变化清单、一致率、冻结状态校验、预警任务关联和隐私扫描结果。
 
-本仓库是 ClawHunt #2234 的交付物。数据全部为虚构桩数据（500 家企业、20 个虚构企业名、20 位会员经理、5 个会所），不包含真实企业、真实手机号或客户信息。
+本仓库是 ClawHunt #2234 的交付物。数据全部为虚构桩数据（500 家企业（20 个虚构基名 + 3 位后缀，500 个唯一全名）、20 位会员经理、5 个会所），不包含真实企业、真实手机号或客户信息。
 
 GitHub Actions 的 `clean-room` 工作流在公开 Ubuntu + Python 3.12 上重跑单测与一键验收，证据见 Actions 运行记录。
 
@@ -30,8 +30,8 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - pre：500 家企业，预计 120 家状态变化，6 家冻结状态企业的分数档位会变。
 - post：一致率 100.00%（120/120），冻结状态错误 0，预警任务缺失 0，原因/版本错误 0。
 - negative：把 2 家企业的切换后状态改回旧状态，一致率 118/120 = 98.33%，退出码 2。
-- scan：扫描 out/report、out/negative、artifacts，企业名命中 0，退出码 0；任一目录无文本文件、或文件数低于 `--min-files` 时失败；acceptance 要求至少 12 个文件。
-- clean room：复制仓库但不带缓存和 `out/`，32 passed + acceptance PASS（`artifacts/clean-room/`）。
+- scan：扫描 out/report、out/negative、artifacts，企业名命中 0，退出码 0；任一目录无文本文件、或三个目录合计文件数低于 `--min-files` 时失败；acceptance 要求合计至少 12 个文件。
+- clean room：复制仓库但不带缓存和 `out/`，37 passed + acceptance PASS（`artifacts/clean-room/`）。
 
 ## AC 对照
 
@@ -92,7 +92,13 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - `company_pid`、`state`、`club_id`、`manager_id`、`key_member`
 - `signals.activity` / `transaction` / `engagement` / `tenure`
 
-映射边界在 `cal/adapters/crm_source.py`，CLI 的 pre/post 都通过该适配器读取快照。本工具不自己写 CRM，也不读取生产数据库；切换执行与回滚由 CRM 负责，本工具只做离线验证。
+真实对接点有三处，不是只有一个文件：
+
+- 企业基础快照（切换前状态、四维信号）：`cal/adapters/crm_source.py` 的 `load_companies_from_snapshot`，CLI 的 pre/post 都经它读取。
+- 切换后全量状态快照（company_pid/state/score）：`--actual` 的 CSV，由 `cal/compare.py` 的 `load_actual_snapshot` 读取。
+- 流失预警任务（company_pid 列表）：`--warn-tasks` 的 JSON，由 `cal/compare.py` 的 `load_warn_task_pids` 读取。
+
+接真实 CRM 时按这三处的字段映射替换输入；`map_crm_record` 只是字段映射辅助函数，当前样本 CLI 不调用它。本工具不自己写 CRM，也不读取生产数据库；切换执行与回滚由 CRM 负责，本工具只做离线验证。
 
 ## 测试
 
@@ -107,5 +113,5 @@ python -m pytest -q
 - fixtures 是合成的确定性桩数据；一致率只证明本工具与该桩数据自洽，不证明生产 CRM 的真实切换结果。
 - 实际快照必须是切换后的**全量**状态（500 家）；只给变化行会因缺失冻结状态而失败。
 - `actual.csv` 是输入快照的规范化副本，不是 CRM 的权威数据源；权威数据仍在 S2-CRM。
-- AC1 的一致率同时比较状态/方向与 old/new 分数（容差 0.01）；分数超差会在 compare.json 中列为 score_drift 并计为不匹配，因此会拉低 ratio。
+- AC1 的一致率同时比较状态/方向与 old/new 分数（容差 0.01）；分数超差会在 compare.json 中列为 score_drift 并计为不匹配，因此会拉低 ratio。old_score 由同一份 baseline 企业快照重算，所以它主要验证展示值一致；真正独立来自切换后快照的是 new_score。
 - 权重文件必须四键齐全且和为 1.0。
