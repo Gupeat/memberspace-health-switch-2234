@@ -126,13 +126,22 @@ def load_estimate_rows(path: str | Path) -> list[ChangeRow]:
             pid = (row.get("company_pid") or "").strip()
             if not pid:
                 raise ValueError("estimate file contains empty company_pid")
+            old_score_text = (row.get("old_score") or "").strip()
+            new_score_text = (row.get("new_score") or "").strip()
+            if not old_score_text or not new_score_text:
+                raise ValueError(f"estimate file {pid}: score is empty")
+            try:
+                old_score = float(old_score_text)
+                new_score = float(new_score_text)
+            except ValueError as exc:
+                raise ValueError(f"estimate file {pid}: score is not numeric") from exc
             rows.append(
                 ChangeRow(
                     company_pid=pid,
                     old_status=(row.get("old_status") or "").strip(),
                     new_status=(row.get("new_status") or "").strip(),
-                    old_score=round(float(row.get("old_score") or 0), 2),
-                    new_score=round(float(row.get("new_score") or 0), 2),
+                    old_score=round(old_score, 2),
+                    new_score=round(new_score, 2),
                     manager_id=(row.get("manager_id") or "").strip(),
                     key_member=(row.get("key_member") or "").strip().lower() == "true",
                     direction=(row.get("direction") or "").strip(),

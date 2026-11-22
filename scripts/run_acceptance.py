@@ -18,6 +18,9 @@ if str(ROOT) not in sys.path:
 
 from cal.report import check_log_consistency, write_json, write_run_log  # noqa: E402
 
+EXPECTED_TESTS = 26
+MIN_SCANNED_FILES = 12
+
 
 def run(args: list[str]) -> dict[str, object]:
     result = subprocess.run(
@@ -47,6 +50,11 @@ def parse_passed(text: str) -> int:
     return int(match.group(1)) if match else 0
 
 
+def parse_skipped(text: str) -> int:
+    match = re.search(r"(\d+) skipped", text)
+    return int(match.group(1)) if match else 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="out/report")
@@ -69,18 +77,39 @@ def main() -> int:
     steps["pre"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre", "--out", args.out])
     steps["post"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post", "--actual", "fixtures/actual.csv", "--estimate", f"{args.out}/estimate.csv", "--out", args.out])
     steps["negative"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post", "--actual", "fixtures/negative_actual.csv", "--estimate", f"{args.out}/estimate.csv", "--out", args.negative_out])
-    steps["scan"] = run(["scripts/scan_report.py", "--dir", args.out, "--blacklist", "fixtures/company_names.txt"])
+    steps["scan"] = run([
+        "scripts/scan_report.py",
+        "--dir", args.out,
+        "--dir", args.negative_out,
+        "--dir", args.artifacts,
+        "--blacklist", "fixtures/company_names.txt",
+        "--log", f"{args.out}/scan.log",
+    ])
     steps["pytest"] = run(["-m", "pytest", "-q"])
 
     for name, result in steps.items():
         write_log(logs / f"{name}.log", result)
+
+    required_paths = [
+        out / "compare.json",
+        negative / "compare.json",
+        out / "scan.log",
+        out / "pre-report.md",
+        out / "report.md",
+    ]
+    missing_paths = [str(path.relative_to(ROOT)) for path in required_paths if not path.is_file()]
+    if missing_paths:
+        print(f"acceptance FAIL: missing outputs: {', '.join(missing_paths)}", file=sys.stderr)
+        return 1
 
     compare = json.loads((out / "compare.json").read_text(encoding="utf-8"))
     negative_payload = json.loads((negative / "compare.json").read_text(encoding="utf-8"))
     scan_text = (out / "scan.log").read_text(encoding="utf-8")
     scanned = int(re.search(r"scanned_files=(\d+)", scan_text).group(1))
     hits = int(re.search(r"hits=(\d+)", scan_text).group(1))
-    tests_passed = parse_passed(str(steps["pytest"]["stdout"]) + str(steps["pytest"]["stderr"]))
+    test_output = str(steps["pytest"]["stdout"]) + str(steps["pytest"]["stderr"])
+    tests_passed = parse_passed(test_output)
+    tests_skipped = parse_skipped(test_output)
 
     checks = {
         "ratio": compare["ratio"],
@@ -95,7 +124,11 @@ def main() -> int:
         "scan_hits": hits,
         "negative_ratio": negative_payload["ratio"],
         "negative_exit": steps["negative"]["exit"],
+        "post_exit": steps["post"]["exit"],
+        "scan_min_files": MIN_SCANNED_FILES,
         "tests_passed": tests_passed,
+        "tests_skipped": tests_skipped,
+        "tests_expected": EXPECTED_TESTS,
         "tests_exit": steps["pytest"]["exit"],
     }
     write_run_log(
@@ -110,11 +143,15 @@ def main() -> int:
     log_errors = check_log_consistency(out / "run.log", checks)
     all_passed = (
         steps["pre"]["exit"] == 0
+        and steps["post"]["exit"] == 0
         and compare["passed"] is True
         and steps["negative"]["exit"] == 2
         and negative_payload["ratio"] < compare["threshold"]
+        and scanned >= MIN_SCANNED_FILES
         and hits == 0
         and steps["pytest"]["exit"] == 0
+        and tests_passed == EXPECTED_TESTS
+        and tests_skipped == 0
         and not log_errors
     )
 
@@ -139,11 +176,11 @@ def main() -> int:
         "",
         f"- 生成时间：{acceptance['generated_at']}",
         f"- 总体：{'PASS' if all_passed else 'FAIL'}",
-        f"- 预估值：120 家；实际变化：{compare['actual_rows']} 家；并集：{compare['total_rows']} 家",
+        f"- 预估值：{compare['estimate_rows']} 家；实际变化：{compare['actual_rows']} 家；并集：{compare['total_rows']} 家",
         f"- 一致率：{compare['ratio'] * 100:.2f}%（{compare['matched_rows']}/{compare['total_rows']}），阈值 {compare['threshold'] * 100:.2f}%",
         f"- 冻结：{json.dumps(compare['frozen_counts'], ensure_ascii=False, sort_keys=True)}；reason 错误 {len(compare['reason_errors'])}；set_drift {len(compare['set_drift'])}",
-        f"- 扫描：{scanned} 个文件，命中 {hits}；negative：{negative_payload['ratio']:.6f}（exit {steps['negative']['exit']}）",
-        f"- 测试：{tests_passed} passed（exit {steps['pytest']['exit']}）；run.log 同源错误 {len(log_errors)}",
+        f"- 扫描：{scanned} 个文件（要求 ≥{MIN_SCANNED_FILES}），命中 {hits}；negative：{negative_payload['ratio']:.6f}（exit {steps['negative']['exit']}）",
+        f"- 测试：{tests_passed}/{EXPECTED_TESTS} passed，skipped {tests_skipped}（exit {steps['pytest']['exit']}）；run.log 回读错误 {len(log_errors)}",
         "",
         "## 命令与退出码",
         "",
@@ -157,16 +194,17 @@ def main() -> int:
         "",
         "## 四组证据",
         "",
-        f"1. 一致率：{compare['matched_rows']}/{compare['total_rows']} = {compare['ratio']:.6f}，阈值 {compare['threshold']:.2f}。",
+        f"1. 一致率（状态集合）：{compare['matched_rows']}/{compare['total_rows']} = {compare['ratio']:.6f}，阈值 {compare['threshold']:.2f}；分数漂移 {len(compare['score_drift'])} 个，仅诊断。",
         f"2. 冻结集合：{json.dumps(compare['frozen_counts'], ensure_ascii=False, sort_keys=True)}，逐家错误 {len(compare['frozen_state_errors'])}。",
         f"3. 原因/版本：changed.csv 每条 reason=权重版本切换、weight_from=v3、weight_to=v4；错误 {len(compare['reason_errors'])}。",
-        f"4. 企业名扫描：扫描 {scanned} 个文本文件，命中 {hits}；报告与日志只含假名 id。",
+        f"4. 企业名扫描：扫描 out/report、out/negative、artifacts 共 {scanned} 个文本文件，命中 {hits}；报告与日志只含假名 id。",
         "",
         "## 日志",
         "",
         "- artifacts/logs/pre.log / post.log / negative.log / scan.log / pytest.log",
-        "- out/report/run.log 末行 mode=acceptance，checks 同时包含上述四组证据。",
-        "- out/report/compare.json 与 out/report/report.md 为 post 的同源结果。",
+        "- out/report/pre-report.md 为 pre 预估样例；out/report/report.md 为 post 核对样例。",
+        "- out/report/run.log 末行 mode=acceptance，checks 同时包含上述四组证据、post 退出码与测试数。",
+        "- out/report/compare.json 与 out/report/report.md 由同一 checks 生成；run.log 末行可回读对账。",
         "",
     ]
     (artifacts / "ACCEPTANCE.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")

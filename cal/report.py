@@ -159,6 +159,7 @@ def write_post_report(
     warn_errors: list[dict[str, str]],
     reason_errors: list[dict[str, str]],
     entity_errors: list[dict[str, Any]],
+    snapshot_errors: list[dict[str, Any]],
     set_drift: list[dict[str, str]],
     log_errors: list[str],
     asof: str,
@@ -166,10 +167,12 @@ def write_post_report(
 ) -> None:
     passed = (
         comparison["ratio"] >= comparison["threshold"]
+        and frozen_counts_ok
         and not frozen_errors
         and not warn_errors
         and not reason_errors
         and not entity_errors
+        and not snapshot_errors
         and not log_errors
     )
     lines = [
@@ -179,7 +182,7 @@ def write_post_report(
         f"- 权重版本：{version_from} → {version_to}",
         f"- 数据日期：{asof}",
         f"- 生成时间：{generated_at}",
-        f"- 一致率：{comparison['ratio'] * 100:.2f}%（{comparison['matched_rows']}/{comparison['total_rows']}）",
+        f"- 一致率（状态集合）：{comparison['ratio'] * 100:.2f}%（{comparison['matched_rows']}/{comparison['total_rows']}）",
         f"- 阈值：{comparison['threshold'] * 100:.2f}%",
         f"- 结论：{'PASS' if passed else 'FAIL'}",
         "",
@@ -193,8 +196,9 @@ def write_post_report(
         f"| 流失预警任务 | {'PASS' if not warn_errors else 'FAIL'} | {len(warn_errors)} 个缺失 |",
         f"| 原因与版本号 | {'PASS' if not reason_errors else 'FAIL'} | {len(reason_errors)} 个错误 |",
         f"| 状态流转合法性 | {'PASS' if not entity_errors else 'FAIL'} | {len(entity_errors)} 个错误 |",
-        f"| 集合漂移（set_drift） | {'PASS' if not set_drift else 'FAIL'} | {len(set_drift)} 行；actual_only={sum(1 for row in set_drift if row['side'] == 'actual_only')}，estimate_only={sum(1 for row in set_drift if row['side'] == 'estimate_only')} |",
-        f"| 报告/日志同源 | {'PASS' if not log_errors else 'FAIL'} | {len(log_errors)} 个字段不一致；以 run.log 末行为准 |",
+        f"| 快照完整性 | {'PASS' if not snapshot_errors else 'FAIL'} | 缺失或多余 PID {len(snapshot_errors)} 个 |",
+        f"| 集合漂移（set_drift） | {'WARN' if set_drift else 'PASS'} | {len(set_drift)} 行；actual_only={sum(1 for row in set_drift if row['side'] == 'actual_only')}，estimate_only={sum(1 for row in set_drift if row['side'] == 'estimate_only')}；诊断项，已计入一致率并集分母 |",
+        f"| run.log checks 自校验 | {'PASS' if not log_errors else 'FAIL'} | {len(log_errors)} 个字段不一致；以 run.log 末行为准 |",
         "",
         "## 差集摘要",
         "",
@@ -210,7 +214,8 @@ def write_post_report(
         "- changed.csv：实际变化清单，每条带 reason=权重版本切换 与 weight_from/weight_to。",
         "- compare.json：一致率、差集、set_drift、分数漂移、冻结/预警/原因校验的机器可读结果。",
         "- pivot.csv：按会所、会员经理、四方向分组的计数。",
-        "- run.log：末行 checks 与 compare.json/report.md 同源，四组证据（一致率、冻结、reason/版本、扫描）同段。",
+        "- run.log：末行 checks 与本次运行使用同一组 checks；check_log_consistency 只回读 run.log 末行做自校验（不解析 compare.json/report.md）。",
+        "- 一致率口径：只比较状态集合，匹配键为 company_pid + old_status + new_status + direction；old_score/new_score 的漂移单独诊断，不改变退出码。",
         "- 报告与日志只含假名 id，不含企业名称。",
         "",
     ]
@@ -262,7 +267,7 @@ def read_last_run_log(path: str | Path) -> dict[str, Any] | None:
 
 
 def check_log_consistency(path: str | Path, expected_checks: dict[str, Any]) -> list[str]:
-    """Reconcile compare.json/report.md values with the last run.log line."""
+    """Compare expected checks with the last run.log line."""
     try:
         last = read_last_run_log(path)
     except (OSError, json.JSONDecodeError) as exc:

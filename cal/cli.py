@@ -108,7 +108,7 @@ def _run_pre(args: argparse.Namespace) -> int:
     }
     write_json(out / "summary.json", summary)
     write_pre_report(
-        out / "report.md",
+        out / "pre-report.md",
         version_from=version_from,
         version_to=version_to,
         companies=companies,
@@ -137,7 +137,6 @@ def _run_post(args: argparse.Namespace) -> int:
     if not args.actual:
         print("post requires --actual", file=sys.stderr)
         return 1
-    config = load_config(_config_path(args))
     version_from, weights_from = load_weights(args.weights_from)
     version_to, weights_to = load_weights(args.weights_to)
     if version_from != args.from_version or version_to != args.to_version:
@@ -153,8 +152,12 @@ def _run_post(args: argparse.Namespace) -> int:
     actual_rows, entity_errors, frozen_errors, missing_actual = derive_actual_changes(
         companies, snapshot, weights_from, version_from, version_to
     )
+    baseline_pids = {company.company_pid for company in companies}
+    snapshot_errors: list[dict[str, Any]] = []
+    for pid in sorted(set(snapshot) - baseline_pids):
+        snapshot_errors.append({"company_pid": pid, "problem": "unexpected_pid"})
     for pid in missing_actual:
-        entity_errors.append({"company_pid": pid, "problem": "missing_from_actual"})
+        snapshot_errors.append({"company_pid": pid, "problem": "missing_from_actual"})
     comparison = compare_changes(estimate_rows, actual_rows, args.threshold)
     warn_pids = load_warn_task_pids(args.warn_tasks)
     warn_errors = check_warn_tasks(actual_rows, warn_pids)
@@ -168,6 +171,7 @@ def _run_post(args: argparse.Namespace) -> int:
         and not warn_errors
         and not reason_errors
         and not entity_errors
+        and not snapshot_errors
     )
     out = Path(args.out)
     write_actual_csv(out / "actual.csv", snapshot)
@@ -186,6 +190,7 @@ def _run_post(args: argparse.Namespace) -> int:
         "warn_task_errors": len(warn_errors),
         "reason_errors": len(reason_errors),
         "entity_errors": len(entity_errors),
+        "snapshot_errors": len(snapshot_errors),
         "set_drift": len(comparison["set_drift"]),
     }
     write_run_log(
@@ -212,6 +217,7 @@ def _run_post(args: argparse.Namespace) -> int:
         "warn_task_errors": warn_errors,
         "reason_errors": reason_errors,
         "entity_errors": entity_errors,
+        "snapshot_errors": snapshot_errors,
         "log_errors": log_errors,
         "passed": passed,
     }
@@ -227,6 +233,7 @@ def _run_post(args: argparse.Namespace) -> int:
         warn_errors=warn_errors,
         reason_errors=reason_errors,
         entity_errors=entity_errors,
+        snapshot_errors=snapshot_errors,
         set_drift=comparison["set_drift"],
         log_errors=log_errors,
         asof=args.asof,
@@ -241,9 +248,11 @@ def _run_post(args: argparse.Namespace) -> int:
         print(
             f"checks: frozen_errors={len(frozen_errors)} frozen_counts_ok={frozen_counts_ok} "
             f"warn_errors={len(warn_errors)} reason_errors={len(reason_errors)} "
-            f"entity_errors={len(entity_errors)}",
+            f"entity_errors={len(entity_errors)} snapshot_errors={len(snapshot_errors)}",
             file=sys.stderr,
         )
+        for item in (entity_errors + snapshot_errors)[:5]:
+            print(f"  {item.get('problem')}: {item.get('company_pid')}", file=sys.stderr)
         return 2
     return 0
 
@@ -253,6 +262,12 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command == "verify-health-switch":
+            if args.from_version == args.to_version:
+                print("--from and --to must differ", file=sys.stderr)
+                return 1
+            if not 0.99 <= args.threshold <= 1.0:
+                print("--threshold must be between 0.99 and 1.0", file=sys.stderr)
+                return 1
             return _run_pre(args) if args.mode == "pre" else _run_post(args)
     except (ValueError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)

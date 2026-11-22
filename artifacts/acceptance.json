@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T13:11:56Z",
+  "generated_at": "2026-11-22T14:27:06Z",
   "all_passed": true,
   "checks": {
     "ratio": 1.0,
@@ -19,11 +19,15 @@
     "frozen_counts_ok": true,
     "reason_errors": 0,
     "set_drift": 0,
-    "scan_scanned_files": 9,
+    "scan_scanned_files": 20,
     "scan_hits": 0,
     "negative_ratio": 0.983333,
     "negative_exit": 2,
-    "tests_passed": 17,
+    "post_exit": 0,
+    "scan_min_files": 12,
+    "tests_passed": 26,
+    "tests_skipped": 0,
+    "tests_expected": 26,
     "tests_exit": 0
   },
   "log_errors": [],
@@ -41,7 +45,7 @@
       "exit": 2
     },
     "scan": {
-      "command": "python scripts/scan_report.py --dir out/report --blacklist fixtures/company_names.txt",
+      "command": "python scripts/scan_report.py --dir out/report --dir out/negative --dir artifacts --blacklist fixtures/company_names.txt --log out/report/scan.log",
       "exit": 0
     },
     "pytest": {

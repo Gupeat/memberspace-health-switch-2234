@@ -23,31 +23,35 @@ def load_blacklist(path: str | Path) -> list[str]:
     return names
 
 
-def scan(directory: str | Path, names: list[str], log_path: str | Path) -> tuple[int, int]:
-    root = Path(directory)
+def scan(directories: list[str | Path], names: list[str], log_path: str | Path) -> tuple[int, int]:
     log_target = Path(log_path)
     hits: list[str] = []
     scanned = 0
-    for path in sorted(root.rglob("*")):
-        if not path.is_file():
-            continue
-        if path.resolve() == log_target.resolve():
-            continue
-        if path.suffix.lower() not in TEXT_SUFFIXES:
-            continue
-        scanned += 1
-        try:
-            text = path.read_text(encoding="utf-8-sig", errors="replace")
-        except OSError as exc:
-            hits.append(f"{path.relative_to(root)}:0 rule=read_error:{exc.__class__.__name__}")
-            continue
-        for line_number, line in enumerate(text.splitlines(), start=1):
-            for name in names:
-                if name in line:
-                    hits.append(f"{path.relative_to(root)}:{line_number} rule=blacklist")
-                    break
-            if SUFFIX.search(line):
-                hits.append(f"{path.relative_to(root)}:{line_number} rule=suffix")
+    roots = [Path(directory) for directory in directories]
+    for root in roots:
+        if not root.is_dir():
+            raise ValueError(f"scan directory not found: {root}")
+        for path in sorted(root.rglob("*")):
+            if not path.is_file():
+                continue
+            if path.resolve() == log_target.resolve():
+                continue
+            if path.suffix.lower() not in TEXT_SUFFIXES:
+                continue
+            scanned += 1
+            label = f"{root.name}/{path.relative_to(root).as_posix()}"
+            try:
+                text = path.read_text(encoding="utf-8-sig", errors="replace")
+            except OSError as exc:
+                hits.append(f"{label}:0 rule=read_error:{exc.__class__.__name__}")
+                continue
+            for line_number, line in enumerate(text.splitlines(), start=1):
+                for name in names:
+                    if name in line:
+                        hits.append(f"{label}:{line_number} rule=blacklist")
+                        break
+                if SUFFIX.search(line):
+                    hits.append(f"{label}:{line_number} rule=suffix")
     log_target.parent.mkdir(parents=True, exist_ok=True)
     lines = [f"scanned_files={scanned}", f"hits={len(hits)}"]
     lines.extend(f"- {hit}" for hit in hits)
@@ -57,16 +61,19 @@ def scan(directory: str | Path, names: list[str], log_path: str | Path) -> tuple
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", required=True, help="要扫描的报告目录")
+    parser.add_argument("--dir", action="append", required=True, help="要扫描的报告目录，可重复")
     parser.add_argument("--blacklist", default="fixtures/company_names.txt")
     parser.add_argument("--log", default=None)
     args = parser.parse_args()
-    log_path = Path(args.log) if args.log else Path(args.dir) / "scan.log"
+    log_path = Path(args.log) if args.log else Path(args.dir[0]) / "scan.log"
     try:
         names = load_blacklist(args.blacklist)
         scanned, hits = scan(args.dir, names, log_path)
     except (OSError, ValueError) as exc:
         print(f"scan error: {exc}", file=sys.stderr)
+        return 1
+    if scanned == 0:
+        print(f"scan FAIL: scanned_files=0 (no report files found) log={log_path}")
         return 1
     if hits:
         print(f"scan FAIL: scanned_files={scanned} hits={hits} log={log_path}")
