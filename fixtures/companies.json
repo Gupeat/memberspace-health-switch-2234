@@ -1,0 +1,7002 @@
+[
+  {
+    "company_pid": "c-0001",
+    "company_name": "星澜科技001",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0002",
+    "company_name": "远山制造002",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0003",
+    "company_name": "青禾咨询003",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0004",
+    "company_name": "澄川设计004",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0005",
+    "company_name": "云帆物流005",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0006",
+    "company_name": "木棉教育006",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0007",
+    "company_name": "恒益法务007",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": true,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0008",
+    "company_name": "启明人力008",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0009",
+    "company_name": "苍梧资本009",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0010",
+    "company_name": "远山传媒010",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0011",
+    "company_name": "辰光医疗011",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0012",
+    "company_name": "拾光文旅012",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0013",
+    "company_name": "简一软件013",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0014",
+    "company_name": "海桐能源014",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": true,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0015",
+    "company_name": "知微研究015",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0016",
+    "company_name": "白鹭会展016",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0017",
+    "company_name": "零度实验室017",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0018",
+    "company_name": "经纬咨询018",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0019",
+    "company_name": "南山培训019",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0020",
+    "company_name": "瀚海贸易020",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0021",
+    "company_name": "星澜科技021",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": true,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0022",
+    "company_name": "远山制造022",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0023",
+    "company_name": "青禾咨询023",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0024",
+    "company_name": "澄川设计024",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0025",
+    "company_name": "云帆物流025",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0026",
+    "company_name": "木棉教育026",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0027",
+    "company_name": "恒益法务027",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0028",
+    "company_name": "启明人力028",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": true,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0029",
+    "company_name": "苍梧资本029",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0030",
+    "company_name": "远山传媒030",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0031",
+    "company_name": "辰光医疗031",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0032",
+    "company_name": "拾光文旅032",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0033",
+    "company_name": "简一软件033",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0034",
+    "company_name": "海桐能源034",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0035",
+    "company_name": "知微研究035",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": true,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0036",
+    "company_name": "白鹭会展036",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0037",
+    "company_name": "零度实验室037",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0038",
+    "company_name": "经纬咨询038",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0039",
+    "company_name": "南山培训039",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0040",
+    "company_name": "瀚海贸易040",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0041",
+    "company_name": "星澜科技041",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0042",
+    "company_name": "远山制造042",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": true,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0043",
+    "company_name": "青禾咨询043",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0044",
+    "company_name": "澄川设计044",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0045",
+    "company_name": "云帆物流045",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0046",
+    "company_name": "木棉教育046",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0047",
+    "company_name": "恒益法务047",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0048",
+    "company_name": "启明人力048",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0049",
+    "company_name": "苍梧资本049",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": true,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0050",
+    "company_name": "远山传媒050",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0051",
+    "company_name": "辰光医疗051",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0052",
+    "company_name": "拾光文旅052",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0053",
+    "company_name": "简一软件053",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0054",
+    "company_name": "海桐能源054",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0055",
+    "company_name": "知微研究055",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0056",
+    "company_name": "白鹭会展056",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": true,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0057",
+    "company_name": "零度实验室057",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0058",
+    "company_name": "经纬咨询058",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0059",
+    "company_name": "南山培训059",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0060",
+    "company_name": "瀚海贸易060",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 84.25,
+      "transaction": 30.0,
+      "engagement": 99.0,
+      "tenure": 95.0
+    }
+  },
+  {
+    "company_pid": "c-0061",
+    "company_name": "星澜科技061",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0062",
+    "company_name": "远山制造062",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0063",
+    "company_name": "青禾咨询063",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": true,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0064",
+    "company_name": "澄川设计064",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0065",
+    "company_name": "云帆物流065",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0066",
+    "company_name": "木棉教育066",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0067",
+    "company_name": "恒益法务067",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0068",
+    "company_name": "启明人力068",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0069",
+    "company_name": "苍梧资本069",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0070",
+    "company_name": "远山传媒070",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": true,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0071",
+    "company_name": "辰光医疗071",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0072",
+    "company_name": "拾光文旅072",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0073",
+    "company_name": "简一软件073",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0074",
+    "company_name": "海桐能源074",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0075",
+    "company_name": "知微研究075",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0076",
+    "company_name": "白鹭会展076",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0077",
+    "company_name": "零度实验室077",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": true,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0078",
+    "company_name": "经纬咨询078",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0079",
+    "company_name": "南山培训079",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0080",
+    "company_name": "瀚海贸易080",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0081",
+    "company_name": "星澜科技081",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0082",
+    "company_name": "远山制造082",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0083",
+    "company_name": "青禾咨询083",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0084",
+    "company_name": "澄川设计084",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": true,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0085",
+    "company_name": "云帆物流085",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0086",
+    "company_name": "木棉教育086",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0087",
+    "company_name": "恒益法务087",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0088",
+    "company_name": "启明人力088",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0089",
+    "company_name": "苍梧资本089",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0090",
+    "company_name": "远山传媒090",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 100.0,
+      "transaction": 15.0,
+      "engagement": 95.0,
+      "tenure": 5.0
+    }
+  },
+  {
+    "company_pid": "c-0091",
+    "company_name": "辰光医疗091",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": true,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0092",
+    "company_name": "拾光文旅092",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0093",
+    "company_name": "简一软件093",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0094",
+    "company_name": "海桐能源094",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0095",
+    "company_name": "知微研究095",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0096",
+    "company_name": "白鹭会展096",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0097",
+    "company_name": "零度实验室097",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0098",
+    "company_name": "经纬咨询098",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": true,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0099",
+    "company_name": "南山培训099",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0100",
+    "company_name": "瀚海贸易100",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0101",
+    "company_name": "星澜科技101",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0102",
+    "company_name": "远山制造102",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0103",
+    "company_name": "青禾咨询103",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0104",
+    "company_name": "澄川设计104",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0105",
+    "company_name": "云帆物流105",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": true,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0106",
+    "company_name": "木棉教育106",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0107",
+    "company_name": "恒益法务107",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0108",
+    "company_name": "启明人力108",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0109",
+    "company_name": "苍梧资本109",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0110",
+    "company_name": "远山传媒110",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0111",
+    "company_name": "辰光医疗111",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0112",
+    "company_name": "拾光文旅112",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": true,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0113",
+    "company_name": "简一软件113",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0114",
+    "company_name": "海桐能源114",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0115",
+    "company_name": "知微研究115",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0116",
+    "company_name": "白鹭会展116",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0117",
+    "company_name": "零度实验室117",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0118",
+    "company_name": "经纬咨询118",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0119",
+    "company_name": "南山培训119",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": true,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0120",
+    "company_name": "瀚海贸易120",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0121",
+    "company_name": "星澜科技121",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0122",
+    "company_name": "远山制造122",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0123",
+    "company_name": "青禾咨询123",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0124",
+    "company_name": "澄川设计124",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0125",
+    "company_name": "云帆物流125",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0126",
+    "company_name": "木棉教育126",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0127",
+    "company_name": "恒益法务127",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0128",
+    "company_name": "启明人力128",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0129",
+    "company_name": "苍梧资本129",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0130",
+    "company_name": "远山传媒130",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0131",
+    "company_name": "辰光医疗131",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0132",
+    "company_name": "拾光文旅132",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0133",
+    "company_name": "简一软件133",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0134",
+    "company_name": "海桐能源134",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0135",
+    "company_name": "知微研究135",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0136",
+    "company_name": "白鹭会展136",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0137",
+    "company_name": "零度实验室137",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0138",
+    "company_name": "经纬咨询138",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0139",
+    "company_name": "南山培训139",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0140",
+    "company_name": "瀚海贸易140",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0141",
+    "company_name": "星澜科技141",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0142",
+    "company_name": "远山制造142",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0143",
+    "company_name": "青禾咨询143",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0144",
+    "company_name": "澄川设计144",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0145",
+    "company_name": "云帆物流145",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0146",
+    "company_name": "木棉教育146",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0147",
+    "company_name": "恒益法务147",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0148",
+    "company_name": "启明人力148",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0149",
+    "company_name": "苍梧资本149",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0150",
+    "company_name": "远山传媒150",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0151",
+    "company_name": "辰光医疗151",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0152",
+    "company_name": "拾光文旅152",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0153",
+    "company_name": "简一软件153",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0154",
+    "company_name": "海桐能源154",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0155",
+    "company_name": "知微研究155",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0156",
+    "company_name": "白鹭会展156",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0157",
+    "company_name": "零度实验室157",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0158",
+    "company_name": "经纬咨询158",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0159",
+    "company_name": "南山培训159",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0160",
+    "company_name": "瀚海贸易160",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0161",
+    "company_name": "星澜科技161",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0162",
+    "company_name": "远山制造162",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0163",
+    "company_name": "青禾咨询163",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0164",
+    "company_name": "澄川设计164",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0165",
+    "company_name": "云帆物流165",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0166",
+    "company_name": "木棉教育166",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0167",
+    "company_name": "恒益法务167",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0168",
+    "company_name": "启明人力168",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0169",
+    "company_name": "苍梧资本169",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0170",
+    "company_name": "远山传媒170",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0171",
+    "company_name": "辰光医疗171",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0172",
+    "company_name": "拾光文旅172",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0173",
+    "company_name": "简一软件173",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0174",
+    "company_name": "海桐能源174",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0175",
+    "company_name": "知微研究175",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0176",
+    "company_name": "白鹭会展176",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0177",
+    "company_name": "零度实验室177",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0178",
+    "company_name": "经纬咨询178",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0179",
+    "company_name": "南山培训179",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0180",
+    "company_name": "瀚海贸易180",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0181",
+    "company_name": "星澜科技181",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0182",
+    "company_name": "远山制造182",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0183",
+    "company_name": "青禾咨询183",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0184",
+    "company_name": "澄川设计184",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0185",
+    "company_name": "云帆物流185",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0186",
+    "company_name": "木棉教育186",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0187",
+    "company_name": "恒益法务187",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0188",
+    "company_name": "启明人力188",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0189",
+    "company_name": "苍梧资本189",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0190",
+    "company_name": "远山传媒190",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0191",
+    "company_name": "辰光医疗191",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0192",
+    "company_name": "拾光文旅192",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0193",
+    "company_name": "简一软件193",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0194",
+    "company_name": "海桐能源194",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0195",
+    "company_name": "知微研究195",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0196",
+    "company_name": "白鹭会展196",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0197",
+    "company_name": "零度实验室197",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0198",
+    "company_name": "经纬咨询198",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0199",
+    "company_name": "南山培训199",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0200",
+    "company_name": "瀚海贸易200",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0201",
+    "company_name": "星澜科技201",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0202",
+    "company_name": "远山制造202",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0203",
+    "company_name": "青禾咨询203",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0204",
+    "company_name": "澄川设计204",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0205",
+    "company_name": "云帆物流205",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0206",
+    "company_name": "木棉教育206",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0207",
+    "company_name": "恒益法务207",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0208",
+    "company_name": "启明人力208",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0209",
+    "company_name": "苍梧资本209",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0210",
+    "company_name": "远山传媒210",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0211",
+    "company_name": "辰光医疗211",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0212",
+    "company_name": "拾光文旅212",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0213",
+    "company_name": "简一软件213",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0214",
+    "company_name": "海桐能源214",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0215",
+    "company_name": "知微研究215",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0216",
+    "company_name": "白鹭会展216",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0217",
+    "company_name": "零度实验室217",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0218",
+    "company_name": "经纬咨询218",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0219",
+    "company_name": "南山培训219",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0220",
+    "company_name": "瀚海贸易220",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0221",
+    "company_name": "星澜科技221",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0222",
+    "company_name": "远山制造222",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0223",
+    "company_name": "青禾咨询223",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0224",
+    "company_name": "澄川设计224",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0225",
+    "company_name": "云帆物流225",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0226",
+    "company_name": "木棉教育226",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0227",
+    "company_name": "恒益法务227",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0228",
+    "company_name": "启明人力228",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0229",
+    "company_name": "苍梧资本229",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0230",
+    "company_name": "远山传媒230",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0231",
+    "company_name": "辰光医疗231",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0232",
+    "company_name": "拾光文旅232",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0233",
+    "company_name": "简一软件233",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0234",
+    "company_name": "海桐能源234",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0235",
+    "company_name": "知微研究235",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0236",
+    "company_name": "白鹭会展236",
+    "state": "active",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0237",
+    "company_name": "零度实验室237",
+    "state": "active",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0238",
+    "company_name": "经纬咨询238",
+    "state": "active",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": true,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0239",
+    "company_name": "南山培训239",
+    "state": "active",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0240",
+    "company_name": "瀚海贸易240",
+    "state": "active",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 88.0,
+      "transaction": 88.0,
+      "engagement": 88.0,
+      "tenure": 88.0
+    }
+  },
+  {
+    "company_pid": "c-0241",
+    "company_name": "星澜科技241",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0242",
+    "company_name": "远山制造242",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0243",
+    "company_name": "青禾咨询243",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0244",
+    "company_name": "澄川设计244",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0245",
+    "company_name": "云帆物流245",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0246",
+    "company_name": "木棉教育246",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0247",
+    "company_name": "恒益法务247",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0248",
+    "company_name": "启明人力248",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0249",
+    "company_name": "苍梧资本249",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0250",
+    "company_name": "远山传媒250",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0251",
+    "company_name": "辰光医疗251",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0252",
+    "company_name": "拾光文旅252",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0253",
+    "company_name": "简一软件253",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0254",
+    "company_name": "海桐能源254",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0255",
+    "company_name": "知微研究255",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0256",
+    "company_name": "白鹭会展256",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0257",
+    "company_name": "零度实验室257",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0258",
+    "company_name": "经纬咨询258",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0259",
+    "company_name": "南山培训259",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0260",
+    "company_name": "瀚海贸易260",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0261",
+    "company_name": "星澜科技261",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0262",
+    "company_name": "远山制造262",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0263",
+    "company_name": "青禾咨询263",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0264",
+    "company_name": "澄川设计264",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0265",
+    "company_name": "云帆物流265",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0266",
+    "company_name": "木棉教育266",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0267",
+    "company_name": "恒益法务267",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0268",
+    "company_name": "启明人力268",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0269",
+    "company_name": "苍梧资本269",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0270",
+    "company_name": "远山传媒270",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0271",
+    "company_name": "辰光医疗271",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0272",
+    "company_name": "拾光文旅272",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0273",
+    "company_name": "简一软件273",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0274",
+    "company_name": "海桐能源274",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0275",
+    "company_name": "知微研究275",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0276",
+    "company_name": "白鹭会展276",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0277",
+    "company_name": "零度实验室277",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0278",
+    "company_name": "经纬咨询278",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0279",
+    "company_name": "南山培训279",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0280",
+    "company_name": "瀚海贸易280",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0281",
+    "company_name": "星澜科技281",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0282",
+    "company_name": "远山制造282",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0283",
+    "company_name": "青禾咨询283",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0284",
+    "company_name": "澄川设计284",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0285",
+    "company_name": "云帆物流285",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0286",
+    "company_name": "木棉教育286",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0287",
+    "company_name": "恒益法务287",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0288",
+    "company_name": "启明人力288",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0289",
+    "company_name": "苍梧资本289",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0290",
+    "company_name": "远山传媒290",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0291",
+    "company_name": "辰光医疗291",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0292",
+    "company_name": "拾光文旅292",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0293",
+    "company_name": "简一软件293",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0294",
+    "company_name": "海桐能源294",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0295",
+    "company_name": "知微研究295",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0296",
+    "company_name": "白鹭会展296",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0297",
+    "company_name": "零度实验室297",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0298",
+    "company_name": "经纬咨询298",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0299",
+    "company_name": "南山培训299",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0300",
+    "company_name": "瀚海贸易300",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0301",
+    "company_name": "星澜科技301",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0302",
+    "company_name": "远山制造302",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0303",
+    "company_name": "青禾咨询303",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0304",
+    "company_name": "澄川设计304",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0305",
+    "company_name": "云帆物流305",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0306",
+    "company_name": "木棉教育306",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0307",
+    "company_name": "恒益法务307",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0308",
+    "company_name": "启明人力308",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0309",
+    "company_name": "苍梧资本309",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0310",
+    "company_name": "远山传媒310",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0311",
+    "company_name": "辰光医疗311",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0312",
+    "company_name": "拾光文旅312",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0313",
+    "company_name": "简一软件313",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0314",
+    "company_name": "海桐能源314",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0315",
+    "company_name": "知微研究315",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0316",
+    "company_name": "白鹭会展316",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0317",
+    "company_name": "零度实验室317",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0318",
+    "company_name": "经纬咨询318",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0319",
+    "company_name": "南山培训319",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0320",
+    "company_name": "瀚海贸易320",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0321",
+    "company_name": "星澜科技321",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0322",
+    "company_name": "远山制造322",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0323",
+    "company_name": "青禾咨询323",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0324",
+    "company_name": "澄川设计324",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0325",
+    "company_name": "云帆物流325",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0326",
+    "company_name": "木棉教育326",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0327",
+    "company_name": "恒益法务327",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0328",
+    "company_name": "启明人力328",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0329",
+    "company_name": "苍梧资本329",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0330",
+    "company_name": "远山传媒330",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0331",
+    "company_name": "辰光医疗331",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0332",
+    "company_name": "拾光文旅332",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0333",
+    "company_name": "简一软件333",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0334",
+    "company_name": "海桐能源334",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0335",
+    "company_name": "知微研究335",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0336",
+    "company_name": "白鹭会展336",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0337",
+    "company_name": "零度实验室337",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0338",
+    "company_name": "经纬咨询338",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0339",
+    "company_name": "南山培训339",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0340",
+    "company_name": "瀚海贸易340",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0341",
+    "company_name": "星澜科技341",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0342",
+    "company_name": "远山制造342",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0343",
+    "company_name": "青禾咨询343",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0344",
+    "company_name": "澄川设计344",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0345",
+    "company_name": "云帆物流345",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0346",
+    "company_name": "木棉教育346",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0347",
+    "company_name": "恒益法务347",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0348",
+    "company_name": "启明人力348",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0349",
+    "company_name": "苍梧资本349",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0350",
+    "company_name": "远山传媒350",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0351",
+    "company_name": "辰光医疗351",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0352",
+    "company_name": "拾光文旅352",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0353",
+    "company_name": "简一软件353",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0354",
+    "company_name": "海桐能源354",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0355",
+    "company_name": "知微研究355",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0356",
+    "company_name": "白鹭会展356",
+    "state": "silent",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0357",
+    "company_name": "零度实验室357",
+    "state": "silent",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": true,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0358",
+    "company_name": "经纬咨询358",
+    "state": "silent",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0359",
+    "company_name": "南山培训359",
+    "state": "silent",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0360",
+    "company_name": "瀚海贸易360",
+    "state": "silent",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 66.0,
+      "transaction": 66.0,
+      "engagement": 66.0,
+      "tenure": 66.0
+    }
+  },
+  {
+    "company_pid": "c-0361",
+    "company_name": "星澜科技361",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0362",
+    "company_name": "远山制造362",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0363",
+    "company_name": "青禾咨询363",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0364",
+    "company_name": "澄川设计364",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0365",
+    "company_name": "云帆物流365",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0366",
+    "company_name": "木棉教育366",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0367",
+    "company_name": "恒益法务367",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0368",
+    "company_name": "启明人力368",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0369",
+    "company_name": "苍梧资本369",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0370",
+    "company_name": "远山传媒370",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0371",
+    "company_name": "辰光医疗371",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0372",
+    "company_name": "拾光文旅372",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0373",
+    "company_name": "简一软件373",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0374",
+    "company_name": "海桐能源374",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0375",
+    "company_name": "知微研究375",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0376",
+    "company_name": "白鹭会展376",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0377",
+    "company_name": "零度实验室377",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0378",
+    "company_name": "经纬咨询378",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0379",
+    "company_name": "南山培训379",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0380",
+    "company_name": "瀚海贸易380",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0381",
+    "company_name": "星澜科技381",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0382",
+    "company_name": "远山制造382",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0383",
+    "company_name": "青禾咨询383",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0384",
+    "company_name": "澄川设计384",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0385",
+    "company_name": "云帆物流385",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0386",
+    "company_name": "木棉教育386",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0387",
+    "company_name": "恒益法务387",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0388",
+    "company_name": "启明人力388",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0389",
+    "company_name": "苍梧资本389",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0390",
+    "company_name": "远山传媒390",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0391",
+    "company_name": "辰光医疗391",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0392",
+    "company_name": "拾光文旅392",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0393",
+    "company_name": "简一软件393",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0394",
+    "company_name": "海桐能源394",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0395",
+    "company_name": "知微研究395",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0396",
+    "company_name": "白鹭会展396",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0397",
+    "company_name": "零度实验室397",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0398",
+    "company_name": "经纬咨询398",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0399",
+    "company_name": "南山培训399",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0400",
+    "company_name": "瀚海贸易400",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0401",
+    "company_name": "星澜科技401",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0402",
+    "company_name": "远山制造402",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0403",
+    "company_name": "青禾咨询403",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0404",
+    "company_name": "澄川设计404",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0405",
+    "company_name": "云帆物流405",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0406",
+    "company_name": "木棉教育406",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0407",
+    "company_name": "恒益法务407",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0408",
+    "company_name": "启明人力408",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0409",
+    "company_name": "苍梧资本409",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0410",
+    "company_name": "远山传媒410",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0411",
+    "company_name": "辰光医疗411",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0412",
+    "company_name": "拾光文旅412",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0413",
+    "company_name": "简一软件413",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0414",
+    "company_name": "海桐能源414",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0415",
+    "company_name": "知微研究415",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0416",
+    "company_name": "白鹭会展416",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0417",
+    "company_name": "零度实验室417",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0418",
+    "company_name": "经纬咨询418",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0419",
+    "company_name": "南山培训419",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0420",
+    "company_name": "瀚海贸易420",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0421",
+    "company_name": "星澜科技421",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0422",
+    "company_name": "远山制造422",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0423",
+    "company_name": "青禾咨询423",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0424",
+    "company_name": "澄川设计424",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0425",
+    "company_name": "云帆物流425",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0426",
+    "company_name": "木棉教育426",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0427",
+    "company_name": "恒益法务427",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0428",
+    "company_name": "启明人力428",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0429",
+    "company_name": "苍梧资本429",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0430",
+    "company_name": "远山传媒430",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0431",
+    "company_name": "辰光医疗431",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0432",
+    "company_name": "拾光文旅432",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0433",
+    "company_name": "简一软件433",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0434",
+    "company_name": "海桐能源434",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": true,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0435",
+    "company_name": "知微研究435",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0436",
+    "company_name": "白鹭会展436",
+    "state": "churn_warning",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0437",
+    "company_name": "零度实验室437",
+    "state": "churn_warning",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0438",
+    "company_name": "经纬咨询438",
+    "state": "churn_warning",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0439",
+    "company_name": "南山培训439",
+    "state": "churn_warning",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0440",
+    "company_name": "瀚海贸易440",
+    "state": "churn_warning",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 50.0,
+      "transaction": 50.0,
+      "engagement": 50.0,
+      "tenure": 50.0
+    }
+  },
+  {
+    "company_pid": "c-0441",
+    "company_name": "星澜科技441",
+    "state": "renewed",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": true,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0442",
+    "company_name": "远山制造442",
+    "state": "renewed",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0443",
+    "company_name": "青禾咨询443",
+    "state": "renewed",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 99.75,
+      "transaction": 55.0,
+      "engagement": 98.0,
+      "tenure": 20.0
+    }
+  },
+  {
+    "company_pid": "c-0444",
+    "company_name": "澄川设计444",
+    "state": "renewed",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0445",
+    "company_name": "云帆物流445",
+    "state": "renewed",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0446",
+    "company_name": "木棉教育446",
+    "state": "renewed",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0447",
+    "company_name": "恒益法务447",
+    "state": "renewed",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0448",
+    "company_name": "启明人力448",
+    "state": "renewed",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": true,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0449",
+    "company_name": "苍梧资本449",
+    "state": "renewed",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0450",
+    "company_name": "远山传媒450",
+    "state": "renewed",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0451",
+    "company_name": "辰光医疗451",
+    "state": "renewed",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0452",
+    "company_name": "拾光文旅452",
+    "state": "renewed",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0453",
+    "company_name": "简一软件453",
+    "state": "renewed",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0454",
+    "company_name": "海桐能源454",
+    "state": "renewed",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0455",
+    "company_name": "知微研究455",
+    "state": "renewed",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": true,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0456",
+    "company_name": "白鹭会展456",
+    "state": "renewed",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0457",
+    "company_name": "零度实验室457",
+    "state": "renewed",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0458",
+    "company_name": "经纬咨询458",
+    "state": "renewed",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0459",
+    "company_name": "南山培训459",
+    "state": "renewed",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0460",
+    "company_name": "瀚海贸易460",
+    "state": "renewed",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0461",
+    "company_name": "星澜科技461",
+    "state": "renewed",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0462",
+    "company_name": "远山制造462",
+    "state": "renewed",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": true,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0463",
+    "company_name": "青禾咨询463",
+    "state": "renewed",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0464",
+    "company_name": "澄川设计464",
+    "state": "renewed",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0465",
+    "company_name": "云帆物流465",
+    "state": "renewed",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0466",
+    "company_name": "木棉教育466",
+    "state": "renewed",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0467",
+    "company_name": "恒益法务467",
+    "state": "renewed",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0468",
+    "company_name": "启明人力468",
+    "state": "renewed",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0469",
+    "company_name": "苍梧资本469",
+    "state": "renewed",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": true,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0470",
+    "company_name": "远山传媒470",
+    "state": "renewed",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": false,
+    "signals": {
+      "activity": 80.0,
+      "transaction": 80.0,
+      "engagement": 80.0,
+      "tenure": 80.0
+    }
+  },
+  {
+    "company_pid": "c-0471",
+    "company_name": "辰光医疗471",
+    "state": "churned",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0472",
+    "company_name": "拾光文旅472",
+    "state": "churned",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0473",
+    "company_name": "简一软件473",
+    "state": "churned",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 75.5,
+      "transaction": 5.0,
+      "engagement": 99.0,
+      "tenure": 65.0
+    }
+  },
+  {
+    "company_pid": "c-0474",
+    "company_name": "海桐能源474",
+    "state": "churned",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0475",
+    "company_name": "知微研究475",
+    "state": "churned",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0476",
+    "company_name": "白鹭会展476",
+    "state": "churned",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": true,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0477",
+    "company_name": "零度实验室477",
+    "state": "churned",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0478",
+    "company_name": "经纬咨询478",
+    "state": "churned",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0479",
+    "company_name": "南山培训479",
+    "state": "churned",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0480",
+    "company_name": "瀚海贸易480",
+    "state": "churned",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0481",
+    "company_name": "星澜科技481",
+    "state": "churned",
+    "club_id": "club-01",
+    "manager_id": "mgr-001",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0482",
+    "company_name": "远山制造482",
+    "state": "churned",
+    "club_id": "club-02",
+    "manager_id": "mgr-002",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0483",
+    "company_name": "青禾咨询483",
+    "state": "churned",
+    "club_id": "club-03",
+    "manager_id": "mgr-003",
+    "key_member": true,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0484",
+    "company_name": "澄川设计484",
+    "state": "churned",
+    "club_id": "club-04",
+    "manager_id": "mgr-004",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0485",
+    "company_name": "云帆物流485",
+    "state": "churned",
+    "club_id": "club-05",
+    "manager_id": "mgr-005",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0486",
+    "company_name": "木棉教育486",
+    "state": "churned",
+    "club_id": "club-01",
+    "manager_id": "mgr-006",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0487",
+    "company_name": "恒益法务487",
+    "state": "churned",
+    "club_id": "club-02",
+    "manager_id": "mgr-007",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0488",
+    "company_name": "启明人力488",
+    "state": "churned",
+    "club_id": "club-03",
+    "manager_id": "mgr-008",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0489",
+    "company_name": "苍梧资本489",
+    "state": "churned",
+    "club_id": "club-04",
+    "manager_id": "mgr-009",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0490",
+    "company_name": "远山传媒490",
+    "state": "churned",
+    "club_id": "club-05",
+    "manager_id": "mgr-010",
+    "key_member": true,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0491",
+    "company_name": "辰光医疗491",
+    "state": "churned",
+    "club_id": "club-01",
+    "manager_id": "mgr-011",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0492",
+    "company_name": "拾光文旅492",
+    "state": "churned",
+    "club_id": "club-02",
+    "manager_id": "mgr-012",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0493",
+    "company_name": "简一软件493",
+    "state": "churned",
+    "club_id": "club-03",
+    "manager_id": "mgr-013",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0494",
+    "company_name": "海桐能源494",
+    "state": "churned",
+    "club_id": "club-04",
+    "manager_id": "mgr-014",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0495",
+    "company_name": "知微研究495",
+    "state": "churned",
+    "club_id": "club-05",
+    "manager_id": "mgr-015",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0496",
+    "company_name": "白鹭会展496",
+    "state": "churned",
+    "club_id": "club-01",
+    "manager_id": "mgr-016",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0497",
+    "company_name": "零度实验室497",
+    "state": "churned",
+    "club_id": "club-02",
+    "manager_id": "mgr-017",
+    "key_member": true,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0498",
+    "company_name": "经纬咨询498",
+    "state": "churned",
+    "club_id": "club-03",
+    "manager_id": "mgr-018",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0499",
+    "company_name": "南山培训499",
+    "state": "churned",
+    "club_id": "club-04",
+    "manager_id": "mgr-019",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  },
+  {
+    "company_pid": "c-0500",
+    "company_name": "瀚海贸易500",
+    "state": "churned",
+    "club_id": "club-05",
+    "manager_id": "mgr-020",
+    "key_member": false,
+    "signals": {
+      "activity": 40.0,
+      "transaction": 40.0,
+      "engagement": 40.0,
+      "tenure": 40.0
+    }
+  }
+]

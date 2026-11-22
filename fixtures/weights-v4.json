@@ -1,0 +1,9 @@
+{
+  "version": "v4",
+  "weights": {
+    "activity": 0.2,
+    "transaction": 0.25,
+    "engagement": 0.35,
+    "tenure": 0.2
+  }
+}

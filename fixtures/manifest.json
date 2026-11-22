@@ -1,0 +1,22 @@
+{
+  "companies": 500,
+  "actual_rows": 500,
+  "warn_tasks": 30,
+  "names": 20,
+  "bands": {
+    "active_min": 75.0,
+    "silent_min": 60.0
+  },
+  "weights_from": {
+    "activity": 0.4,
+    "transaction": 0.3,
+    "engagement": 0.2,
+    "tenure": 0.1
+  },
+  "weights_to": {
+    "activity": 0.2,
+    "transaction": 0.25,
+    "engagement": 0.35,
+    "tenure": 0.2
+  }
+}

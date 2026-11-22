@@ -1,0 +1,35 @@
+{
+  "mode": "post",
+  "from": "v3",
+  "to": "v4",
+  "asof": "2026-11-22",
+  "generated_at": "2026-11-22T13:11:49Z",
+  "ratio": 1.0,
+  "matched_rows": 120,
+  "total_rows": 120,
+  "threshold": 0.99,
+  "estimate_rows": 120,
+  "actual_rows": 120,
+  "missing_in_actual": [],
+  "missing_in_estimate": [],
+  "set_drift": [],
+  "mismatch": [],
+  "score_drift": [],
+  "frozen_state_errors": [],
+  "frozen_counts": {
+    "baseline": {
+      "renewed": 30,
+      "churned": 30
+    },
+    "actual": {
+      "renewed": 30,
+      "churned": 30
+    }
+  },
+  "frozen_counts_ok": true,
+  "warn_task_errors": [],
+  "reason_errors": [],
+  "entity_errors": [],
+  "log_errors": [],
+  "passed": true
+}

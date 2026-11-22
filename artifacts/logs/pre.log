@@ -1,0 +1,3 @@
+$ python -m cal.cli verify-health-switch --from v3 --to v4 --mode pre --out out/report
+[exit 0]
+pre ok: from=v3 to=v4 companies=500 changes=120 frozen_would_change=6 out=out\report

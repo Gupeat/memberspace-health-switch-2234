@@ -1,0 +1,7 @@
+company_pid,locked_status,band_from,band_to,old_score,new_score
+c-0441,renewed,active,silent,78.0,72.0
+c-0442,renewed,active,silent,78.0,72.0
+c-0443,renewed,active,silent,78.0,72.0
+c-0471,churned,churn_warning,silent,58.0,64.0
+c-0472,churned,churn_warning,silent,58.0,64.0
+c-0473,churned,churn_warning,silent,58.0,64.0
