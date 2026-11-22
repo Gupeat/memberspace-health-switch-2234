@@ -184,18 +184,40 @@ def compare_changes(
             continue
         expected_key = (expected.old_status, expected.new_status, expected.direction)
         actual_key = (got.old_status, got.new_status, got.direction)
-        if expected_key == actual_key:
+        score_matches = (
+            abs(expected.old_score - got.old_score) <= 0.01
+            and abs(expected.new_score - got.new_score) <= 0.01
+        )
+        if expected_key == actual_key and score_matches:
             matched += 1
-            if abs(expected.old_score - got.old_score) > 0.01 or abs(expected.new_score - got.new_score) > 0.01:
-                score_drift.append(
-                    {
-                        "company_pid": pid,
-                        "estimate_old_score": expected.old_score,
-                        "actual_old_score": got.old_score,
-                        "estimate_new_score": expected.new_score,
-                        "actual_new_score": got.new_score,
-                    }
-                )
+        elif expected_key == actual_key:
+            score_drift.append(
+                {
+                    "company_pid": pid,
+                    "estimate_old_score": expected.old_score,
+                    "actual_old_score": got.old_score,
+                    "estimate_new_score": expected.new_score,
+                    "actual_new_score": got.new_score,
+                }
+            )
+            mismatch.append(
+                {
+                    "company_pid": pid,
+                    "kind": "score_drift",
+                    "estimate": {
+                        "old_status": expected.old_status,
+                        "new_status": expected.new_status,
+                        "old_score": expected.old_score,
+                        "new_score": expected.new_score,
+                    },
+                    "actual": {
+                        "old_status": got.old_status,
+                        "new_status": got.new_status,
+                        "old_score": got.old_score,
+                        "new_score": got.new_score,
+                    },
+                }
+            )
         else:
             mismatch.append(
                 {

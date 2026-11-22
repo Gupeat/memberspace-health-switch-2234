@@ -89,3 +89,43 @@ def test_scan_empty_directory_fails(tmp_path):
     )
     assert scan.returncode == 1
     assert "scanned_files=0" in scan.stdout
+
+def test_scan_requires_each_directory_to_have_text(tmp_path):
+    first = tmp_path / "report"
+    second = tmp_path / "binary-only"
+    first.mkdir()
+    second.mkdir()
+    (first / "report.md").write_text("post 报告\n", encoding="utf-8")
+    (second / "image.bin").write_bytes(b"\x00\x01")
+    log = tmp_path / "scan.log"
+    scan = subprocess.run(
+        [
+            sys.executable, str(ROOT / "scripts" / "scan_report.py"),
+            "--dir", str(first), "--dir", str(second),
+            "--blacklist", str(ROOT / "fixtures" / "company_names.txt"),
+            "--log", str(log),
+        ],
+        cwd=ROOT, text=True, capture_output=True,
+    )
+    assert scan.returncode == 1
+    assert "empty_dirs=1" in scan.stdout
+    assert "scanned_files=1" in log.read_text(encoding="utf-8")
+
+
+def test_scan_min_files_rejects_thin_coverage(tmp_path):
+    out = tmp_path / "report"
+    out.mkdir()
+    (out / "report.md").write_text("post 报告\n", encoding="utf-8")
+    log = tmp_path / "scan.log"
+    scan = subprocess.run(
+        [
+            sys.executable, str(ROOT / "scripts" / "scan_report.py"),
+            "--dir", str(out), "--min-files", "2",
+            "--blacklist", str(ROOT / "fixtures" / "company_names.txt"),
+            "--log", str(log),
+        ],
+        cwd=ROOT, text=True, capture_output=True,
+    )
+    assert scan.returncode == 1
+    assert "min_files=2" in scan.stdout
+    assert "scanned_files=1" in log.read_text(encoding="utf-8")

@@ -18,7 +18,8 @@ from cal.compare import (
     load_estimate_rows,
     load_warn_task_pids,
 )
-from cal.config import load_companies, load_config, load_weights
+from cal.adapters.crm_source import load_companies_from_snapshot
+from cal.config import load_config, load_weights
 from cal.report import (
     check_log_consistency,
     club_counts,
@@ -43,7 +44,7 @@ def build_parser() -> argparse.ArgumentParser:
     cmd.add_argument("--from", dest="from_version", required=True, help="切换前权重版本，如 v3")
     cmd.add_argument("--to", dest="to_version", required=True, help="切换后权重版本，如 v4")
     cmd.add_argument("--mode", choices=("pre", "post"), required=True)
-    cmd.add_argument("--config", default=None, help="配置 JSON；默认 fixtures/config-pre.json 或 config-post.json")
+    cmd.add_argument("--config", default=None, help="pre 配置 JSON；默认 fixtures/config-pre.json；post 不接受该参数")
     cmd.add_argument("--crm", default="fixtures/companies.json", help="企业快照 JSON")
     cmd.add_argument("--weights-from", default="fixtures/weights-v3.json")
     cmd.add_argument("--weights-to", default="fixtures/weights-v4.json")
@@ -59,7 +60,12 @@ def build_parser() -> argparse.ArgumentParser:
 def _config_path(args: argparse.Namespace) -> Path:
     if args.config:
         return Path(args.config)
-    return Path("fixtures/config-pre.json" if args.mode == "pre" else "fixtures/config-post.json")
+    return Path("fixtures/config-pre.json")
+
+
+def _clear_pre_outputs(out: Path) -> None:
+    for name in ("estimate.csv", "frozen_would_change.csv", "pivot.csv", "summary.json", "pre-report.md", "run.log"):
+        (out / name).unlink(missing_ok=True)
 
 
 def _utc_now() -> str:
@@ -67,8 +73,10 @@ def _utc_now() -> str:
 
 
 def _run_pre(args: argparse.Namespace) -> int:
+    out = Path(args.out)
     config = load_config(_config_path(args))
     if config["active_version"] != args.from_version:
+        _clear_pre_outputs(out)
         print(
             f"pre guard failed: active_version={config['active_version']!r}, expected {args.from_version!r}",
             file=sys.stderr,
@@ -79,7 +87,7 @@ def _run_pre(args: argparse.Namespace) -> int:
     if version_from != args.from_version or version_to != args.to_version:
         print("weight file version does not match --from/--to", file=sys.stderr)
         return 1
-    companies = load_companies(args.crm)
+    companies = load_companies_from_snapshot(args.crm)
     changes, frozen_rows = estimate_changes(
         companies,
         weights_from,
@@ -134,6 +142,9 @@ def _run_pre(args: argparse.Namespace) -> int:
 
 
 def _run_post(args: argparse.Namespace) -> int:
+    if args.config:
+        print("--config is only supported in pre mode; post reads --weights-from/--weights-to and --actual", file=sys.stderr)
+        return 1
     if not args.actual:
         print("post requires --actual", file=sys.stderr)
         return 1
@@ -142,7 +153,7 @@ def _run_post(args: argparse.Namespace) -> int:
     if version_from != args.from_version or version_to != args.to_version:
         print("weight file version does not match --from/--to", file=sys.stderr)
         return 1
-    companies = load_companies(args.crm)
+    companies = load_companies_from_snapshot(args.crm)
     estimate_path = Path(args.estimate) if args.estimate else Path(args.out) / "estimate.csv"
     if not estimate_path.is_file():
         print(f"estimate file not found: {estimate_path}", file=sys.stderr)
