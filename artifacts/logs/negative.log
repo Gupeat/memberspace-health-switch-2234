@@ -1,0 +1,4 @@
+$ python -m cal.cli verify-health-switch --from v3 --to v4 --mode post --actual fixtures/negative_actual.csv --estimate out/report/estimate.csv --out out/negative
+[exit 2]
+post FAIL: ratio=0.983333 matched=118 total=120 threshold=0.99 out=out\negative
+checks: frozen_errors=0 frozen_counts_ok=True warn_errors=0 reason_errors=0 entity_errors=0

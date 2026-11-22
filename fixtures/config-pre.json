@@ -1,0 +1,8 @@
+{
+  "active_version": "v3",
+  "bands": {
+    "active_min": 75.0,
+    "silent_min": 60.0
+  },
+  "asof": "2026-11-22"
+}

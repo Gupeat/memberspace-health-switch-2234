@@ -1,0 +1,16 @@
+# clean-room reproduction
+
+source: repo (copy without caches/out)
+
+$ python --version
+[exit 0]
+Python 3.12.14
+
+$ python -m pytest -q
+[exit 0]
+.................                                                        [100%]
+17 passed in 6.20s
+
+$ python scripts/run_acceptance.py
+[exit 0]
+acceptance PASS: ratio=1.000000 scan_hits=0 tests_passed=17 log_errors=0

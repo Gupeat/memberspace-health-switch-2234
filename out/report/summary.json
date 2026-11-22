@@ -1,0 +1,45 @@
+{
+  "mode": "pre",
+  "from": "v3",
+  "to": "v4",
+  "asof": "2026-11-22",
+  "company_count": 500,
+  "changed_count": 120,
+  "by_direction": {
+    "active_to_silent": 30,
+    "silent_to_active": 30,
+    "enter_churn_warning": 30,
+    "exit_churn_warning": 30
+  },
+  "by_club": {
+    "club-01": 24,
+    "club-02": 24,
+    "club-03": 24,
+    "club-04": 24,
+    "club-05": 24
+  },
+  "by_manager": {
+    "mgr-001": 6,
+    "mgr-002": 6,
+    "mgr-003": 6,
+    "mgr-004": 6,
+    "mgr-005": 6,
+    "mgr-006": 6,
+    "mgr-007": 6,
+    "mgr-008": 6,
+    "mgr-009": 6,
+    "mgr-010": 6,
+    "mgr-011": 6,
+    "mgr-012": 6,
+    "mgr-013": 6,
+    "mgr-014": 6,
+    "mgr-015": 6,
+    "mgr-016": 6,
+    "mgr-017": 6,
+    "mgr-018": 6,
+    "mgr-019": 6,
+    "mgr-020": 6
+  },
+  "frozen_total": 60,
+  "frozen_would_change": 6
+}
