@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-11-22T23:30:23Z",
+  "all_passed": true,
+  "checks": {
+    "ratio": 1.0,
+    "matched_rows": 120,
+    "total_rows": 120,
+    "threshold": 0.99,
+    "frozen_counts": {
+      "baseline": {
+        "renewed": 30,
+        "churned": 30
+      },
+      "actual": {
+        "renewed": 30,
+        "churned": 30
+      }
+    },
+    "frozen_counts_ok": true,
+    "reason_errors": 0,
+    "set_drift": 0,
+    "scan_scanned_files": 20,
+    "scan_hits": 0,
+    "negative_ratio": 0.983333,
+    "negative_exit": 2,
+    "post_exit": 0,
+    "scan_min_files": 12,
+    "tests_passed": 37,
+    "tests_skipped": 0,
+    "tests_expected": 37,
+    "tests_exit": 0
+  },
+  "log_errors": [],
+  "steps": {
+    "pre": {
+      "command": "python -m cal.cli verify-health-switch --from v3 --to v4 --mode pre --asof 2026-11-22 --out out/report",
+      "exit": 0
+    },
+    "post": {
+      "command": "python -m cal.cli verify-health-switch --from v3 --to v4 --mode post --asof 2026-11-22 --actual fixtures/actual.csv --estimate out/report/estimate.csv --out out/report",
+      "exit": 0
+    },
+    "negative": {
+      "command": "python -m cal.cli verify-health-switch --from v3 --to v4 --mode post --asof 2026-11-22 --actual fixtures/negative_actual.csv --estimate out/report/estimate.csv --out out/negative",
+      "exit": 2
+    },
+    "scan": {
+      "command": "python scripts/scan_report.py --dir out/report --dir out/negative --dir artifacts --blacklist fixtures/company_names.txt --log out/report/scan.log --min-files 12",
+      "exit": 0
+    },
+    "pytest": {
+      "command": "python -m pytest -q",
+      "exit": 0
+    }
+  }
+}

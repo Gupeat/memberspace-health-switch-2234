@@ -18,8 +18,9 @@ if str(ROOT) not in sys.path:
 
 from cal.report import check_log_consistency, write_json, write_run_log  # noqa: E402
 
-EXPECTED_TESTS = 32
+EXPECTED_TESTS = 37
 MIN_SCANNED_FILES = 12
+ASOF = "2026-11-22"
 
 
 def run(args: list[str]) -> dict[str, object]:
@@ -74,9 +75,9 @@ def main() -> int:
         shutil.rmtree(logs)
 
     steps = {}
-    steps["pre"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre", "--out", args.out])
-    steps["post"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post", "--actual", "fixtures/actual.csv", "--estimate", f"{args.out}/estimate.csv", "--out", args.out])
-    steps["negative"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post", "--actual", "fixtures/negative_actual.csv", "--estimate", f"{args.out}/estimate.csv", "--out", args.negative_out])
+    steps["pre"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre", "--asof", ASOF, "--out", args.out])
+    steps["post"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post", "--asof", ASOF, "--actual", "fixtures/actual.csv", "--estimate", f"{args.out}/estimate.csv", "--out", args.out])
+    steps["negative"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post", "--asof", ASOF, "--actual", "fixtures/negative_actual.csv", "--estimate", f"{args.out}/estimate.csv", "--out", args.negative_out])
     steps["scan"] = run([
         "scripts/scan_report.py",
         "--dir", args.out,
@@ -138,7 +139,7 @@ def main() -> int:
         version_from="v3",
         version_to="v4",
         out=args.out,
-        asof=datetime.now(timezone.utc).date().isoformat(),
+        asof=ASOF,
         checks=checks,
     )
     log_errors = check_log_consistency(out / "run.log", checks)

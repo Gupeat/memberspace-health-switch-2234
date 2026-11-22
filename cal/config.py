@@ -43,15 +43,13 @@ def load_config(path: str | Path) -> dict[str, Any]:
     return {
         "active_version": str(document.get("active_version") or ""),
         "bands": {"active_min": active_min, "silent_min": silent_min},
+        "asof": str(document.get("asof") or ""),
         "raw": document,
     }
 
 
-def load_companies(path: str | Path) -> list[Company]:
-    document = load_json(path)
-    rows = document.get("companies") if isinstance(document, dict) else document
-    if not isinstance(rows, list):
-        raise ValueError(f"company file must be a list or contain 'companies': {path}")
+def companies_from_rows(rows: list[dict], source: str | Path = "<memory>") -> list[Company]:
+    """Validate already-normalized company rows (internal snapshot shape)."""
     companies: list[Company] = []
     seen: set[str] = set()
     for index, row in enumerate(rows):
@@ -80,3 +78,11 @@ def load_companies(path: str | Path) -> list[Company]:
             )
         )
     return companies
+
+
+def load_companies(path: str | Path) -> list[Company]:
+    document = load_json(path)
+    rows = document.get("companies") if isinstance(document, dict) else document
+    if not isinstance(rows, list):
+        raise ValueError(f"company file must be a list or contain 'companies': {path}")
+    return companies_from_rows(rows, source=path)

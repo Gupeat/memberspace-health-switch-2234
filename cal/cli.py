@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -53,7 +54,7 @@ def build_parser() -> argparse.ArgumentParser:
     cmd.add_argument("--estimate", default=None, help="post 读取的预估 CSV；默认 <out>/estimate.csv")
     cmd.add_argument("--out", default="out/report", help="输出目录")
     cmd.add_argument("--threshold", type=float, default=0.99, help="一致率阈值，默认 0.99")
-    cmd.add_argument("--asof", default=date.today().isoformat(), help="数据日期 YYYY-MM-DD")
+    cmd.add_argument("--asof", default=None, help="数据日期 YYYY-MM-DD；pre 默认读配置 asof，post 默认今天")
     return parser
 
 
@@ -63,8 +64,11 @@ def _config_path(args: argparse.Namespace) -> Path:
     return Path("fixtures/config-pre.json")
 
 
-def _clear_pre_outputs(out: Path) -> None:
-    for name in ("estimate.csv", "frozen_would_change.csv", "pivot.csv", "summary.json", "pre-report.md", "run.log"):
+def _clear_outputs(out: Path) -> None:
+    for name in (
+        "estimate.csv", "frozen_would_change.csv", "pivot.csv", "summary.json", "pre-report.md", "run.log",
+        "actual.csv", "changed.csv", "compare.json", "report.md",
+    ):
         (out / name).unlink(missing_ok=True)
 
 
@@ -75,8 +79,18 @@ def _utc_now() -> str:
 def _run_pre(args: argparse.Namespace) -> int:
     out = Path(args.out)
     config = load_config(_config_path(args))
+    asof = args.asof or config.get("asof") or date.today().isoformat()
     if config["active_version"] != args.from_version:
-        _clear_pre_outputs(out)
+        _clear_outputs(out)
+        write_run_log(
+            out / "run.log",
+            mode="pre-guard-failed",
+            version_from=args.from_version,
+            version_to=args.to_version,
+            out=str(out),
+            asof=asof,
+            extra={"error": f"active_version={config['active_version']!r}, expected {args.from_version!r}"},
+        )
         print(
             f"pre guard failed: active_version={config['active_version']!r}, expected {args.from_version!r}",
             file=sys.stderr,
@@ -96,7 +110,8 @@ def _run_pre(args: argparse.Namespace) -> int:
         version_from,
         version_to,
     )
-    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    _clear_outputs(out)
     estimate_path = Path(args.estimate) if args.estimate else out / "estimate.csv"
     write_change_csv(estimate_path, changes)
     write_frozen_csv(out / "frozen_would_change.csv", frozen_rows)
@@ -105,7 +120,7 @@ def _run_pre(args: argparse.Namespace) -> int:
         "mode": "pre",
         "from": version_from,
         "to": version_to,
-        "asof": args.asof,
+        "asof": asof,
         "company_count": len(companies),
         "changed_count": len(changes),
         "by_direction": direction_counts(changes),
@@ -122,7 +137,7 @@ def _run_pre(args: argparse.Namespace) -> int:
         companies=companies,
         changes=changes,
         frozen_rows=frozen_rows,
-        asof=args.asof,
+        asof=asof,
         generated_at=_utc_now(),
     )
     write_run_log(
@@ -131,7 +146,7 @@ def _run_pre(args: argparse.Namespace) -> int:
         version_from=version_from,
         version_to=version_to,
         out=str(out),
-        asof=args.asof,
+        asof=asof,
         extra={"companies": len(companies), "estimated_changes": len(changes)},
     )
     print(
@@ -148,6 +163,7 @@ def _run_post(args: argparse.Namespace) -> int:
     if not args.actual:
         print("post requires --actual", file=sys.stderr)
         return 1
+    asof = args.asof or date.today().isoformat()
     version_from, weights_from = load_weights(args.weights_from)
     version_to, weights_to = load_weights(args.weights_to)
     if version_from != args.from_version or version_to != args.to_version:
@@ -159,6 +175,24 @@ def _run_post(args: argparse.Namespace) -> int:
         print(f"estimate file not found: {estimate_path}", file=sys.stderr)
         return 1
     estimate_rows = load_estimate_rows(estimate_path)
+    if not estimate_rows:
+        print(f"estimate file has no rows: {estimate_path}", file=sys.stderr)
+        return 1
+    bad_versions = sorted(
+        {
+            f"{row.weight_from}->{row.weight_to}"
+            for row in estimate_rows
+            if row.weight_from != version_from or row.weight_to != version_to
+        }
+    )
+    if bad_versions:
+        print(
+            f"estimate file version mismatch: expected {version_from}->{version_to}, "
+            f"found {', '.join(bad_versions)}",
+            file=sys.stderr,
+        )
+        return 1
+    estimate_sha256 = hashlib.sha256(estimate_path.read_bytes()).hexdigest()
     snapshot = load_actual_snapshot(args.actual)
     actual_rows, entity_errors, frozen_errors, missing_actual = derive_actual_changes(
         companies, snapshot, weights_from, version_from, version_to
@@ -176,7 +210,8 @@ def _run_post(args: argparse.Namespace) -> int:
     counts = frozen_counts(companies, snapshot)
     frozen_counts_ok = counts["baseline"] == counts["actual"]
     base_passed = (
-        comparison["ratio"] >= comparison["threshold"]
+        comparison["total_rows"] > 0
+        and comparison["ratio"] >= comparison["threshold"]
         and not frozen_errors
         and frozen_counts_ok
         and not warn_errors
@@ -210,7 +245,7 @@ def _run_post(args: argparse.Namespace) -> int:
         version_from=version_from,
         version_to=version_to,
         out=str(out),
-        asof=args.asof,
+        asof=asof,
         checks=checks,
     )
     log_errors = check_log_consistency(out / "run.log", checks)
@@ -219,8 +254,10 @@ def _run_post(args: argparse.Namespace) -> int:
         "mode": "post",
         "from": version_from,
         "to": version_to,
-        "asof": args.asof,
+        "asof": asof,
         "generated_at": _utc_now(),
+        "estimate_path": estimate_path.as_posix(),
+        "estimate_sha256": estimate_sha256,
         **comparison,
         "frozen_state_errors": frozen_errors,
         "frozen_counts": counts,
@@ -238,6 +275,8 @@ def _run_post(args: argparse.Namespace) -> int:
         version_from=version_from,
         version_to=version_to,
         comparison=comparison,
+        estimate_path=estimate_path.as_posix(),
+        estimate_sha256=estimate_sha256,
         frozen_errors=frozen_errors,
         frozen_counts_payload=counts,
         frozen_counts_ok=frozen_counts_ok,
@@ -247,7 +286,7 @@ def _run_post(args: argparse.Namespace) -> int:
         snapshot_errors=snapshot_errors,
         set_drift=comparison["set_drift"],
         log_errors=log_errors,
-        asof=args.asof,
+        asof=asof,
         generated_at=_utc_now(),
     )
     print(
@@ -257,7 +296,9 @@ def _run_post(args: argparse.Namespace) -> int:
     )
     if not passed:
         print(
-            f"checks: frozen_errors={len(frozen_errors)} frozen_counts_ok={frozen_counts_ok} "
+            f"checks: ratio={comparison['ratio']:.6f} matched={comparison['matched_rows']} "
+            f"total={comparison['total_rows']} score_drift={len(comparison['score_drift'])} "
+            f"frozen_errors={len(frozen_errors)} frozen_counts_ok={frozen_counts_ok} "
             f"warn_errors={len(warn_errors)} reason_errors={len(reason_errors)} "
             f"entity_errors={len(entity_errors)} snapshot_errors={len(snapshot_errors)}",
             file=sys.stderr,
@@ -276,6 +317,12 @@ def main(argv: list[str] | None = None) -> int:
             if args.from_version == args.to_version:
                 print("--from and --to must differ", file=sys.stderr)
                 return 1
+            if args.asof:
+                try:
+                    date.fromisoformat(args.asof)
+                except ValueError:
+                    print(f"--asof is not a valid YYYY-MM-DD date: {args.asof}", file=sys.stderr)
+                    return 1
             if not 0.99 <= args.threshold <= 1.0:
                 print("--threshold must be between 0.99 and 1.0", file=sys.stderr)
                 return 1

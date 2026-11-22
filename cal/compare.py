@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import math
 from pathlib import Path
 from typing import Any
 
@@ -41,6 +42,8 @@ def load_actual_snapshot(path: str | Path) -> dict[str, dict[str, Any]]:
                 score = float(row.get("score") or "")
             except ValueError as exc:
                 raise ValueError(f"actual snapshot {pid}: score is not numeric") from exc
+            if not math.isfinite(score):
+                raise ValueError(f"actual snapshot {pid}: score is not finite")
             snapshot[pid] = {"state": state, "score": round(score, 2)}
     return snapshot
 
@@ -135,6 +138,8 @@ def load_estimate_rows(path: str | Path) -> list[ChangeRow]:
                 new_score = float(new_score_text)
             except ValueError as exc:
                 raise ValueError(f"estimate file {pid}: score is not numeric") from exc
+            if not math.isfinite(old_score) or not math.isfinite(new_score):
+                raise ValueError(f"estimate file {pid}: score is not finite")
             rows.append(
                 ChangeRow(
                     company_pid=pid,

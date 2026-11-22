@@ -153,6 +153,8 @@ def write_post_report(
     version_from: str,
     version_to: str,
     comparison: dict[str, Any],
+    estimate_path: str,
+    estimate_sha256: str,
     frozen_errors: list[str],
     frozen_counts_payload: dict[str, Any] | None,
     frozen_counts_ok: bool,
@@ -166,7 +168,8 @@ def write_post_report(
     generated_at: str,
 ) -> None:
     passed = (
-        comparison["ratio"] >= comparison["threshold"]
+        comparison["total_rows"] > 0
+        and comparison["ratio"] >= comparison["threshold"]
         and frozen_counts_ok
         and not frozen_errors
         and not warn_errors
@@ -182,6 +185,7 @@ def write_post_report(
         f"- 权重版本：{version_from} → {version_to}",
         f"- 数据日期：{asof}",
         f"- 生成时间：{generated_at}",
+        f"- 预估输入：{estimate_path}，SHA-256 {estimate_sha256}",
         f"- 一致率（状态+分数，分数容差 0.01）：{comparison['ratio'] * 100:.2f}%（{comparison['matched_rows']}/{comparison['total_rows']}）",
         f"- 阈值：{comparison['threshold'] * 100:.2f}%",
         f"- 结论：{'PASS' if passed else 'FAIL'}",
@@ -190,7 +194,7 @@ def write_post_report(
         "",
         "| 检查 | 结果 | 说明 |",
         "|---|---|---|",
-        f"| 一致率（状态+分数） | {'PASS' if comparison['ratio'] >= comparison['threshold'] else 'FAIL'} | {comparison['matched_rows']}/{comparison['total_rows']} = {comparison['ratio']:.6f}；分数差 >0.01 计不匹配 |",
+        f"| 一致率（状态+分数） | {'PASS' if comparison['total_rows'] > 0 and comparison['ratio'] >= comparison['threshold'] else 'FAIL'} | {comparison['matched_rows']}/{comparison['total_rows']} = {comparison['ratio']:.6f}；分数差 >0.01 计不匹配 |",
         f"| 续约/已流失冻结 | {'PASS' if not frozen_errors else 'FAIL'} | {len(frozen_errors)} 个错误 |",
         f"| 续约/已流失计数 | {'PASS' if frozen_counts_ok else 'FAIL'} | 切换前 renewed={((frozen_counts_payload or {}).get('baseline') or {}).get('renewed', 'n/a')}, churned={((frozen_counts_payload or {}).get('baseline') or {}).get('churned', 'n/a')}；切换后 renewed={((frozen_counts_payload or {}).get('actual') or {}).get('renewed', 'n/a')}, churned={((frozen_counts_payload or {}).get('actual') or {}).get('churned', 'n/a')} |",
         f"| 流失预警任务 | {'PASS' if not warn_errors else 'FAIL'} | {len(warn_errors)} 个缺失 |",
@@ -207,6 +211,19 @@ def write_post_report(
         f"- 集合漂移 set_drift：{len(set_drift)} 行（只在一侧出现的变化行，计入一致率并集分母）",
         f"- 分数漂移（状态匹配但 old/new 分数差 >0.01）：{len(comparison['score_drift'])} 个（计为不匹配）",
         f"- 不匹配行：{len(comparison['mismatch'])} 个",
+        "",
+        "## 不匹配明细（最多 10 条）",
+        "",
+        "| company_pid | 类型 | 预估 | 实际 |",
+        "|---|---|---|---|",
+        *[
+            f"| {item.get('company_pid', '')} | {item.get('kind', 'status_or_direction')} | "
+            f"{item.get('estimate', {}).get('old_status', '')}→{item.get('estimate', {}).get('new_status', '')} "
+            f"({item.get('estimate', {}).get('old_score', '')}/{item.get('estimate', {}).get('new_score', '')}) | "
+            f"{item.get('actual', {}).get('old_status', '')}→{item.get('actual', {}).get('new_status', '')} "
+            f"({item.get('actual', {}).get('old_score', '')}/{item.get('actual', {}).get('new_score', '')}) |"
+            for item in comparison['mismatch'][:10]
+        ],
         "",
         "## 明细",
         "",

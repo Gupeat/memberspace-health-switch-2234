@@ -77,10 +77,19 @@ def test_post_rejects_config(cli, pre_out, tmp_path):
 
 def test_pre_guard_clears_stale_outputs(cli, pre_out):
     assert (pre_out / "estimate.csv").is_file()
+    for name in ("actual.csv", "changed.csv", "compare.json", "report.md"):
+        (pre_out / name).write_text("stale\n", encoding="utf-8")
     result = cli(
         "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre",
         "--config", str(ROOT / "fixtures" / "config-post.json"), "--out", str(pre_out),
     )
     assert result.returncode == 3
-    for name in ("estimate.csv", "frozen_would_change.csv", "pivot.csv", "summary.json", "pre-report.md", "run.log"):
+    for name in (
+        "estimate.csv", "frozen_would_change.csv", "pivot.csv", "summary.json", "pre-report.md",
+        "actual.csv", "changed.csv", "compare.json", "report.md",
+    ):
         assert not (pre_out / name).exists(), name
+    lines = [line for line in (pre_out / "run.log").read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert len(lines) == 1
+    assert json.loads(lines[0])["mode"] == "pre-guard-failed"
+    assert "expected 'v3'" in json.loads(lines[0])["error"]

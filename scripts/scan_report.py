@@ -73,6 +73,9 @@ def main() -> int:
     parser.add_argument("--log", default=None)
     parser.add_argument("--min-files", type=int, default=0, help="扫描文件数下限；低于该值判失败")
     args = parser.parse_args()
+    if args.min_files < 0:
+        print("scan error: --min-files must be >= 0", file=sys.stderr)
+        return 1
     log_path = Path(args.log) if args.log else Path(args.dir[0]) / "scan.log"
     try:
         names = load_blacklist(args.blacklist)
