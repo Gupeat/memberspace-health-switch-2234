@@ -17,16 +17,43 @@ def load_json(path: str | Path) -> Any:
         return json.load(handle)
 
 
+def _as_float(raw: object, field: str) -> float:
+    try:
+        return float(raw)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{field} must be numeric, got {raw!r}") from exc
+
+
+def parse_bool(value: object, field: str) -> bool:
+    if isinstance(value, bool):
+        return value
+    if value is None:
+        return False
+    if isinstance(value, (int, float)) and value in (0, 1):
+        return bool(value)
+    if isinstance(value, str):
+        text = value.strip().lower()
+        if text in ("true", "1", "yes", "y", "是"):
+            return True
+        if text in ("false", "0", "no", "n", "否", ""):
+            return False
+    raise ValueError(f"{field} must be a boolean, got {value!r}")
+
+
 def load_weights(path: str | Path) -> tuple[str, dict[str, float]]:
     document = load_json(path)
+    if not isinstance(document, dict):
+        raise ValueError(f"weight file must be an object: {path}")
     version = str(document.get("version") or "")
     weights = document.get("weights") or document
+    if not isinstance(weights, dict):
+        raise ValueError(f"weight file has no weights object: {path}")
     if not version:
         raise ValueError(f"weight file has no version: {path}")
     missing = [key for key in WEIGHT_KEYS if key not in weights]
     if missing:
         raise ValueError(f"weight file {path} missing keys: {missing}")
-    cleaned = {key: float(weights[key]) for key in WEIGHT_KEYS}
+    cleaned = {key: _as_float(weights[key], f"weight {key} in {path}") for key in WEIGHT_KEYS}
     for key, value in cleaned.items():
         if not math.isfinite(value):
             raise ValueError(f"weight {key} in {path} is not finite: {value}")
@@ -38,10 +65,12 @@ def load_weights(path: str | Path) -> tuple[str, dict[str, float]]:
 
 def load_config(path: str | Path) -> dict[str, Any]:
     document = load_json(path)
+    if not isinstance(document, dict):
+        raise ValueError(f"config must be an object: {path}")
     bands = dict(DEFAULT_BANDS)
     bands.update(document.get("bands") or {})
-    active_min = float(bands["active_min"])
-    silent_min = float(bands["silent_min"])
+    active_min = _as_float(bands["active_min"], "bands.active_min")
+    silent_min = _as_float(bands["silent_min"], "bands.silent_min")
     if not (math.isfinite(active_min) and math.isfinite(silent_min)):
         raise ValueError("active_min and silent_min must be finite")
     if active_min <= silent_min:
@@ -59,6 +88,8 @@ def companies_from_rows(rows: list[dict], source: str | Path = "<memory>") -> li
     companies: list[Company] = []
     seen: set[str] = set()
     for index, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise ValueError(f"company row {index} must be an object")
         pid = str(row.get("company_pid") or "").strip()
         if not pid:
             raise ValueError(f"company row {index} has no company_pid")
@@ -74,7 +105,7 @@ def companies_from_rows(rows: list[dict], source: str | Path = "<memory>") -> li
             raise ValueError(f"{pid} has unsupported state: {state!r}")
         clean_signals: dict[str, float] = {}
         for key in WEIGHT_KEYS:
-            value = float(signals[key])
+            value = _as_float(signals[key], f"{pid} signal {key}")
             if not math.isfinite(value):
                 raise ValueError(f"{pid} signal {key} is not finite: {value}")
             clean_signals[key] = value
@@ -85,7 +116,7 @@ def companies_from_rows(rows: list[dict], source: str | Path = "<memory>") -> li
                 state=state,
                 club_id=str(row.get("club_id") or ""),
                 manager_id=str(row.get("manager_id") or ""),
-                key_member=bool(row.get("key_member", False)),
+                key_member=parse_bool(row.get("key_member", False), "key_member"),
                 signals=clean_signals,
             )
         )

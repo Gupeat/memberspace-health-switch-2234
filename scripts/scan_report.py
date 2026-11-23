@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 SUFFIX = re.compile(r"(有限公司|集团|工作室|中心)")
-TEXT_SUFFIXES = {".md", ".csv", ".json", ".txt", ".log", ".html", ".xml", ".yaml", ".yml"}
+TEXT_SUFFIXES = {".md", ".csv", ".tsv", ".json", ".txt", ".log", ".html", ".xml", ".yaml", ".yml"}
 
 
 def load_blacklist(path: str | Path) -> list[str]:
