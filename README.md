@@ -19,7 +19,8 @@ python -m cal.cli verify-health-switch --from v3 --to v4 --mode pre --out out/re
 python -m cal.cli verify-health-switch --from v3 --to v4 --mode post \
   --actual fixtures/actual.csv --estimate out/report/estimate.csv --out out/report
 python scripts/scan_report.py --dir out/report --dir out/negative --dir artifacts \
-  --blacklist fixtures/company_names.txt --log out/report/scan.log --min-files 12
+  --blacklist fixtures/company_names.txt --log out/report/scan.log \
+  --exclude artifacts/clean-room --min-files 12
 python -m pytest -q
 python scripts/run_acceptance.py   # 一键跑 pre/post/negative/scan/pytest 并写 artifacts/ACCEPTANCE.md
 python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重跑 pytest + acceptance
@@ -30,8 +31,8 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - pre：500 家企业，预计 120 家状态变化，6 家冻结状态企业的分数档位会变。
 - post：一致率 100.00%（120/120），冻结状态错误 0，预警任务缺失 0，原因/版本错误 0。
 - negative：把 2 家企业的切换后状态改回旧状态，一致率 118/120 = 98.33%，退出码 2。
-- scan：扫描 out/report、out/negative、artifacts，企业名命中 0，退出码 0；任一目录无文本文件、或三个目录合计文件数低于 `--min-files` 时失败；acceptance 要求合计至少 12 个文件。
-- clean room：复制仓库但不带缓存和 `out/`，50 passed + acceptance PASS（`artifacts/clean-room/`）。
+- scan：扫描 out/report、out/negative、artifacts（`--exclude artifacts/clean-room`），企业名命中 0，退出码 0；任一目录无文本文件、或三个目录合计文件数低于 `--min-files` 时失败；acceptance 要求合计至少 12 个文件，验收前 20 个、复扫 24 个。
+- clean room：复制仓库但不带缓存和 `out/`，57 passed + acceptance PASS（`artifacts/clean-room/`）。
 
 ## AC 对照
 
@@ -106,7 +107,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 python -m pytest -q
 ```
 
-测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`、pre 守卫与旧产物清理、post 拒绝 `--config`、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔严格解析、非法 asof（含 20261123 这类非 ISO 写法）/null 权重/NaN 权重/空快照/非法 warn_tasks 行拒绝、post 失败清理旧 PASS 但保留 estimate、acceptance 早期失败不保留旧 PASS 证据、clean-room 失败不保留旧 PASS 证据。
+测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`/`--exclude`、pre 守卫与旧产物清理、post 拒绝 `--config`、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔严格解析、非法 asof（含 20261123 这类非 ISO 写法）/null/NaN/布尔权重/空快照/非法 warn_tasks 行（含空 pid）拒绝、post 失败清理旧 PASS 但保留 estimate、全新 out 仍写 post-failed、CLI 解析失败清理旧产物、超长 CSV 字段转输入错误、acceptance 早期失败不保留旧 PASS 证据、clean-room 失败不保留旧 PASS 证据。
 
 ## 已知限制
 

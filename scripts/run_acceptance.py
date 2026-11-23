@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
 
 from cal.report import check_log_consistency, write_json, write_run_log  # noqa: E402
 
-EXPECTED_TESTS = 50
+EXPECTED_TESTS = 57
 MIN_SCANNED_FILES = 12
 ASOF = "2026-11-22"
 EVIDENCE_FILES = ("acceptance.json", "ACCEPTANCE.md", "FINAL-SCAN.md", "final-scan.log")
@@ -123,6 +123,7 @@ def main() -> int:
         "--dir", args.artifacts,
         "--blacklist", "fixtures/company_names.txt",
         "--log", f"{args.out}/scan.log",
+        "--exclude", "artifacts/clean-room",
         "--min-files", str(MIN_SCANNED_FILES),
     ])
     write_log(logs / "scan.log", steps["scan"])
@@ -265,18 +266,17 @@ def main() -> int:
         "--dir", args.artifacts,
         "--blacklist", "fixtures/company_names.txt",
         "--log", str(final_log),
+        "--exclude", "artifacts/clean-room",
         "--min-files", str(MIN_SCANNED_FILES),
     ])
     final_text = final_log.read_text(encoding="utf-8") if final_log.is_file() else ""
     final_scanned = int(re.search(r"scanned_files=(\d+)", final_text).group(1)) if "scanned_files=" in final_text else 0
     final_hits = int(re.search(r"hits=(\d+)", final_text).group(1)) if "hits=" in final_text else -1
     final_ok = final_scan["exit"] == 0 and final_scanned >= MIN_SCANNED_FILES and final_hits == 0
+    acceptance["final_scan"] = {"scanned_files": final_scanned, "hits": final_hits, "exit": final_scan["exit"]}
+    write_json(artifacts / "acceptance.json", acceptance)
     coverage = "本轮 ACCEPTANCE.md、acceptance.json、artifacts/logs、out/report、out/negative"
-    clean_room = artifacts / "clean-room"
-    if clean_room.is_dir():
-        clean_room_files = sum(1 for path in clean_room.rglob("*") if path.is_file())
-        coverage += f"，以及上一代 artifacts/clean-room（{clean_room_files} 个文件）"
-    coverage += "；因此计数较验收前多。"
+    coverage += "；上一代 artifacts/clean-room 是嵌套的历史证据，扫描时排除，避免计数随历史目录变化。"
     final_lines = [
         "# 最终复扫",
         "",

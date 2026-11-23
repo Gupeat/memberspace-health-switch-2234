@@ -23,13 +23,19 @@ def load_blacklist(path: str | Path) -> list[str]:
     return names
 
 
-def scan(directories: list[str | Path], names: list[str], log_path: str | Path) -> tuple[int, int, list[str]]:
+def scan(
+    directories: list[str | Path],
+    names: list[str],
+    log_path: str | Path,
+    exclude: tuple[str | Path, ...] | list[str | Path] = (),
+) -> tuple[int, int, list[str]]:
     # Every requested directory must exist and contain at least one text file;
     # an empty directory is a coverage failure, not a silent no-op.
     log_target = Path(log_path)
     hits: list[str] = []
     scanned = 0
     roots = [Path(directory) for directory in directories]
+    excluded = [Path(item).resolve() for item in exclude]
     empty_roots: list[str] = []
     for root in roots:
         if not root.is_dir():
@@ -38,7 +44,10 @@ def scan(directories: list[str | Path], names: list[str], log_path: str | Path) 
         for path in sorted(root.rglob("*")):
             if not path.is_file():
                 continue
-            if path.resolve() == log_target.resolve():
+            resolved = path.resolve()
+            if resolved == log_target.resolve():
+                continue
+            if any(resolved == item or item in resolved.parents for item in excluded):
                 continue
             if path.suffix.lower() not in TEXT_SUFFIXES:
                 continue
@@ -72,6 +81,7 @@ def main() -> int:
     parser.add_argument("--blacklist", default="fixtures/company_names.txt")
     parser.add_argument("--log", default=None)
     parser.add_argument("--min-files", type=int, default=0, help="扫描文件数下限；低于该值判失败")
+    parser.add_argument("--exclude", action="append", default=[], help="要排除的目录或文件，可重复；相对路径按当前目录解析")
     args = parser.parse_args()
     if args.min_files < 0:
         print("scan error: --min-files must be >= 0", file=sys.stderr)
@@ -79,7 +89,7 @@ def main() -> int:
     log_path = Path(args.log) if args.log else Path(args.dir[0]) / "scan.log"
     try:
         names = load_blacklist(args.blacklist)
-        scanned, hits, empty_roots = scan(args.dir, names, log_path)
+        scanned, hits, empty_roots = scan(args.dir, names, log_path, args.exclude)
     except (OSError, ValueError) as exc:
         print(f"scan error: {exc}", file=sys.stderr)
         return 1

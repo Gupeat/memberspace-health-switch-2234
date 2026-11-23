@@ -74,13 +74,13 @@ pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`
 
 - `out/report`（pre/post 产物、报告、日志）；
 - `out/negative`（负例产物）；
-- `artifacts`（验收记录）；
+- `artifacts`（验收记录），但 `--exclude artifacts/clean-room` 排除嵌套的上一代干净副本证据；
 - 20 个虚构企业名（`fixtures/company_names.txt`）；
 - 名称后缀 `有限公司|集团|工作室|中心`。
 
-命中数必须为 0；扫描器自身的 `scan.log` 不参与扫描。报告只允许 company_pid、manager_id、club_id 等假名 id。每个 `--dir` 都必须含文本文件，否则失败；`--min-files` 可要求扫描文件数下限，acceptance 使用 12，避免 AC4 空转。
+命中数必须为 0；扫描器自身的 `scan.log` 不参与扫描。报告只允许 company_pid、manager_id、club_id 等假名 id。每个 `--dir` 都必须含文本文件，否则失败；`--min-files` 可要求扫描文件数下限，acceptance 使用 12，避免 AC4 空转。clean-room 是嵌套的历史证据，若把它计入会让验收计数随上一代目录变化，因此两次扫描都用 `--exclude` 排除；本版验收前固定 20 个文件、复扫固定 24 个文件。
 
-`scripts/run_acceptance.py` 会依次跑 pre/post/negative/scan/pytest，并在 `out/report/run.log` 末行追加 `mode=acceptance` 的 `checks`：一致率、冻结集合、reason/版本、扫描命中、negative 退出码、测试数。`check_log_consistency` 只回读该行与内存 checks 对比（不解析 compare.json/report.md）；不一致按失败处理。写出 ACCEPTANCE.md/acceptance.json 后还会对三个目录做一次最终复扫，结果写入 `artifacts/FINAL-SCAN.md` 和 `final-scan.log`；这两个文件在复扫之后生成，不声称被本次扫描覆盖。
+`scripts/run_acceptance.py` 会依次跑 pre/post/negative/scan/pytest，并在 `out/report/run.log` 末行追加 `mode=acceptance` 的 `checks`：一致率、冻结集合、reason/版本、扫描命中、negative 退出码、测试数。`check_log_consistency` 只回读该行与内存 checks 对比（不解析 compare.json/report.md）；不一致按失败处理。写出 ACCEPTANCE.md/acceptance.json 后还会对三个目录做一次最终复扫，结果写入 `artifacts/FINAL-SCAN.md`、`final-scan.log` 和 `acceptance.json` 的 `final_scan` 字段；这两个文件在复扫之后生成，不声称被本次扫描覆盖。
 
 ## 10. 退出码汇总
 

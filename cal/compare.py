@@ -7,7 +7,7 @@ import math
 from pathlib import Path
 from typing import Any
 
-from cal.config import load_json
+from cal.config import load_json, parse_bool
 from cal.models import (
     ChangeRow,
     Company,
@@ -20,6 +20,13 @@ from cal.models import (
 from cal.scoring import score_company
 
 
+def _csv_rows(reader: csv.DictReader, label: str):
+    try:
+        yield from reader
+    except csv.Error as exc:
+        raise ValueError(f"{label} is not valid CSV: {exc}") from exc
+
+
 def load_actual_snapshot(path: str | Path) -> dict[str, dict[str, Any]]:
     """Load a full-state snapshot. Required columns: company_pid,state,score."""
     snapshot: dict[str, dict[str, Any]] = {}
@@ -29,7 +36,7 @@ def load_actual_snapshot(path: str | Path) -> dict[str, dict[str, Any]]:
         missing_columns = required - set(reader.fieldnames or [])
         if missing_columns:
             raise ValueError(f"actual snapshot missing columns: {sorted(missing_columns)}")
-        for line_number, row in enumerate(reader, start=2):
+        for line_number, row in enumerate(_csv_rows(reader, f"actual snapshot {path}"), start=2):
             pid = (row.get("company_pid") or "").strip()
             if not pid:
                 raise ValueError(f"actual snapshot line {line_number}: empty company_pid")
@@ -125,7 +132,7 @@ def load_estimate_rows(path: str | Path) -> list[ChangeRow]:
         missing_columns = required - set(reader.fieldnames or [])
         if missing_columns:
             raise ValueError(f"estimate file missing columns: {sorted(missing_columns)}")
-        for row in reader:
+        for row in _csv_rows(reader, f"estimate file {path}"):
             pid = (row.get("company_pid") or "").strip()
             if not pid:
                 raise ValueError("estimate file contains empty company_pid")
@@ -148,7 +155,7 @@ def load_estimate_rows(path: str | Path) -> list[ChangeRow]:
                     old_score=round(old_score, 2),
                     new_score=round(new_score, 2),
                     manager_id=(row.get("manager_id") or "").strip(),
-                    key_member=(row.get("key_member") or "").strip().lower() == "true",
+                    key_member=parse_bool((row.get("key_member") or "").strip(), f"estimate file {pid} key_member"),
                     direction=(row.get("direction") or "").strip(),
                     reason=(row.get("reason") or "").strip(),
                     weight_from=(row.get("weight_from") or "").strip(),
@@ -278,9 +285,13 @@ def load_warn_task_pids(path: str | Path) -> set[str]:
     for index, row in enumerate(rows):
         if not isinstance(row, dict):
             raise ValueError(f"warn task row {index} must be an object")
-        pid = str(row.get("company_pid") or "").strip()
-        if pid:
-            pids.add(pid)
+        raw_pid = row.get("company_pid")
+        if isinstance(raw_pid, bool) or not isinstance(raw_pid, (str, int)):
+            raise ValueError(f"warn task row {index} has invalid company_pid: {raw_pid!r}")
+        pid = str(raw_pid).strip()
+        if not pid:
+            raise ValueError(f"warn task row {index} has empty company_pid")
+        pids.add(pid)
     return pids
 
 

@@ -75,7 +75,7 @@ def _clear_outputs(out: Path) -> None:
 
 def _clear_post_outputs(out: Path) -> None:
     # Keep estimate.csv / pre-report.md: they are post inputs and pre evidence.
-    for name in ("actual.csv", "changed.csv", "compare.json", "report.md", "run.log", "scan.log"):
+    for name in ("actual.csv", "changed.csv", "pivot.csv", "compare.json", "report.md", "run.log", "scan.log"):
         (out / name).unlink(missing_ok=True)
 
 
@@ -93,6 +93,9 @@ def _pre_fail(args: argparse.Namespace, message: str) -> int:
     out = Path(args.out)
     try:
         _clear_outputs(out)
+        estimate = getattr(args, "estimate", None)
+        if estimate:
+            Path(estimate).unlink(missing_ok=True)
         out.mkdir(parents=True, exist_ok=True)
         write_run_log(
             out / "run.log",
@@ -109,20 +112,23 @@ def _pre_fail(args: argparse.Namespace, message: str) -> int:
     return 1
 
 
-def _post_fail(args: argparse.Namespace, message: str, code: int = 1) -> int:
+def _post_fail(args: argparse.Namespace, message: str, code: int = 1, create: bool = True) -> int:
     out = Path(args.out)
+    if not create and not out.exists():
+        print(message, file=sys.stderr)
+        return code
     try:
-        if out.exists():
-            _clear_post_outputs(out)
-            write_run_log(
-                out / "run.log",
-                mode="post-failed",
-                version_from=args.from_version,
-                version_to=args.to_version,
-                out=str(out),
-                asof=args.asof or date.today().isoformat(),
-                extra={"error": message},
-            )
+        out.mkdir(parents=True, exist_ok=True)
+        _clear_post_outputs(out)
+        write_run_log(
+            out / "run.log",
+            mode="post-failed",
+            version_from=args.from_version,
+            version_to=args.to_version,
+            out=str(out),
+            asof=args.asof or date.today().isoformat(),
+            extra={"error": message},
+        )
     except OSError:
         pass
     print(message, file=sys.stderr)
@@ -220,7 +226,7 @@ def _run_pre(args: argparse.Namespace) -> int:
 
 def _run_post(args: argparse.Namespace) -> int:
     if args.config:
-        return _post_fail(args, "--config is only supported in pre mode; post reads --weights-from/--weights-to and --actual")
+        return _post_fail(args, "--config is only supported in pre mode; post reads --weights-from/--weights-to and --actual", create=False)
     if not args.actual:
         return _post_fail(args, "post requires --actual")
     asof = args.asof or date.today().isoformat()
@@ -367,22 +373,41 @@ def _run_post(args: argparse.Namespace) -> int:
     return 0
 
 
+def _raw_out(argv: list[str] | None) -> Path:
+    values = list(sys.argv[1:] if argv is None else argv)
+    for index, value in enumerate(values):
+        if value == "--out" and index + 1 < len(values):
+            return Path(values[index + 1])
+        if value.startswith("--out="):
+            return Path(value.split("=", 1)[1])
+    return Path("out/report")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
-    args = parser.parse_args(argv)
+    try:
+        args = parser.parse_args(argv)
+    except SystemExit as exc:
+        if exc.code == 2:
+            try:
+                _clear_outputs(_raw_out(argv))
+            except OSError:
+                pass
+        raise
     try:
         if args.command == "verify-health-switch":
             is_pre = args.mode == "pre"
-            fail = _pre_fail if is_pre else _post_fail
             if args.from_version == args.to_version:
-                return fail(args, "--from and --to must differ")
+                message = "--from and --to must differ"
+                return _pre_fail(args, message) if is_pre else _post_fail(args, message, create=False)
             if args.asof:
                 try:
                     parse_asof(args.asof)
                 except ValueError as exc:
-                    return fail(args, str(exc))
+                    return _pre_fail(args, str(exc)) if is_pre else _post_fail(args, str(exc), create=False)
             if not 0.99 <= args.threshold <= 1.0:
-                return fail(args, "--threshold must be between 0.99 and 1.0")
+                message = "--threshold must be between 0.99 and 1.0"
+                return _pre_fail(args, message) if is_pre else _post_fail(args, message, create=False)
             return _run_pre(args) if is_pre else _run_post(args)
     except (ValueError, OSError, TypeError) as exc:
         if args.command == "verify-health-switch":

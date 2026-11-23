@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T01:11:05Z",
+  "generated_at": "2026-11-23T04:20:07Z",
   "all_passed": true,
   "checks": {
     "ratio": 1.0,
@@ -25,9 +25,9 @@
     "negative_exit": 2,
     "post_exit": 0,
     "scan_min_files": 12,
-    "tests_passed": 50,
+    "tests_passed": 57,
     "tests_skipped": 0,
-    "tests_expected": 50,
+    "tests_expected": 57,
     "tests_exit": 0
   },
   "log_errors": [],
@@ -49,8 +49,13 @@
       "exit": 0
     },
     "scan": {
-      "command": "python scripts/scan_report.py --dir out/report --dir out/negative --dir artifacts --blacklist fixtures/company_names.txt --log out/report/scan.log --min-files 12",
+      "command": "python scripts/scan_report.py --dir out/report --dir out/negative --dir artifacts --blacklist fixtures/company_names.txt --log out/report/scan.log --exclude artifacts/clean-room --min-files 12",
       "exit": 0
     }
+  },
+  "final_scan": {
+    "scanned_files": 24,
+    "hits": 0,
+    "exit": 0
   }
 }
