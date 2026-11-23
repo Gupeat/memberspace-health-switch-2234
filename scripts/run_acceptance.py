@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
 
 from cal.report import check_log_consistency, write_json, write_run_log  # noqa: E402
 
-EXPECTED_TESTS = 37
+EXPECTED_TESTS = 44
 MIN_SCANNED_FILES = 12
 ASOF = "2026-11-22"
 
@@ -234,13 +234,19 @@ def main() -> int:
     final_scanned = int(re.search(r"scanned_files=(\d+)", final_text).group(1)) if "scanned_files=" in final_text else 0
     final_hits = int(re.search(r"hits=(\d+)", final_text).group(1)) if "hits=" in final_text else -1
     final_ok = final_scan["exit"] == 0 and final_scanned >= MIN_SCANNED_FILES and final_hits == 0
+    coverage = "本轮 ACCEPTANCE.md、acceptance.json、artifacts/logs、out/report、out/negative"
+    clean_room = artifacts / "clean-room"
+    if clean_room.is_dir():
+        clean_room_files = sum(1 for path in clean_room.rglob("*") if path.is_file())
+        coverage += f"，以及上一代 artifacts/clean-room（{clean_room_files} 个文件）"
+    coverage += "；因此计数较验收前多。"
     final_lines = [
         "# 最终复扫",
         "",
         f"- 时间：{datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}",
         f"- 命令：{str(final_scan['command']).replace(str(ROOT), '<repo>').replace(chr(92), '/')}",
         f"- 结果：{'PASS' if final_ok else 'FAIL'}；scanned_files={final_scanned}；hits={final_hits}；exit={final_scan['exit']}",
-        "- 覆盖：本轮 ACCEPTANCE.md、acceptance.json、artifacts/logs、out/report、out/negative。",
+        f"- 覆盖：{coverage}",
         "- 边界：FINAL-SCAN.md 与 final-scan.log 在本次复扫之后写入，不声称被本次扫描覆盖。",
         "",
     ]
