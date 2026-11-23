@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import sys
 from pathlib import Path
@@ -7,10 +8,11 @@ from pathlib import Path
 import pytest
 
 from cal.adapters.crm_source import map_crm_record
-from cal.compare import load_warn_task_pids
+from cal.compare import load_actual_snapshot, load_warn_task_pids
 from cal.config import companies_from_rows
 from scripts import run_acceptance
 from scripts.run_clean_room import publish_evidence
+from scripts.scan_report import scan
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "fixtures"
@@ -161,7 +163,7 @@ def test_post_failure_clears_stale_pass_but_keeps_estimate(cli, pre_out, tmp_pat
     )
     assert result.returncode == 1
     assert "missing" in result.stderr.lower() or "not found" in result.stderr.lower()
-    for name in ("actual.csv", "changed.csv", "compare.json", "report.md", "scan.log"):
+    for name in ("actual.csv", "changed.csv", "pivot.csv", "compare.json", "report.md", "scan.log"):
         assert not (pre_out / name).exists(), name
     assert (pre_out / "estimate.csv").is_file()
     assert '"mode": "post-failed"' in (pre_out / "run.log").read_text(encoding="utf-8")
@@ -202,3 +204,75 @@ def test_null_warn_task_row_is_rejected(tmp_path):
     path.write_text('{"tasks": [null]}', encoding="utf-8")
     with pytest.raises(ValueError, match="row 0 must be an object"):
         load_warn_task_pids(path)
+
+
+def test_warn_task_empty_pid_is_rejected(tmp_path):
+    path = tmp_path / "warn_tasks.json"
+    path.write_text('{"tasks": [{"company_pid": "  ", "reason": "x"}]}', encoding="utf-8")
+    with pytest.raises(ValueError, match="empty company_pid"):
+        load_warn_task_pids(path)
+
+
+def test_parse_failure_clears_old_outputs(tmp_path, cli):
+    out = tmp_path / "out"
+    _stale(out)
+    (out / "pivot.csv").write_text("old pivot\n", encoding="utf-8")
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
+                 "--threshold", "abc", "--out", str(out))
+    assert result.returncode == 2
+    for name in ("report.md", "scan.log", "pivot.csv", "run.log"):
+        assert not (out / name).exists(), name
+
+
+def test_post_failure_on_fresh_out_still_writes_log(cli, pre_out, tmp_path):
+    fresh = tmp_path / "fresh-out"
+    result = cli(
+        "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
+        "--actual", str(tmp_path / "missing-actual.csv"),
+        "--estimate", str(pre_out / "estimate.csv"), "--out", str(fresh),
+    )
+    assert result.returncode == 1
+    assert '"mode": "post-failed"' in (fresh / "run.log").read_text(encoding="utf-8")
+
+
+def test_pre_failure_removes_custom_estimate_artifact(tmp_path, cli):
+    config = _write_config(tmp_path, asof="2026-02-31")
+    custom = tmp_path / "custom-estimate.csv"
+    custom.write_text("company_pid,state,score\nc-1,active,1\n", encoding="utf-8")
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre",
+                 "--config", str(config), "--estimate", str(custom), "--out", str(tmp_path / "out"))
+    assert result.returncode == 1
+    assert not custom.exists()
+
+
+def test_oversized_csv_field_is_rejected(tmp_path):
+    path = tmp_path / "actual.csv"
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        handle.write("company_pid,state,score\n")
+        handle.write("c-1,active," + "9" * 140000 + "\n")
+    with pytest.raises(ValueError, match="not valid CSV"):
+        load_actual_snapshot(path)
+
+
+def test_bool_weight_and_company_pid_are_rejected(tmp_path, cli):
+    weights = json.loads((FIXTURES / "weights-v3.json").read_text(encoding="utf-8"))
+    weights["weights"]["activity"] = True
+    path = tmp_path / "weights-bool.json"
+    path.write_text(json.dumps(weights), encoding="utf-8")
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre",
+                 "--weights-from", str(path), "--out", str(tmp_path / "out"))
+    assert result.returncode == 1
+    assert "must be numeric" in result.stderr
+    with pytest.raises(ValueError, match="invalid company_pid"):
+        companies_from_rows([{"company_pid": {"x": 1}, "state": "active", "signals": {}}])
+
+
+def test_scan_excludes_directory_prefix(tmp_path):
+    root = tmp_path / "root"
+    (root / "keep").mkdir(parents=True)
+    (root / "skip" / "nested").mkdir(parents=True)
+    (root / "keep" / "a.md").write_text("clean\n", encoding="utf-8")
+    (root / "skip" / "nested" / "b.md").write_text("clean\n", encoding="utf-8")
+    log = tmp_path / "scan.log"
+    scanned, hits, empty_roots = scan([root], ["不存在公司"], log, [root / "skip"])
+    assert (scanned, hits, empty_roots) == (1, 0, [])

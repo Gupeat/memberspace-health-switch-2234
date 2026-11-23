@@ -18,9 +18,11 @@ def load_json(path: str | Path) -> Any:
 
 
 def _as_float(raw: object, field: str) -> float:
+    if isinstance(raw, bool):
+        raise ValueError(f"{field} must be numeric, got {raw!r}")
     try:
         return float(raw)
-    except (TypeError, ValueError) as exc:
+    except (TypeError, ValueError, OverflowError) as exc:
         raise ValueError(f"{field} must be numeric, got {raw!r}") from exc
 
 
@@ -90,7 +92,10 @@ def companies_from_rows(rows: list[dict], source: str | Path = "<memory>") -> li
     for index, row in enumerate(rows):
         if not isinstance(row, dict):
             raise ValueError(f"company row {index} must be an object")
-        pid = str(row.get("company_pid") or "").strip()
+        raw_pid = row.get("company_pid")
+        if isinstance(raw_pid, bool) or not isinstance(raw_pid, (str, int)):
+            raise ValueError(f"company row {index} has invalid company_pid: {raw_pid!r}")
+        pid = str(raw_pid).strip()
         if not pid:
             raise ValueError(f"company row {index} has no company_pid")
         if pid in seen:
