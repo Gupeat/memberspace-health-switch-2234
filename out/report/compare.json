@@ -3,7 +3,7 @@
   "from": "v3",
   "to": "v4",
   "asof": "2026-11-22",
-  "generated_at": "2026-11-22T23:28:28Z",
+  "generated_at": "2026-11-23T00:21:27Z",
   "estimate_path": "out/report/estimate.csv",
   "estimate_sha256": "f3403c459698c9586d7cfb99cc463968ebd1bbfddea37b48e14d2d5bd4ac8679",
   "ratio": 1.0,

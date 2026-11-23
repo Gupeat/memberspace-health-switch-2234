@@ -31,7 +31,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - post：一致率 100.00%（120/120），冻结状态错误 0，预警任务缺失 0，原因/版本错误 0。
 - negative：把 2 家企业的切换后状态改回旧状态，一致率 118/120 = 98.33%，退出码 2。
 - scan：扫描 out/report、out/negative、artifacts，企业名命中 0，退出码 0；任一目录无文本文件、或三个目录合计文件数低于 `--min-files` 时失败；acceptance 要求合计至少 12 个文件。
-- clean room：复制仓库但不带缓存和 `out/`，37 passed + acceptance PASS（`artifacts/clean-room/`）。
+- clean room：复制仓库但不带缓存和 `out/`，44 passed + acceptance PASS（`artifacts/clean-room/`）。
 
 ## AC 对照
 
@@ -40,7 +40,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 | AC1 | 虚构数据上切换后实际变化与预估清单一致率 ≥99%（脚本输出） | `post` 读取 pre 的 `estimate.csv` 与全量 `actual.csv`，按并集与四元匹配键计算**状态+分数**一致率（old/new 分数容差 0.01）；分数超差计为不匹配 | `out/report/compare.json`、`out/report/report.md`、`artifacts/ACCEPTANCE.md` |
 | AC2 | 切换后续约与已流失状态的企业数量与切换前相同（测试断言） | 冻结状态不进入变化清单；post 逐家核对状态并比较 renewed/churned 计数 | `tests/test_frozen_states.py`、`compare.json` 的 `frozen_counts`、`artifacts/ACCEPTANCE.md` |
 | AC3 | 每条状态变化记录都带触发原因与版本号（测试断言） | `changed.csv` 的 reason 固定为“权重版本切换”，weight_from/weight_to 为实际版本 | `tests/test_reason_version.py`、`out/report/changed.csv` |
-| AC4 | 报告中只出现假名 id，扫描不到企业名称（扫描输出） | 报告只写 company_pid/manager_id/club_id；扫描 out/report、out/negative、artifacts 中的 20 个虚构企业名与名称后缀；任一目录无文本文件、或文件数低于 12 时失败，验收后再做一次全量复扫 | `scripts/scan_report.py`、`out/report/scan.log`、`artifacts/ACCEPTANCE.md` |
+| AC4 | 报告中只出现假名 id，扫描不到企业名称（扫描输出） | 报告只写 company_pid/manager_id/club_id；扫描 out/report、out/negative、artifacts 中的 20 个虚构企业名与名称后缀；任一目录无文本文件、或三目录合计文件数低于 12 时失败，验收后再做一次全量复扫 | `scripts/scan_report.py`、`out/report/scan.log`、`artifacts/ACCEPTANCE.md` |
 
 ## 数据与口径
 
@@ -98,7 +98,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - 切换后全量状态快照（company_pid/state/score）：`--actual` 的 CSV，由 `cal/compare.py` 的 `load_actual_snapshot` 读取。
 - 流失预警任务（company_pid 列表）：`--warn-tasks` 的 JSON，由 `cal/compare.py` 的 `load_warn_task_pids` 读取。
 
-接真实 CRM 时按这三处的字段映射替换输入；`map_crm_record` 只是字段映射辅助函数，当前样本 CLI 不调用它。本工具不自己写 CRM，也不读取生产数据库；切换执行与回滚由 CRM 负责，本工具只做离线验证。
+接真实 CRM 时按这三处的字段映射替换输入；CRM 形状的行（`pid`/`lifecycle_status`/`*_score`）经 `_normalize_record` 调用 `map_crm_record` 映射，只有已含四个 `signals` 的内部快照样本不触发映射。本工具不自己写 CRM，也不读取生产数据库；切换执行与回滚由 CRM 负责，本工具只做离线验证。
 
 ## 测试
 
@@ -106,7 +106,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 python -m pytest -q
 ```
 
-测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`、pre 守卫与旧产物清理、post 拒绝 `--config`、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 映射。
+测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`、pre 守卫与旧产物清理、post 拒绝 `--config`、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔严格解析、非法 asof/NaN 权重/空快照拒绝、clean-room 失败不保留旧 PASS 证据。
 
 ## 已知限制
 

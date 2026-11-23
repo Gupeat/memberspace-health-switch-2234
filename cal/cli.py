@@ -67,9 +67,29 @@ def _config_path(args: argparse.Namespace) -> Path:
 def _clear_outputs(out: Path) -> None:
     for name in (
         "estimate.csv", "frozen_would_change.csv", "pivot.csv", "summary.json", "pre-report.md", "run.log",
-        "actual.csv", "changed.csv", "compare.json", "report.md",
+        "actual.csv", "changed.csv", "compare.json", "report.md", "scan.log",
     ):
         (out / name).unlink(missing_ok=True)
+
+
+def _pre_fail(args: argparse.Namespace, message: str) -> int:
+    out = Path(args.out)
+    try:
+        _clear_outputs(out)
+        out.mkdir(parents=True, exist_ok=True)
+        write_run_log(
+            out / "run.log",
+            mode="pre-failed",
+            version_from=args.from_version,
+            version_to=args.to_version,
+            out=str(out),
+            asof=args.asof or date.today().isoformat(),
+            extra={"error": message},
+        )
+    except OSError:
+        pass
+    print(message, file=sys.stderr)
+    return 1
 
 
 def _utc_now() -> str:
@@ -80,6 +100,10 @@ def _run_pre(args: argparse.Namespace) -> int:
     out = Path(args.out)
     config = load_config(_config_path(args))
     asof = args.asof or config.get("asof") or date.today().isoformat()
+    try:
+        date.fromisoformat(asof)
+    except ValueError:
+        return _pre_fail(args, f"config asof/--asof is not a valid YYYY-MM-DD date: {asof}")
     if config["active_version"] != args.from_version:
         _clear_outputs(out)
         write_run_log(
@@ -99,9 +123,10 @@ def _run_pre(args: argparse.Namespace) -> int:
     version_from, weights_from = load_weights(args.weights_from)
     version_to, weights_to = load_weights(args.weights_to)
     if version_from != args.from_version or version_to != args.to_version:
-        print("weight file version does not match --from/--to", file=sys.stderr)
-        return 1
+        return _pre_fail(args, "weight file version does not match --from/--to")
     companies = load_companies_from_snapshot(args.crm)
+    if not companies:
+        return _pre_fail(args, f"company snapshot is empty: {args.crm}")
     changes, frozen_rows = estimate_changes(
         companies,
         weights_from,
@@ -170,6 +195,9 @@ def _run_post(args: argparse.Namespace) -> int:
         print("weight file version does not match --from/--to", file=sys.stderr)
         return 1
     companies = load_companies_from_snapshot(args.crm)
+    if not companies:
+        print(f"company snapshot is empty: {args.crm}", file=sys.stderr)
+        return 1
     estimate_path = Path(args.estimate) if args.estimate else Path(args.out) / "estimate.csv"
     if not estimate_path.is_file():
         print(f"estimate file not found: {estimate_path}", file=sys.stderr)
@@ -328,6 +356,8 @@ def main(argv: list[str] | None = None) -> int:
                 return 1
             return _run_pre(args) if args.mode == "pre" else _run_post(args)
     except (ValueError, OSError) as exc:
+        if args.command == "verify-health-switch" and args.mode == "pre":
+            return _pre_fail(args, f"error: {exc}")
         print(f"error: {exc}", file=sys.stderr)
         return 1
     return 1

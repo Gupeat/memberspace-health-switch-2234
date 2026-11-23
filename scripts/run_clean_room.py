@@ -20,6 +20,25 @@ IGNORE = shutil.ignore_patterns(
     "out",
     "clean-room",
 )
+EVIDENCE_FILES = ("ACCEPTANCE.md", "FINAL-SCAN.md", "final-scan.log", "acceptance.json")
+
+
+def publish_evidence(room: Path, evidence: Path, failed: bool) -> None:
+    """Copy this run's evidence, never leaving an older PASS generation behind."""
+    evidence.mkdir(parents=True, exist_ok=True)
+    marker = evidence / "FAILED"
+    if failed:
+        for name in EVIDENCE_FILES:
+            (evidence / name).unlink(missing_ok=True)
+        marker.write_text("clean-room run failed; previous PASS evidence was removed\n", encoding="utf-8", newline="\n")
+        return
+    marker.unlink(missing_ok=True)
+    for name in EVIDENCE_FILES:
+        source = room / "artifacts" / name
+        if source.is_file():
+            shutil.copyfile(source, evidence / name)
+        else:
+            (evidence / name).unlink(missing_ok=True)
 
 
 def main() -> int:
@@ -52,11 +71,7 @@ def main() -> int:
                 break
 
         evidence = ROOT / "artifacts" / "clean-room"
-        evidence.mkdir(parents=True, exist_ok=True)
-        for name in ("ACCEPTANCE.md", "FINAL-SCAN.md", "final-scan.log", "acceptance.json"):
-            source = room / "artifacts" / name
-            if source.is_file():
-                shutil.copyfile(source, evidence / name)
+        publish_evidence(room, evidence, failed)
         text = "\n".join(lines).replace(str(room), "<repo>")
         (evidence / "clean-room.log").write_text(text, encoding="utf-8", newline="\n")
 

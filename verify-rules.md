@@ -22,7 +22,7 @@
 
 ## 3. 切换前（pre）守卫
 
-pre 读取配置里的 `active_version`。只有它等于 `--from` 时才允许生成预估，否则先删除同一输出目录里的旧 pre/post 产物（包括 estimate.csv、pre-report.md、report.md、compare.json、changed.csv、actual.csv、run.log），写一条 `mode="pre-guard-failed"` 的 run.log，再退出码 3。这是为了证明预估值确实由“当前生效的 v3”算出，而不是用 v4 反推，也避免误用上一轮残留。
+pre 读取配置里的 `active_version`。只有它等于 `--from` 时才允许生成预估，否则先删除同一输出目录里的旧 pre/post 产物（包括 estimate.csv、pre-report.md、report.md、compare.json、changed.csv、actual.csv、run.log、scan.log），写一条 `mode="pre-guard-failed"` 的 run.log，再退出码 3。任何 pre 输入错误（非法 asof、NaN 权重、空快照、权重版本不符）也先清理旧产物并写 `mode="pre-failed"`，避免把上一代 PASS 当成当前结果。这是为了证明预估值确实由“当前生效的 v3”算出，而不是用 v4 反推。
 
 pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`，两者互不覆盖；交付同时包含预估样例与核对样例。`--from == --to` 在进入子命令前直接按输入错误拒绝（退出码 1）。
 
@@ -46,7 +46,7 @@ pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`
 - 阈值：默认 0.99，只允许 0.99–1.0；`ratio = matched / total`（保留 6 位小数）。低于 0.99 的 `--threshold` 按输入错误拒绝。
 - 边界样例：120/120=1.000000 通过；119/120=0.991667 通过；118/120=0.983333 不通过（退出码 2）。只改分数也可能触发不通过。
 - post 把读入的全量快照规范化为 `out/report/actual.csv`（company_pid/state/score），不含企业名称；`compare.json` 记录 estimate 路径与 SHA-256。
-- 数据日期 `--asof` 默认为配置里的 `asof`（pre）或当天（post），格式必须是合法的 `YYYY-MM-DD`。
+- 数据日期 `--asof` 默认为配置里的 `asof`（pre）或当天（post）；pre 会校验配置中的 asof，非法 `YYYY-MM-DD` 直接拒绝并清理旧产物。
 
 ## 6. 冻结状态
 

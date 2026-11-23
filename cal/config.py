@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +27,9 @@ def load_weights(path: str | Path) -> tuple[str, dict[str, float]]:
     if missing:
         raise ValueError(f"weight file {path} missing keys: {missing}")
     cleaned = {key: float(weights[key]) for key in WEIGHT_KEYS}
+    for key, value in cleaned.items():
+        if not math.isfinite(value):
+            raise ValueError(f"weight {key} in {path} is not finite: {value}")
     total = sum(cleaned.values())
     if abs(total - 1.0) > 1e-6:
         raise ValueError(f"weights in {path} sum to {total}, expected 1.0")
@@ -38,6 +42,8 @@ def load_config(path: str | Path) -> dict[str, Any]:
     bands.update(document.get("bands") or {})
     active_min = float(bands["active_min"])
     silent_min = float(bands["silent_min"])
+    if not (math.isfinite(active_min) and math.isfinite(silent_min)):
+        raise ValueError("active_min and silent_min must be finite")
     if active_min <= silent_min:
         raise ValueError("active_min must be greater than silent_min")
     return {
@@ -66,6 +72,12 @@ def companies_from_rows(rows: list[dict], source: str | Path = "<memory>") -> li
         state = str(row.get("state") or "").strip()
         if state not in ("active", "silent", "churn_warning", "renewed", "churned"):
             raise ValueError(f"{pid} has unsupported state: {state!r}")
+        clean_signals: dict[str, float] = {}
+        for key in WEIGHT_KEYS:
+            value = float(signals[key])
+            if not math.isfinite(value):
+                raise ValueError(f"{pid} signal {key} is not finite: {value}")
+            clean_signals[key] = value
         companies.append(
             Company(
                 company_pid=pid,
@@ -74,7 +86,7 @@ def companies_from_rows(rows: list[dict], source: str | Path = "<memory>") -> li
                 club_id=str(row.get("club_id") or ""),
                 manager_id=str(row.get("manager_id") or ""),
                 key_member=bool(row.get("key_member", False)),
-                signals={key: float(signals[key]) for key in WEIGHT_KEYS},
+                signals=clean_signals,
             )
         )
     return companies
