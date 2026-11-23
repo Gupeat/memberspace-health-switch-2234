@@ -1,12 +1,12 @@
 # 验收记录（AC1–AC4）
 
-- 生成时间：2026-11-23T05:08:48Z
+- 生成时间：2026-11-23T22:12:49Z
 - 总体：PASS
 - 预估值：120 家；实际变化：120 家；并集：120 家
 - 一致率：100.00%（120/120），阈值 99.00%
 - 冻结：{"actual": {"churned": 30, "renewed": 30}, "baseline": {"churned": 30, "renewed": 30}}；reason 错误 0；set_drift 0
 - 扫描（验收前）：20 个文件（要求 ≥12），命中 0；最终复扫见 artifacts/FINAL-SCAN.md；negative：0.983333（exit 2）
-- 测试：64/64 passed，skipped 0（exit 0）；run.log 回读错误 0
+- 测试：66/66 passed，skipped 0（exit 0）；run.log 回读错误 0
 
 ## 命令与退出码
 

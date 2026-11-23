@@ -260,7 +260,7 @@ def _run_post(args: argparse.Namespace) -> int:
     if not snapshot:
         return _post_fail(args, f"actual snapshot is empty: {args.actual}")
     actual_rows, entity_errors, frozen_errors, missing_actual = derive_actual_changes(
-        companies, snapshot, weights_from, version_from, version_to
+        companies, snapshot, weights_from
     )
     baseline_pids = {company.company_pid for company in companies}
     snapshot_errors: list[dict[str, Any]] = []

@@ -251,8 +251,8 @@ def test_pre_failure_removes_custom_estimate_artifact(tmp_path, cli):
 def test_oversized_csv_field_is_rejected(tmp_path):
     path = tmp_path / "actual.csv"
     with path.open("w", encoding="utf-8", newline="") as handle:
-        handle.write("company_pid,state,score\n")
-        handle.write("c-1,active," + "9" * 140000 + "\n")
+        handle.write("company_pid,state,score,reason,weight_from,weight_to\n")
+        handle.write("c-1,active," + "9" * 140000 + ",,,\n")
     with pytest.raises(ValueError, match="not valid CSV"):
         load_actual_snapshot(path)
 
@@ -345,7 +345,7 @@ def test_post_config_on_fresh_out_writes_post_failed(cli, tmp_path):
 
 def test_empty_actual_snapshot_is_input_error(tmp_path, cli, pre_out):
     empty = tmp_path / "empty-actual.csv"
-    empty.write_text("company_pid,state,score\n", encoding="utf-8")
+    empty.write_text("company_pid,state,score,reason,weight_from,weight_to\n", encoding="utf-8")
     out = tmp_path / "out"
     result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
                  "--actual", str(empty), "--estimate", str(pre_out / "estimate.csv"), "--out", str(out))

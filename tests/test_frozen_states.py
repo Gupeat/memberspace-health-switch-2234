@@ -44,10 +44,17 @@ def test_tampered_frozen_status_fails(cli, pre_out, tmp_path):
     for row in rows:
         if row["state"] == "renewed":
             row["state"] = "active"
+            row["reason"] = ""
+            row["weight_from"] = ""
+            row["weight_to"] = ""
             break
     actual = tmp_path / "actual_bad_frozen.csv"
     with actual.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["company_pid", "state", "score"], lineterminator="\n")
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["company_pid", "state", "score", "reason", "weight_from", "weight_to"],
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
     out = tmp_path / "post"

@@ -3,7 +3,7 @@
 - 模式：post（切换后验证）
 - 权重版本：v3 → v4
 - 数据日期：2026-11-22
-- 生成时间：2026-11-23T05:07:53Z
+- 生成时间：2026-11-23T22:11:24Z
 - 预估输入：out/report/estimate.csv，SHA-256 f3403c459698c9586d7cfb99cc463968ebd1bbfddea37b48e14d2d5bd4ac8679
 - 一致率（状态+分数，分数容差 0.01）：98.33%（118/120）
 - 阈值：99.00%
@@ -38,7 +38,7 @@
 
 ## 明细
 
-- actual.csv：切换后 CRM 快照的规范化输出（company_pid/state/score），不含企业名称。
+- actual.csv：切换后 CRM 快照的规范化输出（company_pid/state/score/reason/weight_from/weight_to），不含企业名称；变化行的原因与版本号来自输入，不是工具自填。
 - changed.csv：实际变化清单，每条带 reason=权重版本切换 与 weight_from/weight_to。
 - compare.json：一致率、差集、set_drift、分数漂移、冻结/预警/原因校验的机器可读结果。
 - pivot.csv：按会所、会员经理、四方向分组的计数。

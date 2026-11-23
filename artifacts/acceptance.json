@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T05:08:11Z",
+  "generated_at": "2026-11-23T22:11:42Z",
   "all_passed": true,
   "checks": {
     "ratio": 1.0,
@@ -25,9 +25,9 @@
     "negative_exit": 2,
     "post_exit": 0,
     "scan_min_files": 12,
-    "tests_passed": 64,
+    "tests_passed": 66,
     "tests_skipped": 0,
-    "tests_expected": 64,
+    "tests_expected": 66,
     "tests_exit": 0
   },
   "log_errors": [],
