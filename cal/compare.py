@@ -274,7 +274,14 @@ def load_warn_task_pids(path: str | Path) -> set[str]:
     rows = document.get("tasks") if isinstance(document, dict) else document
     if not isinstance(rows, list):
         raise ValueError("warn task file must be a list or contain 'tasks'")
-    return {str(row.get("company_pid") or "").strip() for row in rows if str(row.get("company_pid") or "").strip()}
+    pids: set[str] = set()
+    for index, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise ValueError(f"warn task row {index} must be an object")
+        pid = str(row.get("company_pid") or "").strip()
+        if pid:
+            pids.add(pid)
+    return pids
 
 
 def check_warn_tasks(actual_rows: list[ChangeRow], warn_pids: set[str]) -> list[dict[str, str]]:

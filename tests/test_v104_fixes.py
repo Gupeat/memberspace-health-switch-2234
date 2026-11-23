@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import pytest
 
 from cal.adapters.crm_source import map_crm_record
+from cal.compare import load_warn_task_pids
+from cal.config import companies_from_rows
+from scripts import run_acceptance
 from scripts.run_clean_room import publish_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -120,3 +124,81 @@ def test_clean_room_failure_never_keeps_old_pass_evidence(tmp_path):
     assert (evidence / "ACCEPTANCE.md").read_text(encoding="utf-8") == "new PASS\n"
     assert not (evidence / "FINAL-SCAN.md").exists()
     assert not (evidence / "FAILED").exists()
+
+def test_cli_invalid_asof_clears_old_outputs(tmp_path, cli):
+    out = tmp_path / "out"
+    _stale(out)
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre",
+                 "--asof", "20261123", "--out", str(out))
+    assert result.returncode == 1
+    assert "--asof must be YYYY-MM-DD" in result.stderr
+    assert not (out / "report.md").exists()
+    assert '"mode": "pre-failed"' in (out / "run.log").read_text(encoding="utf-8")
+
+
+def test_null_weight_clears_old_outputs(tmp_path, cli):
+    weights = json.loads((FIXTURES / "weights-v3.json").read_text(encoding="utf-8"))
+    weights["weights"] = {key: None for key in weights["weights"]}
+    bad_weights = tmp_path / "weights-null.json"
+    bad_weights.write_text(json.dumps(weights), encoding="utf-8")
+    out = tmp_path / "out"
+    _stale(out)
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre",
+                 "--weights-from", str(bad_weights), "--out", str(out))
+    assert result.returncode == 1
+    assert "must be numeric" in result.stderr
+    assert not (out / "report.md").exists()
+    assert '"mode": "pre-failed"' in (out / "run.log").read_text(encoding="utf-8")
+
+
+def test_post_failure_clears_stale_pass_but_keeps_estimate(cli, pre_out, tmp_path):
+    for name in ("actual.csv", "changed.csv", "compare.json", "report.md", "run.log", "scan.log"):
+        (pre_out / name).write_text("old PASS\n", encoding="utf-8")
+    result = cli(
+        "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
+        "--actual", str(tmp_path / "missing-actual.csv"),
+        "--estimate", str(pre_out / "estimate.csv"), "--out", str(pre_out),
+    )
+    assert result.returncode == 1
+    assert "missing" in result.stderr.lower() or "not found" in result.stderr.lower()
+    for name in ("actual.csv", "changed.csv", "compare.json", "report.md", "scan.log"):
+        assert not (pre_out / name).exists(), name
+    assert (pre_out / "estimate.csv").is_file()
+    assert '"mode": "post-failed"' in (pre_out / "run.log").read_text(encoding="utf-8")
+
+
+def test_internal_key_member_string_false_stays_false():
+    row = {
+        "company_pid": "c-0001", "state": "active",
+        "signals": {"activity": 1, "transaction": 1, "engagement": 1, "tenure": 1},
+        "key_member": "false",
+    }
+    assert companies_from_rows([row])[0].key_member is False
+    assert companies_from_rows([{**row, "key_member": "否"}])[0].key_member is False
+
+
+def test_acceptance_early_failure_invalidates_old_pass(tmp_path, monkeypatch):
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir(parents=True)
+    for name in run_acceptance.EVIDENCE_FILES:
+        (artifacts / name).write_text("old PASS\n", encoding="utf-8")
+
+    def fake_run(args):
+        return {"command": "python " + " ".join(args), "exit": 1, "stdout": "", "stderr": "boom"}
+
+    monkeypatch.setattr(run_acceptance, "ROOT", tmp_path)
+    monkeypatch.setattr(run_acceptance, "run", fake_run)
+    monkeypatch.setattr(sys, "argv", ["run_acceptance.py", "--artifacts", "artifacts"])
+
+    assert run_acceptance.main() == 1
+    payload = json.loads((artifacts / "acceptance.json").read_text(encoding="utf-8"))
+    assert payload["all_passed"] is False
+    assert "总体：FAIL" in (artifacts / "ACCEPTANCE.md").read_text(encoding="utf-8")
+    assert (artifacts / "FAILED").is_file()
+    assert not (artifacts / "FINAL-SCAN.md").exists()
+
+def test_null_warn_task_row_is_rejected(tmp_path):
+    path = tmp_path / "warn_tasks.json"
+    path.write_text('{"tasks": [null]}', encoding="utf-8")
+    with pytest.raises(ValueError, match="row 0 must be an object"):
+        load_warn_task_pids(path)

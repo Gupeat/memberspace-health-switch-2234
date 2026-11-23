@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cal-verify-health-switch"
-version = "1.0.4"
+version = "1.0.5"
 description = "Health-score weight switch impact verification"
 requires-python = ">=3.11"
 dependencies = []
@@ -17,3 +17,4 @@ include = ["cal*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]

@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from cal.config import companies_from_rows, load_json
+from cal.config import companies_from_rows, load_json, parse_bool
 from cal.models import Company
 
 SIGNAL_MAP = {
@@ -30,22 +30,6 @@ def _is_internal_snapshot(record: dict) -> bool:
         and all(key in signals for key in SIGNAL_TARGETS)
         and not any(key in record for key in SIGNAL_MAP)
     )
-
-
-def _parse_bool(value: object, field: str) -> bool:
-    if isinstance(value, bool):
-        return value
-    if value is None:
-        return False
-    if isinstance(value, (int, float)) and value in (0, 1):
-        return bool(value)
-    if isinstance(value, str):
-        text = value.strip().lower()
-        if text in ("true", "1", "yes", "y", "是"):
-            return True
-        if text in ("false", "0", "no", "n", ""):
-            return False
-    raise ValueError(f"{field} must be a boolean, got {value!r}")
 
 
 def _normalize_record(record: dict) -> dict:
@@ -99,6 +83,6 @@ def map_crm_record(record: dict) -> dict:
         "state": record.get("state") or record.get("lifecycle_status"),
         "club_id": record.get("club_id"),
         "manager_id": record.get("manager_id") or record.get("owner_manager_id"),
-        "key_member": _parse_bool(record.get("key_member"), "key_member"),
+        "key_member": parse_bool(record.get("key_member"), "key_member"),
         "signals": mapped_signals,
     }

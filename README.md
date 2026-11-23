@@ -4,11 +4,11 @@
 
 本仓库是 ClawHunt #2234 的交付物。数据全部为虚构桩数据（500 家企业（20 个虚构基名 + 3 位后缀，500 个唯一全名）、20 位会员经理、5 个会所），不包含真实企业、真实手机号或客户信息。
 
-GitHub Actions 的 `clean-room` 工作流在公开 Ubuntu + Python 3.12 上重跑单测与一键验收，证据见 Actions 运行记录。
+GitHub Actions 的 `clean-room` 工作流在公开 Ubuntu + Python 3.11/3.12 上重跑单测与一键验收，证据见 Actions 运行记录。
 
 ## 快速开始
 
-要求 Python 3.11+，运行时只用标准库；测试用 pytest。CI 工作流当前固定 Python 3.12，未单独跑 3.11 job。
+要求 Python 3.11+，运行时只用标准库；测试用 pytest。CI 用 3.11/3.12 matrix 各跑一遍。
 
 ```bash
 python -m pip install -r requirements.txt
@@ -31,7 +31,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - post：一致率 100.00%（120/120），冻结状态错误 0，预警任务缺失 0，原因/版本错误 0。
 - negative：把 2 家企业的切换后状态改回旧状态，一致率 118/120 = 98.33%，退出码 2。
 - scan：扫描 out/report、out/negative、artifacts，企业名命中 0，退出码 0；任一目录无文本文件、或三个目录合计文件数低于 `--min-files` 时失败；acceptance 要求合计至少 12 个文件。
-- clean room：复制仓库但不带缓存和 `out/`，44 passed + acceptance PASS（`artifacts/clean-room/`）。
+- clean room：复制仓库但不带缓存和 `out/`，50 passed + acceptance PASS（`artifacts/clean-room/`）。
 
 ## AC 对照
 
@@ -77,7 +77,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 | `frozen_would_change.csv` | 冻结状态中分数档位会变的企业 |
 | `summary.json` / `compare.json` | 机器可读汇总与校验结果 |
 | `pre-report.md` | pre 预估报告样例（独立文件，不会被 post 覆盖） |
-| `report.md` | post 人读核对报告；set_drift 只标 WARN，不计入失败 |
+| `report.md` | post 人读核对报告；set_drift 行标 WARN、不单独判失败，但计入并集分母，可能拉低一致率并触发退出码 2 |
 | `run.log` | 运行记录；末行 `mode=acceptance` 的 `checks` 同时包含一致率、冻结、reason/版本、扫描、negative、测试；`check_log_consistency` 回读校验 |
 | `scan.log` | 企业名称扫描命中数 |
 | `../artifacts/ACCEPTANCE.md` | 一键验收记录（命令、退出码、四组证据） |
@@ -106,7 +106,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 python -m pytest -q
 ```
 
-测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`、pre 守卫与旧产物清理、post 拒绝 `--config`、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔严格解析、非法 asof/NaN 权重/空快照拒绝、clean-room 失败不保留旧 PASS 证据。
+测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`、pre 守卫与旧产物清理、post 拒绝 `--config`、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔严格解析、非法 asof（含 20261123 这类非 ISO 写法）/null 权重/NaN 权重/空快照/非法 warn_tasks 行拒绝、post 失败清理旧 PASS 但保留 estimate、acceptance 早期失败不保留旧 PASS 证据、clean-room 失败不保留旧 PASS 证据。
 
 ## 已知限制
 

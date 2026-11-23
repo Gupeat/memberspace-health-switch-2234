@@ -18,9 +18,40 @@ if str(ROOT) not in sys.path:
 
 from cal.report import check_log_consistency, write_json, write_run_log  # noqa: E402
 
-EXPECTED_TESTS = 44
+EXPECTED_TESTS = 50
 MIN_SCANNED_FILES = 12
 ASOF = "2026-11-22"
+EVIDENCE_FILES = ("acceptance.json", "ACCEPTANCE.md", "FINAL-SCAN.md", "final-scan.log")
+
+
+def invalidate_evidence(artifacts: Path) -> None:
+    """Remove an older PASS generation before this run can fail."""
+    for name in EVIDENCE_FILES:
+        (artifacts / name).unlink(missing_ok=True)
+    (artifacts / "FAILED").unlink(missing_ok=True)
+
+
+def write_failure(artifacts: Path, message: str) -> int:
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    write_json(
+        artifacts / "acceptance.json",
+        {"generated_at": stamp, "all_passed": False, "error": message},
+    )
+    (artifacts / "ACCEPTANCE.md").write_text(
+        "# 验收记录（AC1–AC4）\n\n"
+        f"- 生成时间：{stamp}\n"
+        "- 总体：FAIL\n"
+        f"- 错误：{message}\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    (artifacts / "FAILED").write_text(
+        "acceptance run failed; previous PASS evidence was removed\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    print(f"acceptance FAIL: {message}", file=sys.stderr)
+    return 1
 
 
 def run(args: list[str]) -> dict[str, object]:
@@ -70,6 +101,7 @@ def main() -> int:
         if target.exists():
             shutil.rmtree(target)
     artifacts.mkdir(parents=True, exist_ok=True)
+    invalidate_evidence(artifacts)
     logs = artifacts / "logs"
     if logs.exists():
         shutil.rmtree(logs)
@@ -78,6 +110,12 @@ def main() -> int:
     steps["pre"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre", "--asof", ASOF, "--out", args.out])
     steps["post"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post", "--asof", ASOF, "--actual", "fixtures/actual.csv", "--estimate", f"{args.out}/estimate.csv", "--out", args.out])
     steps["negative"] = run(["-m", "cal.cli", "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post", "--asof", ASOF, "--actual", "fixtures/negative_actual.csv", "--estimate", f"{args.out}/estimate.csv", "--out", args.negative_out])
+    steps["pytest"] = run(["-m", "pytest", "-q"])
+
+    # Scan artifacts only after the step logs exist; otherwise a truly clean
+    # checkout (no stale artifacts/) makes the scan directory empty.
+    for name in ("pre", "post", "negative", "pytest"):
+        write_log(logs / f"{name}.log", steps[name])
     steps["scan"] = run([
         "scripts/scan_report.py",
         "--dir", args.out,
@@ -87,10 +125,7 @@ def main() -> int:
         "--log", f"{args.out}/scan.log",
         "--min-files", str(MIN_SCANNED_FILES),
     ])
-    steps["pytest"] = run(["-m", "pytest", "-q"])
-
-    for name, result in steps.items():
-        write_log(logs / f"{name}.log", result)
+    write_log(logs / "scan.log", steps["scan"])
 
     required_paths = [
         out / "compare.json",
@@ -101,14 +136,16 @@ def main() -> int:
     ]
     missing_paths = [str(path.relative_to(ROOT)) for path in required_paths if not path.is_file()]
     if missing_paths:
-        print(f"acceptance FAIL: missing outputs: {', '.join(missing_paths)}", file=sys.stderr)
-        return 1
+        return write_failure(artifacts, f"missing outputs: {', '.join(missing_paths)}")
 
-    compare = json.loads((out / "compare.json").read_text(encoding="utf-8"))
-    negative_payload = json.loads((negative / "compare.json").read_text(encoding="utf-8"))
-    scan_text = (out / "scan.log").read_text(encoding="utf-8")
-    scanned = int(re.search(r"scanned_files=(\d+)", scan_text).group(1))
-    hits = int(re.search(r"hits=(\d+)", scan_text).group(1))
+    try:
+        compare = json.loads((out / "compare.json").read_text(encoding="utf-8"))
+        negative_payload = json.loads((negative / "compare.json").read_text(encoding="utf-8"))
+        scan_text = (out / "scan.log").read_text(encoding="utf-8")
+        scanned = int(re.search(r"scanned_files=(\d+)", scan_text).group(1))
+        hits = int(re.search(r"hits=(\d+)", scan_text).group(1))
+    except (OSError, ValueError, KeyError, AttributeError) as exc:
+        return write_failure(artifacts, f"cannot parse acceptance outputs: {exc}")
     test_output = str(steps["pytest"]["stdout"]) + str(steps["pytest"]["stderr"])
     tests_passed = parse_passed(test_output)
     tests_skipped = parse_skipped(test_output)
@@ -255,8 +292,14 @@ def main() -> int:
         acceptance["all_passed"] = False
         acceptance["final_scan"] = {"scanned_files": final_scanned, "hits": final_hits, "exit": final_scan["exit"]}
         write_json(artifacts / "acceptance.json", acceptance)
-        with (artifacts / "ACCEPTANCE.md").open("a", encoding="utf-8", newline="\n") as handle:
-            handle.write(f"\n- 最终复扫：FAIL（scanned_files={final_scanned}，hits={final_hits}，exit={final_scan['exit']}）；见 artifacts/FINAL-SCAN.md\n")
+        text = (artifacts / "ACCEPTANCE.md").read_text(encoding="utf-8").replace("- 总体：PASS", "- 总体：FAIL")
+        text += f"\n- 最终复扫：FAIL（scanned_files={final_scanned}，hits={final_hits}，exit={final_scan['exit']}）；见 artifacts/FINAL-SCAN.md\n"
+        (artifacts / "ACCEPTANCE.md").write_text(text, encoding="utf-8", newline="\n")
+        (artifacts / "FAILED").write_text(
+            "acceptance run failed at final scan; previous PASS evidence was removed\n",
+            encoding="utf-8",
+            newline="\n",
+        )
         print(f"acceptance FAIL: final scan scanned={final_scanned} hits={final_hits} exit={final_scan['exit']}")
         return 1
     print(f"acceptance {'PASS' if all_passed else 'FAIL'}: ratio={compare['ratio']:.6f} scan_hits={hits} final_scan={final_scanned} tests_passed={tests_passed} log_errors={len(log_errors)}")

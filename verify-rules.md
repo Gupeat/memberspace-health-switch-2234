@@ -22,7 +22,7 @@
 
 ## 3. 切换前（pre）守卫
 
-pre 读取配置里的 `active_version`。只有它等于 `--from` 时才允许生成预估，否则先删除同一输出目录里的旧 pre/post 产物（包括 estimate.csv、pre-report.md、report.md、compare.json、changed.csv、actual.csv、run.log、scan.log），写一条 `mode="pre-guard-failed"` 的 run.log，再退出码 3。任何 pre 输入错误（非法 asof、NaN 权重、空快照、权重版本不符）也先清理旧产物并写 `mode="pre-failed"`，避免把上一代 PASS 当成当前结果。这是为了证明预估值确实由“当前生效的 v3”算出，而不是用 v4 反推。
+pre 读取配置里的 `active_version`。只有它等于 `--from` 时才允许生成预估，否则先删除同一输出目录里的旧 pre/post 产物（包括 estimate.csv、pre-report.md、report.md、compare.json、changed.csv、actual.csv、run.log、scan.log），写一条 `mode="pre-guard-failed"` 的 run.log，再退出码 3。任何 pre 输入错误（非法 asof、null/NaN 权重、空快照、权重版本不符、非法配置形状）也先清理旧产物并写 `mode="pre-failed"`，避免把上一代 PASS 当成当前结果。post 的输入错误（缺 --actual、weights 版本不符、空快照、estimate 缺失/为空/版本不符、非法参数）清理 post 产物并写 `mode="post-failed"`；`estimate.csv` 与 `pre-report.md` 是 post 输入/pre 证据，会保留。这是为了证明预估值确实由“当前生效的 v3”算出，而不是用 v4 反推。
 
 pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`，两者互不覆盖；交付同时包含预估样例与核对样例。`--from == --to` 在进入子命令前直接按输入错误拒绝（退出码 1）。
 
@@ -41,12 +41,12 @@ pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`
 - 实际清单：post 从切换后**全量快照**派生，只保留非冻结、旧状态 != 新状态的行。
 - 匹配键：`(company_pid, old_status, new_status, direction)`，并要求 |old_score 差| <= 0.01 且 |new_score 差| <= 0.01。post 还会校验 estimate 的 `weight_from`/`weight_to` 与 `--from`/`--to` 一致，不一致按输入错误退出 1。
 - 分母：预估变化行与实际变化行的并集行数（不是 500 家，也不是单侧 120 行）。
-- `set_drift`：只在一侧出现的变化行，记 `actual_only` / `estimate_only`；计入并集分母，old/new/direction 只在两侧交集上比较。该行只标 WARN，不单独改变退出码。
+- `set_drift`：只在一侧出现的变化行，记 `actual_only` / `estimate_only`；计入并集分母，old/new/direction 只在两侧交集上比较。该行只标 WARN、不单独判失败，但计入并集分母；数量多到把 ratio 压到阈值以下时仍按退出码 2 失败。
 - 一致率口径：状态/方向匹配且 old/new 分数差都在 0.01 以内才算 matched；状态匹配但分数超差的记 `score_drift` 并计为不匹配。
 - 阈值：默认 0.99，只允许 0.99–1.0；`ratio = matched / total`（保留 6 位小数）。低于 0.99 的 `--threshold` 按输入错误拒绝。
 - 边界样例：120/120=1.000000 通过；119/120=0.991667 通过；118/120=0.983333 不通过（退出码 2）。只改分数也可能触发不通过。
 - post 把读入的全量快照规范化为 `out/report/actual.csv`（company_pid/state/score），不含企业名称；`compare.json` 记录 estimate 路径与 SHA-256。
-- 数据日期 `--asof` 默认为配置里的 `asof`（pre）或当天（post）；pre 会校验配置中的 asof，非法 `YYYY-MM-DD` 直接拒绝并清理旧产物。
+- 数据日期 `--asof` 默认为配置里的 `asof`（pre）或当天（post）；pre/post 都要求严格 `YYYY-MM-DD`（`20261123`、`2026-2-3` 这类写法直接拒绝），pre 失败清理旧产物。
 
 ## 6. 冻结状态
 

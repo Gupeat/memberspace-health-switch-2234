@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import re
 import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -72,6 +73,22 @@ def _clear_outputs(out: Path) -> None:
         (out / name).unlink(missing_ok=True)
 
 
+def _clear_post_outputs(out: Path) -> None:
+    # Keep estimate.csv / pre-report.md: they are post inputs and pre evidence.
+    for name in ("actual.csv", "changed.csv", "compare.json", "report.md", "run.log", "scan.log"):
+        (out / name).unlink(missing_ok=True)
+
+
+def parse_asof(value: str) -> str:
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        raise ValueError(f"--asof must be YYYY-MM-DD, got {value!r}")
+    try:
+        date.fromisoformat(value)
+    except ValueError as exc:
+        raise ValueError(f"--asof is not a valid date: {value!r}") from exc
+    return value
+
+
 def _pre_fail(args: argparse.Namespace, message: str) -> int:
     out = Path(args.out)
     try:
@@ -92,6 +109,26 @@ def _pre_fail(args: argparse.Namespace, message: str) -> int:
     return 1
 
 
+def _post_fail(args: argparse.Namespace, message: str, code: int = 1) -> int:
+    out = Path(args.out)
+    try:
+        if out.exists():
+            _clear_post_outputs(out)
+            write_run_log(
+                out / "run.log",
+                mode="post-failed",
+                version_from=args.from_version,
+                version_to=args.to_version,
+                out=str(out),
+                asof=args.asof or date.today().isoformat(),
+                extra={"error": message},
+            )
+    except OSError:
+        pass
+    print(message, file=sys.stderr)
+    return code
+
+
 def _utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -101,8 +138,8 @@ def _run_pre(args: argparse.Namespace) -> int:
     config = load_config(_config_path(args))
     asof = args.asof or config.get("asof") or date.today().isoformat()
     try:
-        date.fromisoformat(asof)
-    except ValueError:
+        parse_asof(asof)
+    except ValueError as exc:
         return _pre_fail(args, f"config asof/--asof is not a valid YYYY-MM-DD date: {asof}")
     if config["active_version"] != args.from_version:
         _clear_outputs(out)
@@ -183,29 +220,23 @@ def _run_pre(args: argparse.Namespace) -> int:
 
 def _run_post(args: argparse.Namespace) -> int:
     if args.config:
-        print("--config is only supported in pre mode; post reads --weights-from/--weights-to and --actual", file=sys.stderr)
-        return 1
+        return _post_fail(args, "--config is only supported in pre mode; post reads --weights-from/--weights-to and --actual")
     if not args.actual:
-        print("post requires --actual", file=sys.stderr)
-        return 1
+        return _post_fail(args, "post requires --actual")
     asof = args.asof or date.today().isoformat()
     version_from, weights_from = load_weights(args.weights_from)
     version_to, weights_to = load_weights(args.weights_to)
     if version_from != args.from_version or version_to != args.to_version:
-        print("weight file version does not match --from/--to", file=sys.stderr)
-        return 1
+        return _post_fail(args, "weight file version does not match --from/--to")
     companies = load_companies_from_snapshot(args.crm)
     if not companies:
-        print(f"company snapshot is empty: {args.crm}", file=sys.stderr)
-        return 1
+        return _post_fail(args, f"company snapshot is empty: {args.crm}")
     estimate_path = Path(args.estimate) if args.estimate else Path(args.out) / "estimate.csv"
     if not estimate_path.is_file():
-        print(f"estimate file not found: {estimate_path}", file=sys.stderr)
-        return 1
+        return _post_fail(args, f"estimate file not found: {estimate_path}")
     estimate_rows = load_estimate_rows(estimate_path)
     if not estimate_rows:
-        print(f"estimate file has no rows: {estimate_path}", file=sys.stderr)
-        return 1
+        return _post_fail(args, f"estimate file has no rows: {estimate_path}")
     bad_versions = sorted(
         {
             f"{row.weight_from}->{row.weight_to}"
@@ -214,12 +245,11 @@ def _run_post(args: argparse.Namespace) -> int:
         }
     )
     if bad_versions:
-        print(
+        return _post_fail(
+            args,
             f"estimate file version mismatch: expected {version_from}->{version_to}, "
             f"found {', '.join(bad_versions)}",
-            file=sys.stderr,
         )
-        return 1
     estimate_sha256 = hashlib.sha256(estimate_path.read_bytes()).hexdigest()
     snapshot = load_actual_snapshot(args.actual)
     actual_rows, entity_errors, frozen_errors, missing_actual = derive_actual_changes(
@@ -342,22 +372,21 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command == "verify-health-switch":
+            is_pre = args.mode == "pre"
+            fail = _pre_fail if is_pre else _post_fail
             if args.from_version == args.to_version:
-                print("--from and --to must differ", file=sys.stderr)
-                return 1
+                return fail(args, "--from and --to must differ")
             if args.asof:
                 try:
-                    date.fromisoformat(args.asof)
-                except ValueError:
-                    print(f"--asof is not a valid YYYY-MM-DD date: {args.asof}", file=sys.stderr)
-                    return 1
+                    parse_asof(args.asof)
+                except ValueError as exc:
+                    return fail(args, str(exc))
             if not 0.99 <= args.threshold <= 1.0:
-                print("--threshold must be between 0.99 and 1.0", file=sys.stderr)
-                return 1
-            return _run_pre(args) if args.mode == "pre" else _run_post(args)
-    except (ValueError, OSError) as exc:
-        if args.command == "verify-health-switch" and args.mode == "pre":
-            return _pre_fail(args, f"error: {exc}")
+                return fail(args, "--threshold must be between 0.99 and 1.0")
+            return _run_pre(args) if is_pre else _run_post(args)
+    except (ValueError, OSError, TypeError) as exc:
+        if args.command == "verify-health-switch":
+            return _pre_fail(args, f"error: {exc}") if args.mode == "pre" else _post_fail(args, f"error: {exc}")
         print(f"error: {exc}", file=sys.stderr)
         return 1
     return 1
