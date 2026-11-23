@@ -40,9 +40,9 @@ from cal.scoring import estimate_changes
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="cal", description="健康分权重切换影响验证")
+    parser = argparse.ArgumentParser(prog="cal", description="健康分权重切换影响验证", allow_abbrev=False)
     sub = parser.add_subparsers(dest="command", required=True)
-    cmd = sub.add_parser("verify-health-switch", help="预估（pre）或验证（post）一次权重切换")
+    cmd = sub.add_parser("verify-health-switch", help="预估（pre）或验证（post）一次权重切换", allow_abbrev=False)
     cmd.add_argument("--from", dest="from_version", required=True, help="切换前权重版本，如 v3")
     cmd.add_argument("--to", dest="to_version", required=True, help="切换后权重版本，如 v4")
     cmd.add_argument("--mode", choices=("pre", "post"), required=True)
@@ -112,11 +112,8 @@ def _pre_fail(args: argparse.Namespace, message: str) -> int:
     return 1
 
 
-def _post_fail(args: argparse.Namespace, message: str, code: int = 1, create: bool = True) -> int:
+def _post_fail(args: argparse.Namespace, message: str, code: int = 1) -> int:
     out = Path(args.out)
-    if not create and not out.exists():
-        print(message, file=sys.stderr)
-        return code
     try:
         out.mkdir(parents=True, exist_ok=True)
         _clear_post_outputs(out)
@@ -149,6 +146,8 @@ def _run_pre(args: argparse.Namespace) -> int:
         return _pre_fail(args, f"config asof/--asof is not a valid YYYY-MM-DD date: {asof}")
     if config["active_version"] != args.from_version:
         _clear_outputs(out)
+        if args.estimate:
+            Path(args.estimate).unlink(missing_ok=True)
         write_run_log(
             out / "run.log",
             mode="pre-guard-failed",
@@ -226,7 +225,7 @@ def _run_pre(args: argparse.Namespace) -> int:
 
 def _run_post(args: argparse.Namespace) -> int:
     if args.config:
-        return _post_fail(args, "--config is only supported in pre mode; post reads --weights-from/--weights-to and --actual", create=False)
+        return _post_fail(args, "--config is only supported in pre mode; post reads --weights-from/--weights-to and --actual")
     if not args.actual:
         return _post_fail(args, "post requires --actual")
     asof = args.asof or date.today().isoformat()
@@ -258,6 +257,8 @@ def _run_post(args: argparse.Namespace) -> int:
         )
     estimate_sha256 = hashlib.sha256(estimate_path.read_bytes()).hexdigest()
     snapshot = load_actual_snapshot(args.actual)
+    if not snapshot:
+        return _post_fail(args, f"actual snapshot is empty: {args.actual}")
     actual_rows, entity_errors, frozen_errors, missing_actual = derive_actual_changes(
         companies, snapshot, weights_from, version_from, version_to
     )
@@ -373,14 +374,25 @@ def _run_post(args: argparse.Namespace) -> int:
     return 0
 
 
-def _raw_out(argv: list[str] | None) -> Path:
+def _raw_out(argv: list[str] | None) -> Path | None:
+    """Best-effort --out extraction for cleaning outputs after an argparse error.
+
+    argparse takes the last occurrence, so scan backwards. Empty values are
+    rejected so "--out=" cannot turn into Path("") and delete the CWD.
+    """
     values = list(sys.argv[1:] if argv is None else argv)
-    for index, value in enumerate(values):
-        if value == "--out" and index + 1 < len(values):
-            return Path(values[index + 1])
+    for index in range(len(values) - 1, -1, -1):
+        value = values[index]
         if value.startswith("--out="):
-            return Path(value.split("=", 1)[1])
-    return Path("out/report")
+            candidate = value.split("=", 1)[1]
+        elif value == "--out" and index + 1 < len(values):
+            candidate = values[index + 1]
+        else:
+            continue
+        if candidate and not candidate.startswith("--"):
+            return Path(candidate)
+        return None
+    return None
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -389,27 +401,29 @@ def main(argv: list[str] | None = None) -> int:
         args = parser.parse_args(argv)
     except SystemExit as exc:
         if exc.code == 2:
-            try:
-                _clear_outputs(_raw_out(argv))
-            except OSError:
-                pass
+            raw_out = _raw_out(argv)
+            if raw_out is not None:
+                try:
+                    _clear_outputs(raw_out)
+                except OSError:
+                    pass
         raise
     try:
         if args.command == "verify-health-switch":
             is_pre = args.mode == "pre"
             if args.from_version == args.to_version:
                 message = "--from and --to must differ"
-                return _pre_fail(args, message) if is_pre else _post_fail(args, message, create=False)
+                return _pre_fail(args, message) if is_pre else _post_fail(args, message)
             if args.asof:
                 try:
                     parse_asof(args.asof)
                 except ValueError as exc:
-                    return _pre_fail(args, str(exc)) if is_pre else _post_fail(args, str(exc), create=False)
+                    return _pre_fail(args, str(exc)) if is_pre else _post_fail(args, str(exc))
             if not 0.99 <= args.threshold <= 1.0:
                 message = "--threshold must be between 0.99 and 1.0"
-                return _pre_fail(args, message) if is_pre else _post_fail(args, message, create=False)
+                return _pre_fail(args, message) if is_pre else _post_fail(args, message)
             return _run_pre(args) if is_pre else _run_post(args)
-    except (ValueError, OSError, TypeError) as exc:
+    except (ValueError, OSError, TypeError, OverflowError) as exc:
         if args.command == "verify-health-switch":
             return _pre_fail(args, f"error: {exc}") if args.mode == "pre" else _post_fail(args, f"error: {exc}")
         print(f"error: {exc}", file=sys.stderr)

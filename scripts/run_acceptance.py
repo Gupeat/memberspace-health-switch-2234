@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
 
 from cal.report import check_log_consistency, write_json, write_run_log  # noqa: E402
 
-EXPECTED_TESTS = 57
+EXPECTED_TESTS = 64
 MIN_SCANNED_FILES = 12
 ASOF = "2026-11-22"
 EVIDENCE_FILES = ("acceptance.json", "ACCEPTANCE.md", "FINAL-SCAN.md", "final-scan.log")
@@ -35,7 +35,7 @@ def write_failure(artifacts: Path, message: str) -> int:
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     write_json(
         artifacts / "acceptance.json",
-        {"generated_at": stamp, "all_passed": False, "error": message},
+        {"generated_at": stamp, "all_passed": False, "error": message, "final_scan": None, "final_scan_skipped": True},
     )
     (artifacts / "ACCEPTANCE.md").write_text(
         "# 验收记录（AC1–AC4）\n\n"
@@ -196,12 +196,16 @@ def main() -> int:
         and not log_errors
     )
 
+    # Provisional record: all_passed stays False until the final scan below
+    # succeeds, so a crash cannot leave a PASS acceptance.json without
+    # final_scan evidence.
     acceptance = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "all_passed": all_passed,
+        "all_passed": False,
         "checks": checks,
         "log_errors": log_errors,
         "steps": {name: {"command": result["command"], "exit": result["exit"]} for name, result in steps.items()},
+        "final_scan": None,
     }
     write_json(artifacts / "acceptance.json", acceptance)
 
@@ -216,7 +220,7 @@ def main() -> int:
         "# 验收记录（AC1–AC4）",
         "",
         f"- 生成时间：{acceptance['generated_at']}",
-        f"- 总体：{'PASS' if all_passed else 'FAIL'}",
+        f"- 总体：{'PASS（待最终复扫确认）' if all_passed else 'FAIL'}",
         f"- 预估值：{compare['estimate_rows']} 家；实际变化：{compare['actual_rows']} 家；并集：{compare['total_rows']} 家",
         f"- 一致率：{compare['ratio'] * 100:.2f}%（{compare['matched_rows']}/{compare['total_rows']}），阈值 {compare['threshold'] * 100:.2f}%",
         f"- 冻结：{json.dumps(compare['frozen_counts'], ensure_ascii=False, sort_keys=True)}；reason 错误 {len(compare['reason_errors'])}；set_drift {len(compare['set_drift'])}",
@@ -274,7 +278,16 @@ def main() -> int:
     final_hits = int(re.search(r"hits=(\d+)", final_text).group(1)) if "hits=" in final_text else -1
     final_ok = final_scan["exit"] == 0 and final_scanned >= MIN_SCANNED_FILES and final_hits == 0
     acceptance["final_scan"] = {"scanned_files": final_scanned, "hits": final_hits, "exit": final_scan["exit"]}
+    acceptance["all_passed"] = bool(all_passed and final_ok)
     write_json(artifacts / "acceptance.json", acceptance)
+    md = artifacts / "ACCEPTANCE.md"
+    md.write_text(
+        md.read_text(encoding="utf-8").replace(
+            "PASS（待最终复扫确认）", "PASS" if acceptance["all_passed"] else "FAIL"
+        ),
+        encoding="utf-8",
+        newline="\n",
+    )
     coverage = "本轮 ACCEPTANCE.md、acceptance.json、artifacts/logs、out/report、out/negative"
     coverage += "；上一代 artifacts/clean-room 是嵌套的历史证据，扫描时排除，避免计数随历史目录变化。"
     final_lines = [
@@ -292,7 +305,7 @@ def main() -> int:
         acceptance["all_passed"] = False
         acceptance["final_scan"] = {"scanned_files": final_scanned, "hits": final_hits, "exit": final_scan["exit"]}
         write_json(artifacts / "acceptance.json", acceptance)
-        text = (artifacts / "ACCEPTANCE.md").read_text(encoding="utf-8").replace("- 总体：PASS", "- 总体：FAIL")
+        text = (artifacts / "ACCEPTANCE.md").read_text(encoding="utf-8")
         text += f"\n- 最终复扫：FAIL（scanned_files={final_scanned}，hits={final_hits}，exit={final_scan['exit']}）；见 artifacts/FINAL-SCAN.md\n"
         (artifacts / "ACCEPTANCE.md").write_text(text, encoding="utf-8", newline="\n")
         (artifacts / "FAILED").write_text(
