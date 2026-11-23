@@ -32,7 +32,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - post：一致率 100.00%（120/120），冻结状态错误 0，预警任务缺失 0，原因/版本错误 0。
 - negative：把 2 家企业的切换后状态改回旧状态，一致率 118/120 = 98.33%，退出码 2。
 - scan：扫描 out/report、out/negative、artifacts（`--exclude artifacts/clean-room`），企业名命中 0，退出码 0；任一目录无文本文件、或三个目录合计文件数低于 `--min-files` 时失败；acceptance 要求合计至少 12 个文件，验收前 20 个、复扫 24 个。
-- clean room：复制仓库但不带缓存和 `out/`，57 passed + acceptance PASS（`artifacts/clean-room/`）。
+- clean room：复制仓库但不带缓存和 `out/`，64 passed + acceptance PASS（`artifacts/clean-room/`）。
 
 ## AC 对照
 
@@ -107,7 +107,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 python -m pytest -q
 ```
 
-测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`/`--exclude`、pre 守卫与旧产物清理、post 拒绝 `--config`、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔严格解析、非法 asof（含 20261123 这类非 ISO 写法）/null/NaN/布尔权重/空快照/非法 warn_tasks 行（含空 pid）拒绝、post 失败清理旧 PASS 但保留 estimate、全新 out 仍写 post-failed、CLI 解析失败清理旧产物、超长 CSV 字段转输入错误、acceptance 早期失败不保留旧 PASS 证据、clean-room 失败不保留旧 PASS 证据。
+测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`/`--exclude`、pre 守卫与旧产物清理（含自定义 estimate）、post 拒绝 `--config`（全新 out 也写 post-failed）、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔/超范围数值严格解析（`10**400` 不再抛 OverflowError）、非法 asof（含 20261123 这类非 ISO 写法）/null/NaN/布尔权重/空快照/非法 warn_tasks 行（含空 pid）拒绝、post 失败清理旧 PASS 但保留 estimate、全新 out 仍写 post-failed、空 actual 快照按输入错误处理、CLI 解析失败清理旧产物（重复 `--out` 取最后值、`--out=` 不删当前目录、不接受缩写）、超长 CSV 字段转输入错误、acceptance 早期失败写 `final_scan:null` 且不保留旧 PASS 证据、clean-room 失败不保留旧 PASS 证据。
 
 ## 已知限制
 

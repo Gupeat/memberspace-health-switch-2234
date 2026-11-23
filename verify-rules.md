@@ -22,7 +22,7 @@
 
 ## 3. 切换前（pre）守卫
 
-pre 读取配置里的 `active_version`。只有它等于 `--from` 时才允许生成预估，否则先删除同一输出目录里的旧 pre/post 产物（包括 estimate.csv、pre-report.md、report.md、compare.json、changed.csv、actual.csv、run.log、scan.log），写一条 `mode="pre-guard-failed"` 的 run.log，再退出码 3。任何 pre 输入错误（非法 asof、null/NaN 权重、空快照、权重版本不符、非法配置形状）也先清理旧产物并写 `mode="pre-failed"`，避免把上一代 PASS 当成当前结果。post 的输入错误（缺 --actual、weights 版本不符、空快照、estimate 缺失/为空/版本不符、非法参数）清理 post 产物并写 `mode="post-failed"`；`estimate.csv` 与 `pre-report.md` 是 post 输入/pre 证据，会保留。这是为了证明预估值确实由“当前生效的 v3”算出，而不是用 v4 反推。
+pre 读取配置里的 `active_version`。只有它等于 `--from` 时才允许生成预估，否则先删除同一输出目录里的旧 pre/post 产物（包括 estimate.csv、pre-report.md、report.md、compare.json、changed.csv、actual.csv、run.log、scan.log），写一条 `mode="pre-guard-failed"` 的 run.log，再退出码 3。任何 pre 输入错误（非法 asof、null/NaN 权重、空快照、权重版本不符、非法配置形状）也先清理旧产物并写 `mode="pre-failed"`，避免把上一代 PASS 当成当前结果。post 的输入错误（缺 --actual、weights 版本不符、空快照、空 actual 快照、estimate 缺失/为空/版本不符、非法参数）清理 post 产物并写 `mode="post-failed"`；即使输出目录尚不存在也会先创建再写这条日志；`estimate.csv` 与 `pre-report.md` 是 post 输入/pre 证据，会保留。这是为了证明预估值确实由“当前生效的 v3”算出，而不是用 v4 反推。
 
 pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`，两者互不覆盖；交付同时包含预估样例与核对样例。`--from == --to` 在进入子命令前直接按输入错误拒绝（退出码 1）。
 
@@ -80,7 +80,7 @@ pre 的报告写入 `out/report/pre-report.md`，post 写 `out/report/report.md`
 
 命中数必须为 0；扫描器自身的 `scan.log` 不参与扫描。报告只允许 company_pid、manager_id、club_id 等假名 id。每个 `--dir` 都必须含文本文件，否则失败；`--min-files` 可要求扫描文件数下限，acceptance 使用 12，避免 AC4 空转。clean-room 是嵌套的历史证据，若把它计入会让验收计数随上一代目录变化，因此两次扫描都用 `--exclude` 排除；本版验收前固定 20 个文件、复扫固定 24 个文件。
 
-`scripts/run_acceptance.py` 会依次跑 pre/post/negative/scan/pytest，并在 `out/report/run.log` 末行追加 `mode=acceptance` 的 `checks`：一致率、冻结集合、reason/版本、扫描命中、negative 退出码、测试数。`check_log_consistency` 只回读该行与内存 checks 对比（不解析 compare.json/report.md）；不一致按失败处理。写出 ACCEPTANCE.md/acceptance.json 后还会对三个目录做一次最终复扫，结果写入 `artifacts/FINAL-SCAN.md`、`final-scan.log` 和 `acceptance.json` 的 `final_scan` 字段；这两个文件在复扫之后生成，不声称被本次扫描覆盖。
+`scripts/run_acceptance.py` 会依次跑 pre/post/negative/scan/pytest，并在 `out/report/run.log` 末行追加 `mode=acceptance` 的 `checks`：一致率、冻结集合、reason/版本、扫描命中、negative 退出码、测试数。`check_log_consistency` 只回读该行与内存 checks 对比（不解析 compare.json/report.md）；不一致按失败处理。写出 ACCEPTANCE.md/acceptance.json 后还会对三个目录做一次最终复扫，结果写入 `artifacts/FINAL-SCAN.md`、`final-scan.log` 和 `acceptance.json` 的 `final_scan` 字段；这两个文件在复扫之后生成，不声称被本次扫描覆盖。初次写出的 acceptance.json 是 `all_passed=false`、`final_scan=null` 的临时记录，只有最终复扫成功才改成 PASS，避免崩溃窗口留下无 final_scan 的 PASS 证据；早期失败路径固定写 `final_scan=null` 与 `final_scan_skipped=true`。
 
 ## 10. 退出码汇总
 

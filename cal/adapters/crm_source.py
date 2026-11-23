@@ -8,9 +8,10 @@ upstream transport.
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 
-from cal.config import companies_from_rows, load_json, parse_bool
+from cal.config import _as_float, companies_from_rows, load_json, parse_bool
 from cal.models import Company
 
 SIGNAL_MAP = {
@@ -70,11 +71,8 @@ def map_crm_record(record: dict) -> dict:
             raw = record[source]
         else:
             raise ValueError(f"CRM record is missing {source}")
-        try:
-            value = float(raw)
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"CRM {source} must be numeric, got {raw!r}") from exc
-        if value != value or value in (float("inf"), float("-inf")):
+        value = _as_float(raw, f"CRM {source}")
+        if not math.isfinite(value):
             raise ValueError(f"CRM {source} must be finite, got {raw!r}")
         mapped_signals[target] = value
     return {

@@ -72,7 +72,7 @@ def test_post_rejects_config(cli, pre_out, tmp_path):
     )
     assert result.returncode == 1
     assert "--config is only supported in pre mode" in result.stderr
-    assert not out.exists()
+    assert '"mode": "post-failed"' in (out / "run.log").read_text(encoding="utf-8")
 
 
 def test_pre_guard_clears_stale_outputs(cli, pre_out):

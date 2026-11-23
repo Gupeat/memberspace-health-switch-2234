@@ -8,9 +8,9 @@ Python 3.12.14
 
 $ python -m pytest -q
 [exit 0]
-.........................................................                [100%]
-57 passed in 15.90s
+................................................................         [100%]
+64 passed in 17.14s
 
 $ python scripts/run_acceptance.py
 [exit 0]
-acceptance PASS: ratio=1.000000 scan_hits=0 final_scan=24 tests_passed=57 log_errors=0
+acceptance PASS: ratio=1.000000 scan_hits=0 final_scan=24 tests_passed=64 log_errors=0

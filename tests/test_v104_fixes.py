@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 from cal.adapters.crm_source import map_crm_record
+from cal.cli import _raw_out
 from cal.compare import load_actual_snapshot, load_warn_task_pids
 from cal.config import companies_from_rows
 from scripts import run_acceptance
@@ -195,6 +196,8 @@ def test_acceptance_early_failure_invalidates_old_pass(tmp_path, monkeypatch):
     assert run_acceptance.main() == 1
     payload = json.loads((artifacts / "acceptance.json").read_text(encoding="utf-8"))
     assert payload["all_passed"] is False
+    assert payload["final_scan"] is None
+    assert payload["final_scan_skipped"] is True
     assert "总体：FAIL" in (artifacts / "ACCEPTANCE.md").read_text(encoding="utf-8")
     assert (artifacts / "FAILED").is_file()
     assert not (artifacts / "FINAL-SCAN.md").exists()
@@ -265,6 +268,91 @@ def test_bool_weight_and_company_pid_are_rejected(tmp_path, cli):
     assert "must be numeric" in result.stderr
     with pytest.raises(ValueError, match="invalid company_pid"):
         companies_from_rows([{"company_pid": {"x": 1}, "state": "active", "signals": {}}])
+
+
+def _crm_row(score=60):
+    return {
+        "pid": "c-1", "name": "A", "lifecycle_status": "active",
+        "activity_score": score, "transaction_score": 1,
+        "engagement_score": 1, "tenure_score": 1,
+    }
+
+
+def test_crm_overflow_and_bool_are_rejected():
+    with pytest.raises(ValueError, match="must be numeric"):
+        map_crm_record(_crm_row(10**400))
+    with pytest.raises(ValueError, match="must be numeric"):
+        map_crm_record(_crm_row(True))
+
+
+def test_crm_overflow_clears_stale_post_outputs(tmp_path, cli, pre_out):
+    crm = tmp_path / "crm.json"
+    crm.write_text(json.dumps({"companies": [_crm_row(10**400)]}), encoding="utf-8")
+    for name in ("report.md", "compare.json", "pivot.csv"):
+        (pre_out / name).write_text("old PASS\n", encoding="utf-8")
+    result = cli(
+        "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
+        "--crm", str(crm), "--actual", str(FIXTURES / "actual.csv"),
+        "--estimate", str(pre_out / "estimate.csv"), "--out", str(pre_out),
+    )
+    assert result.returncode == 1
+    assert "must be numeric" in result.stderr
+    for name in ("report.md", "compare.json", "pivot.csv"):
+        assert not (pre_out / name).exists(), name
+    assert '"mode": "post-failed"' in (pre_out / "run.log").read_text(encoding="utf-8")
+
+
+def test_raw_out_takes_last_value_and_ignores_bad_forms():
+    assert _raw_out(["--out", "A", "--out", "B"]) == Path("B")
+    assert _raw_out(["--out=B"]) == Path("B")
+    assert _raw_out(["--out="]) is None
+    assert _raw_out(["--ou", "ABBR"]) is None
+    assert _raw_out(["--out", "--threshold"]) is None
+
+
+def test_duplicate_out_parse_error_clears_last_out(tmp_path, cli):
+    first = tmp_path / "first"
+    second = tmp_path / "second"
+    for out in (first, second):
+        out.mkdir()
+        (out / "report.md").write_text("old PASS\n", encoding="utf-8")
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
+                 "--threshold", "abc", "--out", str(first), "--out", str(second))
+    assert result.returncode == 2
+    assert not (second / "report.md").exists()
+    assert (first / "report.md").exists()
+
+
+def test_pre_guard_clears_custom_estimate(tmp_path, cli):
+    config = _write_config(tmp_path, active_version="v4")
+    custom = tmp_path / "custom-estimate.csv"
+    custom.write_text("company_pid,state,score\nc-1,active,1\n", encoding="utf-8")
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "pre",
+                 "--config", str(config), "--estimate", str(custom), "--out", str(tmp_path / "out"))
+    assert result.returncode == 3
+    assert not custom.exists()
+    assert '"mode": "pre-guard-failed"' in (tmp_path / "out" / "run.log").read_text(encoding="utf-8")
+
+
+def test_post_config_on_fresh_out_writes_post_failed(cli, tmp_path):
+    fresh = tmp_path / "fresh"
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
+                 "--config", "fixtures/config-pre.json", "--out", str(fresh))
+    assert result.returncode == 1
+    assert "--config is only supported in pre mode" in result.stderr
+    assert '"mode": "post-failed"' in (fresh / "run.log").read_text(encoding="utf-8")
+
+
+def test_empty_actual_snapshot_is_input_error(tmp_path, cli, pre_out):
+    empty = tmp_path / "empty-actual.csv"
+    empty.write_text("company_pid,state,score\n", encoding="utf-8")
+    out = tmp_path / "out"
+    result = cli("verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
+                 "--actual", str(empty), "--estimate", str(pre_out / "estimate.csv"), "--out", str(out))
+    assert result.returncode == 1
+    assert "actual snapshot is empty" in result.stderr
+    assert not (out / "compare.json").exists()
+    assert '"mode": "post-failed"' in (out / "run.log").read_text(encoding="utf-8")
 
 
 def test_scan_excludes_directory_prefix(tmp_path):
