@@ -44,7 +44,7 @@ def test_unexpected_pid_fails(cli, pre_out, tmp_path):
     actual = tmp_path / "actual_extra.csv"
     shutil.copyfile(ROOT / "fixtures" / "actual.csv", actual)
     with actual.open("a", encoding="utf-8", newline="") as handle:
-        handle.write("c-0999,active,70.00\n")
+        handle.write("c-0999,active,70.00,,,\n")
     out = tmp_path / "post"
     result = cli(
         "verify-health-switch", "--from", "v3", "--to", "v4", "--mode", "post",
@@ -62,7 +62,11 @@ def test_missing_pid_is_snapshot_error(cli, pre_out, tmp_path):
         rows = list(csv.DictReader(handle))[1:]
     actual = tmp_path / "actual_missing.csv"
     with actual.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["company_pid", "state", "score"], lineterminator="\n")
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["company_pid", "state", "score", "reason", "weight_from", "weight_to"],
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
     out = tmp_path / "post"

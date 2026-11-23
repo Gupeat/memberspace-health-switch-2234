@@ -20,7 +20,9 @@ def test_post_outputs_actual_csv_and_same_source_run_log(cli, pre_out, tmp_path)
     with (out / "actual.csv").open(encoding="utf-8", newline="") as handle:
         rows = list(csv.DictReader(handle))
     assert len(rows) == 500
-    assert list(rows[0]) == ["company_pid", "state", "score"]
+    assert list(rows[0]) == ["company_pid", "state", "score", "reason", "weight_from", "weight_to"]
+    assert rows[0]["reason"] == "权重版本切换"
+    assert (rows[0]["weight_from"], rows[0]["weight_to"]) == ("v3", "v4")
     payload = json.loads((out / "compare.json").read_text(encoding="utf-8"))
     assert payload["set_drift"] == []
     assert payload["log_errors"] == []

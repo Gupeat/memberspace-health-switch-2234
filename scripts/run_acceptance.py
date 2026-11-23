@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
 
 from cal.report import check_log_consistency, write_json, write_run_log  # noqa: E402
 
-EXPECTED_TESTS = 64
+EXPECTED_TESTS = 66
 MIN_SCANNED_FILES = 12
 ASOF = "2026-11-22"
 EVIDENCE_FILES = ("acceptance.json", "ACCEPTANCE.md", "FINAL-SCAN.md", "final-scan.log")

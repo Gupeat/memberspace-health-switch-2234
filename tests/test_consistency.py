@@ -14,7 +14,11 @@ def _read_actual() -> list[dict[str, str]]:
 
 def _write_actual(path: Path, rows: list[dict[str, str]]) -> None:
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["company_pid", "state", "score"], lineterminator="\n")
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["company_pid", "state", "score", "reason", "weight_from", "weight_to"],
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
 
@@ -46,6 +50,9 @@ def test_one_wrong_still_passes(cli, pre_out, tmp_path):
         if row["company_pid"] == pid:
             row["state"] = "active"  # old state: no actual change
             row["score"] = "78.0"
+            row["reason"] = ""
+            row["weight_from"] = ""
+            row["weight_to"] = ""
             break
     actual = tmp_path / "actual_one_wrong.csv"
     _write_actual(actual, rows)

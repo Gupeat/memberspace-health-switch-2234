@@ -28,11 +28,17 @@ def _csv_rows(reader: csv.DictReader, label: str):
 
 
 def load_actual_snapshot(path: str | Path) -> dict[str, dict[str, Any]]:
-    """Load a full-state snapshot. Required columns: company_pid,state,score."""
+    """Load a full-state snapshot plus each changed row's change record.
+
+    Required columns: company_pid,state,score,reason,weight_from,weight_to.
+    reason/weight_from/weight_to must be populated on rows whose state changed;
+    check_reasons() validates the values read from the input instead of
+    synthesizing them from CLI arguments.
+    """
     snapshot: dict[str, dict[str, Any]] = {}
     with Path(path).open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
-        required = {"company_pid", "state", "score"}
+        required = {"company_pid", "state", "score", "reason", "weight_from", "weight_to"}
         missing_columns = required - set(reader.fieldnames or [])
         if missing_columns:
             raise ValueError(f"actual snapshot missing columns: {sorted(missing_columns)}")
@@ -51,7 +57,13 @@ def load_actual_snapshot(path: str | Path) -> dict[str, dict[str, Any]]:
                 raise ValueError(f"actual snapshot {pid}: score is not numeric") from exc
             if not math.isfinite(score):
                 raise ValueError(f"actual snapshot {pid}: score is not finite")
-            snapshot[pid] = {"state": state, "score": round(score, 2)}
+            snapshot[pid] = {
+                "state": state,
+                "score": round(score, 2),
+                "reason": (row.get("reason") or "").strip(),
+                "weight_from": (row.get("weight_from") or "").strip(),
+                "weight_to": (row.get("weight_to") or "").strip(),
+            }
     return snapshot
 
 
@@ -59,8 +71,6 @@ def derive_actual_changes(
     companies: list[Company],
     snapshot: dict[str, dict[str, Any]],
     weights_from: dict[str, float],
-    version_from: str,
-    version_to: str,
 ) -> tuple[list[ChangeRow], list[dict[str, Any]], list[str], list[str]]:
     """Derive actual changes from a full post-switch state snapshot.
 
@@ -117,8 +127,9 @@ def derive_actual_changes(
                 manager_id=company.manager_id,
                 key_member=company.key_member,
                 direction=direction,
-                weight_from=version_from,
-                weight_to=version_to,
+                reason=actual["reason"],
+                weight_from=actual["weight_from"],
+                weight_to=actual["weight_to"],
             )
         )
     return changes, entity_errors, frozen_errors, missing

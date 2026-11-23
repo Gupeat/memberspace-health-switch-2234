@@ -32,7 +32,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 - post：一致率 100.00%（120/120），冻结状态错误 0，预警任务缺失 0，原因/版本错误 0。
 - negative：把 2 家企业的切换后状态改回旧状态，一致率 118/120 = 98.33%，退出码 2。
 - scan：扫描 out/report、out/negative、artifacts（`--exclude artifacts/clean-room`），企业名命中 0，退出码 0；任一目录无文本文件、或三个目录合计文件数低于 `--min-files` 时失败；acceptance 要求合计至少 12 个文件，验收前 20 个、复扫 24 个。
-- clean room：复制仓库但不带缓存和 `out/`，64 passed + acceptance PASS（`artifacts/clean-room/`）。
+- clean room：复制仓库但不带缓存和 `out/`，66 passed + acceptance PASS（`artifacts/clean-room/`）。
 
 ## AC 对照
 
@@ -40,7 +40,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 |---|---|---|---|
 | AC1 | 虚构数据上切换后实际变化与预估清单一致率 ≥99%（脚本输出） | `post` 读取 pre 的 `estimate.csv` 与全量 `actual.csv`，按并集与四元匹配键计算**状态+分数**一致率（old/new 分数容差 0.01）；分数超差计为不匹配 | `out/report/compare.json`、`out/report/report.md`、`artifacts/ACCEPTANCE.md` |
 | AC2 | 切换后续约与已流失状态的企业数量与切换前相同（测试断言） | 冻结状态不进入变化清单；post 逐家核对状态并比较 renewed/churned 计数 | `tests/test_frozen_states.py`、`compare.json` 的 `frozen_counts`、`artifacts/ACCEPTANCE.md` |
-| AC3 | 每条状态变化记录都带触发原因与版本号（测试断言） | `changed.csv` 的 reason 固定为“权重版本切换”，weight_from/weight_to 为实际版本 | `tests/test_reason_version.py`、`out/report/changed.csv` |
+| AC3 | 每条状态变化记录都带触发原因与版本号（测试断言） | post 从切换后输入的每条变化行读取 reason/weight_from/weight_to 并校验（reason 必须为“权重版本切换”、版本必须等于 `--from`/`--to`）；缺原因或版本错误退出 2，工具不再用命令行参数自填 | `tests/test_reason_version.py`、`out/report/changed.csv` |
 | AC4 | 报告中只出现假名 id，扫描不到企业名称（扫描输出） | 报告只写 company_pid/manager_id/club_id；扫描 out/report、out/negative、artifacts 中的 20 个虚构企业名与名称后缀；任一目录无文本文件、或三目录合计文件数低于 12 时失败，验收后再做一次全量复扫 | `scripts/scan_report.py`、`out/report/scan.log`、`artifacts/ACCEPTANCE.md` |
 
 ## 数据与口径
@@ -72,7 +72,7 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 | 文件 | 内容 |
 |---|---|
 | `estimate.csv` | pre 预计变化清单，字段与 changed.csv 相同 |
-| `actual.csv` | post 输出的切换后 CRM 全量快照（company_pid/state/score） |
+| `actual.csv` | post 输出的切换后 CRM 全量快照（company_pid/state/score/reason/weight_from/weight_to）；变化行的原因与版本号保留输入值 |
 | `changed.csv` | post 实际变化清单，含 reason 与版本号 |
 | `pivot.csv` | 按会所、会员经理、四方向分组的计数 |
 | `frozen_would_change.csv` | 冻结状态中分数档位会变的企业 |
@@ -96,8 +96,10 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 真实对接点有三处，不是只有一个文件：
 
 - 企业基础快照（切换前状态、四维信号）：`cal/adapters/crm_source.py` 的 `load_companies_from_snapshot`，CLI 的 pre/post 都经它读取。
-- 切换后全量状态快照（company_pid/state/score）：`--actual` 的 CSV，由 `cal/compare.py` 的 `load_actual_snapshot` 读取。
+- 切换后全量状态快照 + 变化记录（company_pid/state/score/reason/weight_from/weight_to）：`--actual` 的 CSV，由 `cal/compare.py` 的 `load_actual_snapshot` 读取。变化行的 reason/版本号必须来自 CRM 的状态变更记录，本工具只校验、不自填。
 - 流失预警任务（company_pid 列表）：`--warn-tasks` 的 JSON，由 `cal/compare.py` 的 `load_warn_task_pids` 读取。
+
+`actual.csv` 的变化行（state 与切换前不同）必须带 `reason`、`weight_from`、`weight_to`；未变化行留空即可。缺列按输入错误退出 1，缺原因或版本不符按核对失败退出 2。
 
 接真实 CRM 时按这三处的字段映射替换输入；CRM 形状的行（`pid`/`lifecycle_status`/`*_score`）经 `_normalize_record` 调用 `map_crm_record` 映射，只有已含四个 `signals` 的内部快照样本不触发映射。本工具不自己写 CRM，也不读取生产数据库；切换执行与回滚由 CRM 负责，本工具只做离线验证。
 
@@ -107,12 +109,12 @@ python scripts/run_clean_room.py   # 在无缓存/无 out 的干净副本里重�
 python -m pytest -q
 ```
 
-测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号、报告扫描命中/未命中/多目录/空目录/`--min-files`/`--exclude`、pre 守卫与旧产物清理（含自定义 estimate）、post 拒绝 `--config`（全新 out 也写 post-failed）、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔/超范围数值严格解析（`10**400` 不再抛 OverflowError）、非法 asof（含 20261123 这类非 ISO 写法）/null/NaN/布尔权重/空快照/非法 warn_tasks 行（含空 pid）拒绝、post 失败清理旧 PASS 但保留 estimate、全新 out 仍写 post-failed、空 actual 快照按输入错误处理、CLI 解析失败清理旧产物（重复 `--out` 取最后值、`--out=` 不删当前目录、不接受缩写）、超长 CSV 字段转输入错误、acceptance 早期失败写 `final_scan:null` 且不保留旧 PASS 证据、clean-room 失败不保留旧 PASS 证据。
+测试覆盖：正例 120/120、错 1 家 119/120 仍过线、错 2 家 118/120 退出 2、分数漂移计为不匹配、冻结状态集合与篡改、原因与版本号（含变化行缺 reason / 版本号错误必须 exit 2）、报告扫描命中/未命中/多目录/空目录/`--min-files`/`--exclude`、pre 守卫与旧产物清理（含自定义 estimate）、post 拒绝 `--config`（全新 out 也写 post-failed）、from=to 拒绝、阈值下限、重复运行哈希稳定、post 输出 actual.csv、set_drift WARN、run.log 回读篡改检测、pivot 计数、CRM 形状映射与缺分数/布尔/超范围数值严格解析（`10**400` 不再抛 OverflowError）、非法 asof（含 20261123 这类非 ISO 写法）/null/NaN/布尔权重/空快照/非法 warn_tasks 行（含空 pid）拒绝、post 失败清理旧 PASS 但保留 estimate、全新 out 仍写 post-failed、空 actual 快照按输入错误处理、CLI 解析失败清理旧产物（重复 `--out` 取最后值、`--out=` 不删当前目录、不接受缩写）、超长 CSV 字段转输入错误、acceptance 早期失败写 `final_scan:null` 且不保留旧 PASS 证据、clean-room 失败不保留旧 PASS 证据。
 
 ## 已知限制
 
-- fixtures 是合成的确定性桩数据；一致率只证明本工具与该桩数据自洽，不证明生产 CRM 的真实切换结果。
-- 实际快照必须是切换后的**全量**状态（500 家）；只给变化行会因缺失冻结状态而失败。
+- fixtures 是合成的确定性桩数据；一致率只证明本工具与该桩数据自洽，不证明生产 CRM 的真实切换结果。桩数据的 reason/版本号由 `crm_stub.py` 按变化行写入，模拟 CRM 的状态变更记录。
+- 实际快照必须是切换后的**全量**状态（500 家）；只给变化行会因缺失冻结状态而失败。变化行还必须带 reason/weight_from/weight_to，且版本与本次 `--from`/`--to` 一致。
 - `actual.csv` 是输入快照的规范化副本，不是 CRM 的权威数据源；权威数据仍在 S2-CRM。
 - AC1 的一致率同时比较状态/方向与 old/new 分数（容差 0.01）；分数超差会在 compare.json 中列为 score_drift 并计为不匹配，因此会拉低 ratio。old_score 由同一份 baseline 企业快照重算，所以它主要验证展示值一致；真正独立来自切换后快照的是 new_score。
 - 权重文件必须四键齐全且和为 1.0。

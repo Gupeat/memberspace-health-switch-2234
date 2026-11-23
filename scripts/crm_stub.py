@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from cal.config import DEFAULT_BANDS  # noqa: E402
-from cal.models import WEIGHT_KEYS  # noqa: E402
+from cal.models import REASON, WEIGHT_KEYS  # noqa: E402
 from cal.scoring import band_for, score_company  # noqa: E402
 
 NAMES = [
@@ -132,13 +132,32 @@ def build_companies() -> list[dict]:
     return rows
 
 
-def build_actual(companies: list[dict], weights: dict[str, float], bands: dict[str, float]) -> list[dict]:
+def build_actual(
+    companies: list[dict],
+    weights: dict[str, float],
+    bands: dict[str, float],
+    version_from: str,
+    version_to: str,
+) -> list[dict]:
     rows: list[dict] = []
     for raw in companies:
         parsed = load_companies_from_records([raw])[0]
         score = score_company(parsed, weights)
         state = parsed.state if parsed.state in ("renewed", "churned") else band_for(score, bands)
-        rows.append({"company_pid": parsed.company_pid, "state": state, "score": score})
+        changed = state != parsed.state
+        rows.append(
+            {
+                "company_pid": parsed.company_pid,
+                "state": state,
+                "score": score,
+                # A real CRM change record carries its own reason/version fields;
+                # unchanged rows leave them empty. The verifier reads these
+                # values instead of filling them from --from/--to.
+                "reason": REASON if changed else "",
+                "weight_from": version_from if changed else "",
+                "weight_to": version_to if changed else "",
+            }
+        )
     return rows
 
 
@@ -173,7 +192,11 @@ def write_json(path: Path, payload) -> None:
 def write_csv(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["company_pid", "state", "score"], lineterminator="\n")
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["company_pid", "state", "score", "reason", "weight_from", "weight_to"],
+            lineterminator="\n",
+        )
         writer.writeheader()
         for row in rows:
             writer.writerow(row)
@@ -183,7 +206,13 @@ def main() -> int:
     fixtures = ROOT / "fixtures"
     companies = build_companies()
     parsed = load_companies_from_records(companies)
-    actual = build_actual(companies, WEIGHTS_V4["weights"], DEFAULT_BANDS)
+    actual = build_actual(
+        companies,
+        WEIGHTS_V4["weights"],
+        DEFAULT_BANDS,
+        WEIGHTS_V3["version"],
+        WEIGHTS_V4["version"],
+    )
     negative = [dict(row) for row in actual]
     changes = [
         row for row in parsed
@@ -195,6 +224,9 @@ def main() -> int:
         target = next(item for item in negative if item["company_pid"] == row.company_pid)
         target["state"] = row.state
         target["score"] = score_company(row, WEIGHTS_V3["weights"])
+        target["reason"] = ""
+        target["weight_from"] = ""
+        target["weight_to"] = ""
 
     warn_tasks = [
         {

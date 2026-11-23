@@ -46,9 +46,16 @@ def write_frozen_csv(path: str | Path, rows: list[dict[str, Any]]) -> None:
 
 
 def write_actual_csv(path: str | Path, snapshot: dict[str, dict[str, Any]]) -> None:
-    fields = ["company_pid", "state", "score"]
+    fields = ["company_pid", "state", "score", "reason", "weight_from", "weight_to"]
     rows = [
-        {"company_pid": pid, "state": row["state"], "score": row["score"]}
+        {
+            "company_pid": pid,
+            "state": row["state"],
+            "score": row["score"],
+            "reason": row["reason"],
+            "weight_from": row["weight_from"],
+            "weight_to": row["weight_to"],
+        }
         for pid, row in sorted(snapshot.items())
     ]
     _write_csv(path, fields, rows)
@@ -227,7 +234,7 @@ def write_post_report(
         "",
         "## 明细",
         "",
-        "- actual.csv：切换后 CRM 快照的规范化输出（company_pid/state/score），不含企业名称。",
+        "- actual.csv：切换后 CRM 快照的规范化输出（company_pid/state/score/reason/weight_from/weight_to），不含企业名称；变化行的原因与版本号来自输入，不是工具自填。",
         "- changed.csv：实际变化清单，每条带 reason=权重版本切换 与 weight_from/weight_to。",
         "- compare.json：一致率、差集、set_drift、分数漂移、冻结/预警/原因校验的机器可读结果。",
         "- pivot.csv：按会所、会员经理、四方向分组的计数。",
